@@ -1,0 +1,14 @@
+# use glob syntax.
+syntax: glob
+
+# Typesetting files
+*.aux
+*.gz
+*.log
+*.pdf
+
+# CTAN files
+*.zip
+
+# Mac OS X things
+.DS_Store
