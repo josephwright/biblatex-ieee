@@ -10,7 +10,236 @@
 
 \ProvidesFile{ieee.bbx}[2011/02/10 v1.0 biblatex bibliography style]
 
+% Load the standard style to avoid copy-pasting unnecessary material
 \RequireBibliographyStyle{numeric-comp}
+
+% Alter settings that carry through from biblatex
+\ExecuteBibliographyOptions{maxbibnames = 999}
+
+% Custom field formats
+\DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
+
+% Simple modifications to punctuation, etc.
+\renewcommand*\newunitpunct{\addcomma\addspace}
+
+% New or modified bibliography macros
+\newbibmacro*{issue+date}{%
+  \printtext{%
+    \iffieldundef{issue}
+      {\usebibmacro{date}}
+      {%
+        \printfield{issue}%
+        \setunit*{\addspace}%
+        \usebibmacro{date}%
+      }%
+  }%
+  \newunit
+  \usebibmacro{issue}%
+  \newunit
+}
+
+\renewbibmacro*{journal}{%
+  \iffieldundef{journaltitle}
+    {}
+    {%
+      \printtext[journaltitle]{%
+         \printfield[titlecase]{journaltitle}%
+         \printfield[titlecase]{journalsubtitle}%
+      }%
+    }%
+  \midsentence 
+}
+
+\newbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \newunit
+  \iffieldundef{series}
+    {}
+    {%
+      \newunit
+      \printfield{series}%
+      \newunit
+    }%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addspace}%
+}
+  
+\renewbibmacro*{volume+number+eid}{%
+  \iffieldundef{volume}
+    {}
+    {%
+      \bibstring{volume}%
+      \addspace
+      \printfield{volume}%
+      \newunit
+    }%  
+  \iffieldundef{number}
+    {}
+    {%
+      \bibstring{number}%
+      \addspace
+      \printfield{number}%
+      \newunit
+    }% 
+  \newunit
+  \printfield{eid}%
+}
+
+% Specialised functions for manipulating data, where the biblatex
+% kernel does not provide a suitable function.
+\newrobustcmd*\mkpagegrouped[1][pagination]{%
+  \iffieldequalstr{#1}{none}
+    {\mkpagegrouped@aux@ii}
+    {%
+      \begingroup
+        \def\blx@tempa{page}%
+        \iffieldundef{#1}
+          {}
+          {%
+            \iffieldbibstring{#1}
+              {\edef\blx@tempa{\thefield{#1}}}
+              {%
+                \blx@warning@entry{%
+                  Unknown pagination type '\thefield{#1}'}%
+                }%
+              }%
+      \expandafter\endgroup
+      \expandafter\mkpagegrouped@aux@i\expandafter{\blx@tempa}%
+    }%
+}
+
+\newcommand*\mkpagegrouped@aux@i[2]{%
+  \ifnumeral{#2}
+    {%
+      \bibstring{#1}%
+      \ppspace
+      \mkpagegrouped@aux@ii{#2}%
+    }
+    {\ifnumerals{#2}
+       {%
+         \bibstring{#1s}%
+         \ppspace
+         \mkpagegrouped@aux@ii{#2}%
+       }
+       {%
+         \begingroup
+           \def\pno{\bibstring{#1}}%
+           \def\ppno{\bibstring{#1s}}%
+           #2%
+         \endgroup
+      }%
+    }%
+}
+
+\newcommand*\mkpagegrouped@aux@ii[1]{%
+  \mkpagegrouped@i#1\bibrangedash&%
+}
+
+\newcommand*\mkpagegrouped@i{}
+\long\def\mkpagegrouped@i#1\bibrangedash#2&{%
+  \mkpagegrouped@ii{#1}%
+  \ifblank{#2}
+    {}
+    {%
+      \bibrangedash
+      \mkpagegrouped@iii#2%
+    }%
+}
+
+\newcommand*\mkpagegrouped@ii[1]{%
+  \ifinteger{#1}
+    {%
+      \mkpagegrouped@ifmorethanfour{#1}
+        {\mkpagegrouped@separate{}#1\@empty\@empty\@empty}
+        {#1}%
+     }
+     {#1}%
+}
+
+\newcommand*\mkpagegrouped@iii{}
+\def\mkpagegrouped@iii#1\bibrangedash{\mkpagegrouped@ii{#1}}
+
+\newcommand*\mkpagegrouped@ifmorethanfour[1]{%
+  \mkpagegrouped@ifmorethanfour@aux#1\@empty\@empty\@empty\@empty
+    \@empty\@nil
+}
+
+\newcommand*\mkpagegrouped@ifmorethanfour@aux{}
+\def\mkpagegrouped@ifmorethanfour@aux#1#2#3#4#5\@nil{%
+ \ifx\@empty#5\@empty
+   \expandafter\@secondoftwo
+  \else
+    \expandafter\@firstoftwo
+  \fi
+}
+
+\newcommand*\mkpagegrouped@separate[4]{%
+  \ifx\@empty#2\@empty
+    \mkpagegrouped@print#1\relax
+  \else
+    \ifx\@empty#3\@empty
+      \mkpagegrouped@print\@empty\@empty#1#2\relax
+    \else
+      \ifx\@empty#4\@empty
+        \mkpagegrouped@print\@empty#1#2#3\relax
+      \else
+        \mkpagegrouped@separate@aux{#1#2#3#4}%
+      \fi
+    \fi
+  \fi
+}
+
+\newcommand*\bbx@digits@separate@aux{}
+\def\mkpagegrouped@separate@aux#1\fi\fi\fi{%
+  \fi\fi\fi\mkpagegrouped@separate{#1}%
+}
+
+\newcommand*\mkpagegrouped@print[4]{%
+  \ifblank{#1}{}{#1}%
+  #2#3%
+  \ifx#4\relax
+  \else
+    \addnbthinspace
+    \expandafter\mkpagegrouped@print\expandafter#4%
+  \fi
+}
+
+% New bibliography drivers, using the required order of fields. These
+% are mainly copied from standard.bbx then modified
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \newunit
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  \usebibmacro{journal+issuetitle}%
+  \newunit
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \usebibmacro{note+pages}%
+  \newunit
+  \usebibmacro{issue+date}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
 
 %% 
 %% Copyright (C) 2011 by
