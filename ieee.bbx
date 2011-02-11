@@ -26,13 +26,29 @@
 
 % Bibliography strings
 \DefineBibliographyStrings{english}{
+  editor    = Ed\adddot  ,
+  editors   = Eds\adddot ,
   june      = Jun\adddot ,
   july      = Jul\adddot ,
   september = Sep\adddot ,
 }
 
 % New or modified bibliography macros
-\newbibmacro*{issue+date}{%
+\renewbibmacro*{byeditor+others}{%
+  \ifnameundef{editor}
+    {}
+    {%
+      \usebibmacro{editor}%
+      \setunit{\addspace}%
+      \printnames[byeditor]{editor}%
+      \clearname{editor}%
+      \newunit
+    }%
+  \usebibmacro{byeditorx}%
+  \usebibmacro{bytranslator+others}%
+}
+  
+\renewbibmacro*{issue+date}{%
   \printtext{%
     \iffieldundef{issue}
       {\usebibmacro{date}}
@@ -251,6 +267,51 @@
   \newunit\newblock
   \iftoggle{bbx:isbn}
     {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{maintitle+title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \newunit\newblock
+  \printfield{note}%
+  \setunit{\adddot\addspace}%
+  \newblock
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
     {}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
