@@ -26,6 +26,7 @@
 
 % Bibliography strings
 \DefineBibliographyStrings{english}{
+  chapter   = ch\adddot  ,
   editor    = Ed\adddot  ,
   editors   = Eds\adddot ,
   june      = Jun\adddot ,
@@ -87,10 +88,6 @@
     }%
   \usebibmacro{volume+number+eid}%
   \setunit{\addspace}%
-}
-
-\newbibmacro*{note}{%
-  \printfield{note}%
 }
 
 \newbibmacro*{pages}{%
@@ -263,7 +260,7 @@
   \newunit
   \usebibmacro{issue+date}%
   \newunit
-  \usebibmacro{note}%
+  \printfield{note}%
   \newunit\newblock
   \iftoggle{bbx:isbn}
     {\printfield{issn}}
@@ -300,8 +297,6 @@
   \printfield{volumes}%
   \newunit\newblock
   \usebibmacro{series+number}%
-  \newunit\newblock
-  \printfield{note}%
   \setunit{\adddot\addspace}%
   \newblock
   \usebibmacro{publisher+location+date}%
@@ -309,6 +304,8 @@
   \usebibmacro{chapter+pages}%
   \newunit
   \printfield{pagetotal}%
+  \newunit\newblock
+  \printfield{note}%
   \newunit\newblock
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
