@@ -23,6 +23,13 @@
 % Simple modifications to punctuation, etc.
 \renewcommand*\newunitpunct{\addcomma\addspace}
 
+% Bibliography strings
+\DefineBibliographyStrings{english}{
+  june      = {June}{Jun\adddot}      ,
+  july      = {July}{Jul\adddot}      ,
+  september = {September}{Sep\adddot} ,
+}
+
 % New or modified bibliography macros
 \newbibmacro*{issue+date}{%
   \printtext{%
