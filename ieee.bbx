@@ -21,6 +21,7 @@
 \DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
 
 % Simple modifications to punctuation, etc.
+\renewcommand*\intitlepunct{\addspace}
 \renewcommand*\newunitpunct{\addcomma\addspace}
 \AtBeginDocument{\renewcommand*\bibdatedash{/}}
 
@@ -34,7 +35,20 @@
   september = Sep\adddot ,
 }
 
-% New or modified bibliography macros
+% Bibliography macros
+\renewbibmacro*{bybookauthor}{%
+  \ifnamesequal{author}{bookauthor}
+    {}
+    {%
+      \iffieldundef{bookauthor}
+        {}
+        {%
+          \printnames{bookauthor}%
+          \newunit
+       }%
+    }%
+}
+
 \renewbibmacro*{byeditor+others}{%
   \ifnameundef{editor}
     {}
@@ -93,6 +107,19 @@
 \newbibmacro*{pages}{%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
+}
+
+\renewbibmacro*{series+number}{%
+  \iffieldundef{series}
+    {}
+    {%
+      \bibstring{jourser}%
+      \addspace
+      \printfield{series}%
+      \setunit*{\addspace}%
+    }%  
+  \printfield{number}%
+  \newunit
 }
   
 \renewbibmacro*{volume+number+eid}{%
@@ -304,6 +331,53 @@
   \usebibmacro{chapter+pages}%
   \newunit
   \printfield{pagetotal}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{inbook}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{in:}%
+  \usebibmacro{bybookauthor}%
+  \usebibmacro{maintitle+booktitle}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit
+  \iffieldundef{maintitle}
+    {\printfield{volume}%
+     \printfield{part}}
+    {}%
+  \newunit
+  \printfield{volumes}%
+  \newunit\newblock
+  \usebibmacro{series+number}%
+  \setunit{\adddot\addspace}%
+  \newblock
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
   \newunit\newblock
   \printfield{note}%
   \newunit\newblock
