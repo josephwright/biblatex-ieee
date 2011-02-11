@@ -72,6 +72,15 @@
   \usebibmacro{volume+number+eid}%
   \setunit{\addspace}%
 }
+
+\newbibmacro*{note}{%
+  \printfield{note}%
+}
+
+\newbibmacro*{pages}{%
+  \setunit{\bibpagespunct}%
+  \printfield{pages}%
+}
   
 \renewbibmacro*{volume+number+eid}{%
   \iffieldundef{volume}
@@ -234,9 +243,11 @@
   \newunit
   \usebibmacro{byeditor+others}%
   \newunit
-  \usebibmacro{note+pages}%
+  \usebibmacro{pages}%
   \newunit
   \usebibmacro{issue+date}%
+  \newunit
+  \usebibmacro{note}%
   \newunit\newblock
   \iftoggle{bbx:isbn}
     {\printfield{issn}}
