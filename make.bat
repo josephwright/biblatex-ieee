@@ -32,7 +32,7 @@
   rem archive should not contain "unpacked" files. Typeset files and their
   rem sources are not included here: they are dealt with separately
 
-  set CTANFILES=bbx cbx pdf tex
+  set CTANFILES=bbx bib cbx pdf tex
   set TDSFILES=%CTANFILES%
 
   rem Files to typeset
@@ -133,7 +133,7 @@
   set TDSDIR=
 
   if /i "%~x1" == ".bbx" set TDSDIR=tex\latex\%PACKAGE%
-  if /i "%~x1" == ".bib" set TDSDIR=doc\latex\%PACKAGE%
+  if /i "%~x1" == ".bib" set TDSDIR=bibtex\bib\%PACKAGE%
   if /i "%~x1" == ".cbx" set TDSDIR=tex\latex\%PACKAGE%
   if /i "%~x1" == ".pdf" set TDSDIR=doc\latex\%PACKAGE%
   if /i "%~x1" == ".tex" set TDSDIR=doc\latex\%PACKAGE%  
