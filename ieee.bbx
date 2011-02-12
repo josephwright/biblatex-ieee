@@ -19,6 +19,7 @@
 
 % Custom field formats
 \DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
+\DeclareFieldFormat{sentencecase}{\MakeSentenceCase{#1}}
 
 % Simple modifications to punctuation, etc.
 \renewcommand*\intitlepunct{\addspace}
@@ -104,6 +105,32 @@
   \setunit{\addspace}%
 }
 
+\renewbibmacro*{maintitle+title}{%
+  \iffieldsequal{maintitle}{title}
+    {%
+      \clearfield{maintitle}%
+      \clearfield{mainsubtitle}%
+      \clearfield{maintitleaddon}%
+    }
+    {%
+      \iffieldundef{maintitle}
+        {}
+        {%
+          \usebibmacro{maintitle}%
+          \newunit\newblock
+          \iffieldundef{volume}
+            {}
+            {%
+              \printfield{volume}%
+              \printfield{part}%
+              \setunit{\addcolon\space}%
+            }%
+        }%
+    }%
+  \usebibmacro{title-in-maintitle}%
+  \newunit
+}
+
 \newbibmacro*{pages}{%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
@@ -120,6 +147,42 @@
     }%  
   \printfield{number}%
   \newunit
+}
+
+\renewbibmacro*{title}{%
+  \ifboolexpr{
+    test {\iffieldundef{title}}
+    and
+    test {\iffieldundef{subtitle}}
+  }
+    {}
+    {%
+      \printtext[title]{%
+        \printfield[sentencecase]{title}%
+        \setunit{\subtitlepunct}%
+        \printfield[sentencecase]{subtitle}%
+      }%
+      \newunit
+    }%
+  \printfield{titleaddon}%
+}
+
+\newbibmacro*{title-in-maintitle}{%
+  \ifboolexpr{
+    test {\iffieldundef{title}}
+    and
+    test {\iffieldundef{subtitle}}
+  }
+    {}
+    {%
+      \printtext[title]{%
+        \printfield[titlecase]{title}%
+        \setunit{\subtitlepunct}%
+        \printfield[titlecase]{subtitle}%
+      }%
+      \newunit
+    }%
+  \printfield{titleaddon}%
 }
   
 \renewbibmacro*{volume+number+eid}{%
