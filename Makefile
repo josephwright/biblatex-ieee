@@ -72,7 +72,6 @@ CLEAN = \
 	txt \
 	zip 
 
-DOCS     = 
 STYLES   = ieee
 TDS      = latex/$(PACKAGE)
 
@@ -115,12 +114,6 @@ ctan: tds
 
 doc:
 	echo "Compiling documents"
-	for I in $(DOCS) ; do \
-	  pdflatex -draftmode -interaction=batchmode $$I &> /dev/null ; \
-	  bibtex8 --wolfgang $$I                         &> /dev/null ; \
-	  pdflatex -interaction=batchmode $$I            &> /dev/null ; \
-	  rm -rf $$I-blx.bib ; \
-	done
 	for I in $(STYLES) ; do \
 	  pdflatex -draftmode -interaction=batchmode biblatex-$$I &> /dev/null ; \
 	  bibtex8 --wolfgang biblatex-$$I                         &> /dev/null ; \
