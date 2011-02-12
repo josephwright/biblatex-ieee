@@ -105,6 +105,17 @@
   \setunit{\addspace}%
 }
 
+\renewbibmacro*{maintitle+booktitle}{%
+  \iffieldundef{maintitle}
+    {}
+    {%
+      \usebibmacro{maintitle}%
+       \newunit\newblock
+    }%  
+  \usebibmacro{booktitle}%
+  \newunit
+}
+
 \renewbibmacro*{maintitle+title}{%
   \iffieldsequal{maintitle}{title}
     {%
@@ -118,13 +129,6 @@
         {%
           \usebibmacro{maintitle}%
           \newunit\newblock
-          \iffieldundef{volume}
-            {}
-            {%
-              \printfield{volume}%
-              \printfield{part}%
-              \setunit{\addcolon\space}%
-            }%
         }%
     }%
   \usebibmacro{title-in-maintitle}%
@@ -204,6 +208,16 @@
     }% 
   \newunit
   \printfield{eid}%
+}
+
+\newbibmacro*{volume+part}{%
+  \iffieldundef{volume}
+    {}
+    {%
+      \printfield{volume}%
+      \printfield{part}%
+      \setunit{\addcolon\space}%
+    }%
 }
 
 % Specialised functions for manipulating data, where the biblatex
@@ -379,11 +393,6 @@
   \newunit\newblock
   \usebibmacro{byeditor+others}%
   \newunit\newblock
-  \iffieldundef{maintitle}
-    {\printfield{volume}%
-     \printfield{part}}
-    {}%
-  \newunit
   \printfield{volumes}%
   \newunit\newblock
   \usebibmacro{series+number}%
@@ -391,6 +400,8 @@
   \newblock
   \usebibmacro{publisher+location+date}%
   \newunit\newblock
+  \usebibmacro{volume+part}%
+  \newunit
   \usebibmacro{chapter+pages}%
   \newunit
   \printfield{pagetotal}%
@@ -428,11 +439,6 @@
   \newunit\newblock
   \printfield{edition}%
   \newunit
-  \iffieldundef{maintitle}
-    {\printfield{volume}%
-     \printfield{part}}
-    {}%
-  \newunit
   \printfield{volumes}%
   \newunit\newblock
   \usebibmacro{series+number}%
@@ -440,6 +446,8 @@
   \newblock
   \usebibmacro{publisher+location+date}%
   \newunit\newblock
+  \usebibmacro{volume+part}%
+  \newunit
   \usebibmacro{chapter+pages}%
   \newunit\newblock
   \printfield{note}%
