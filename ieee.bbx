@@ -20,6 +20,7 @@
 % Custom field formats
 \DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
 \DeclareFieldFormat{sentencecase}{\MakeSentenceCase{#1}}
+\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 
 % Simple modifications to punctuation, etc.
 \renewcommand*\intitlepunct{\addspace}
@@ -29,12 +30,12 @@
 \NewBibliographyString{presentedat}
 
 \DefineBibliographyStrings{english}{
-  chapter     = ch\adddot                 ,
-  editor      = Ed\adddot                 ,
-  editors     = Eds\adddot                ,
-  mathesis    = Master's thesis           ,
-  presentedat = presented at the\addspace ,
-  url         = [Online]\adddot Address\addcolon\addspace ,
+  chapter     = ch\adddot                          ,
+  editor      = Ed\adddot                          ,
+  editors     = Eds\adddot                         ,
+  mathesis    = Master's thesis                    ,
+  presentedat = presented at the\addspace          ,
+  url         = [Online]\adddot\addspace Available ,
 }
 
 \DefineBibliographyStrings{english}{  
@@ -69,6 +70,21 @@
     }%
   \usebibmacro{byeditorx}%
   \usebibmacro{bytranslator+others}%
+}
+
+\renewbibmacro*{doi+eprint+url}{%
+  \setunit{\adddot\addspace}%
+  \iftoggle{bbx:doi}
+    {\printfield{doi}}
+    {}%
+  \setunit{\adddot\addspace}%
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%  
+  \setunit{\adddot\addspace}%  
+  \iftoggle{bbx:url}
+    {\usebibmacro{url+urldate}}
+    {}%
 }
 
 \renewbibmacro*{institution+location+date}{%
