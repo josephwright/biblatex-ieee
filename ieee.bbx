@@ -258,6 +258,29 @@
     }%
   \printfield{titleaddon}%
 }
+
+\renewbibmacro*{title+issuetitle}{%
+  \usebibmacro{periodical}%
+  \newunit
+  \printfield{series}
+  \newunit
+  \iffieldundef{volume}%
+    {}
+    {%
+      \bibstring{volume}%
+      \addspace
+      \printfield{volume}%
+      \newunit
+    }
+  \printfield{number}%
+  \newunit
+  \printfield{eid}%
+  \newunit
+  \usebibmacro{issue+date}%
+  \newunit
+  \usebibmacro{issue}%
+  \newunit
+}
   
 \renewbibmacro*{volume+number+eid}{%
   \iffieldundef{volume}
