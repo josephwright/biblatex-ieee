@@ -17,9 +17,33 @@
 
 \bibliography{biblatex-ieee}
 
+\author{Joseph Wright\thanks{E-mail: 
+  \href{mailto:joseph.wright@morningstar2.co.uk}
+  {\texttt{joseph.wright@morningstar2.co.uk}}}}
+\title{The \pkg{ieee} bibliography style for \pkg{biblatex}%
+  \footnote{This file describes v1.0, last revised 2011/02/12.}}
+\date{Released 2011/02/12}
+
+\providecommand*\pkg[1]{\textsf{#1}}
+
 \begin{document}
 
-\section*{The \texttt{ieee} style}
+\maketitle
+
+This package provides a style for \pkg{biblatex} which follows the
+guidelines of the IEEE. The citation style is numeric and unsorted. The
+bibliography style follows the pattern of the official \pkg{IEEEtran}
+package. The style should be loaded in the usual way
+\begin{verbatim}
+\usepackage[style=ieee]{biblatex}
+\end{verbatim}
+
+Suggestions for improvement and bug reports can be logged in the package
+issue database, found at
+\url{http://bitbucket.org/josephwright/biblatex-ieee/issues}, or can
+be sent by e-mail to 
+\href{mailto:joseph.wright@morningstar2.co.uk}
+  {\texttt{joseph.wright@morningstar2.co.uk}}.
 
 \nocite{*}
 
