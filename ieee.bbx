@@ -18,6 +18,7 @@
 \DeclareQuotePunctuation{.,}
 
 % Custom field formats
+\DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
 \DeclareFieldFormat{sentencecase}{\MakeSentenceCase{#1}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
@@ -35,6 +36,7 @@
   editors     = Eds\adddot                         ,
   mathesis    = Master's thesis                    ,
   presentedat = presented at the\addspace          ,
+  techreport  = Tech\adddot\addspace Rep\adddot    ,
   url         = [Online]\adddot\addspace Available ,
 }
 
@@ -85,6 +87,13 @@
   \iftoggle{bbx:url}
     {\usebibmacro{url+urldate}}
     {}%
+}
+
+\newbibmacro*{institution+location}{%
+  \printlist{institution}%
+  \newunit
+  \printlist{location}%
+  \newunit
 }
 
 \renewbibmacro*{institution+location+date}{%
@@ -555,6 +564,45 @@
   \newunit\newblock
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{report}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{institution+location}%
+  \newunit\newblock
+  \printfield{type}%
+  \setunit*{\addspace}%
+  \printfield{number}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  \usebibmacro{date}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isrn}}
     {}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
