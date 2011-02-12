@@ -34,6 +34,7 @@
   editors     = Eds\adddot                ,
   mathesis    = Master's thesis           ,
   presentedat = presented at the\addspace ,
+  url         = [Online]\adddot Address\addcolon\addspace ,
 }
 
 \DefineBibliographyStrings{english}{  
@@ -68,6 +69,15 @@
     }%
   \usebibmacro{byeditorx}%
   \usebibmacro{bytranslator+others}%
+}
+
+\renewbibmacro*{institution+location+date}{%
+  \printlist{institution}%
+  \newunit
+  \printlist{location}%
+  \newunit
+  \usebibmacro{date}%
+  \newunit
 }
   
 \renewbibmacro*{issue+date}{%
