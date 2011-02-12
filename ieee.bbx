@@ -26,10 +26,16 @@
 \renewcommand*\newunitpunct{\addcomma\addspace}
 
 % Bibliography strings
+\NewBibliographyString{presentedat}
+
 \DefineBibliographyStrings{english}{
-  chapter   = ch\adddot  ,
-  editor    = Ed\adddot  ,
-  editors   = Eds\adddot ,
+  chapter     = ch\adddot                 ,
+  editor      = Ed\adddot                 ,
+  editors     = Eds\adddot                ,
+  presentedat = presented at the\addspace ,
+}
+
+\DefineBibliographyStrings{english}{  
   june      = Jun\adddot ,
   july      = Jul\adddot ,
   september = Sep\adddot ,
@@ -115,6 +121,26 @@
   \newunit
 }
 
+\newbibmacro*{maintitle+booktitle(inproceedings)}{%
+  \iffieldundef{maintitle}
+    {%
+      \iffieldundef{booktitle}
+        {}
+        {%
+          \usebibmacro{in:}%
+          \usebibmacro{maintitle+booktitle}%
+          \clearfield{eventtitle}%
+          \clearfield{number}%
+        }%
+    }
+    {%
+      \usebibmacro{in:}%
+      \usebibmacro{maintitle+booktitle}%
+      \clearfield{eventtitle}%
+      \clearfield{number}%
+    }%  
+}
+
 \renewbibmacro*{maintitle+title}{%
   \iffieldsequal{maintitle}{title}
     {%
@@ -137,6 +163,10 @@
 \newbibmacro*{pages}{%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
+}
+
+\newbibmacro*{presented-at}{%
+  \bibstring{presentedat}%
 }
 
 \renewbibmacro*{series+number}{%
@@ -474,10 +504,10 @@
   \newunit\newblock
   \usebibmacro{byauthor}%
   \newunit\newblock
-  \usebibmacro{in:}%
-  \usebibmacro{maintitle+booktitle}%
+  \usebibmacro{maintitle+booktitle(inproceedings)}%
   \midsentence
   \newunit\newblock
+  \usebibmacro{presented-at}%
   \usebibmacro{event+venue+date}%
   \newunit\newblock
   \usebibmacro{byeditor+others}%
@@ -505,7 +535,8 @@
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
   \usebibmacro{pageref}%
-  \usebibmacro{finentry}}
+  \usebibmacro{finentry}%
+}
 
 %% 
 %% Copyright (C) 2011 by
