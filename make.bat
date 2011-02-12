@@ -118,10 +118,10 @@
 :doc 
 
   for %%I in (%STYLES%) do (
-    echo style-%%I
-    pdflatex style-%%I > nul
-    bibtex8 --wolfgang style-%%I > nul
-    pdflatex style-%%I > nul
+    echo biblatex-%%I
+    pdflatex biblatex-%%I > nul
+    bibtex8 --wolfgang biblatex-%%I > nul
+    pdflatex biblatex-%%I > nul
   )
 
   if exist *-blx.bib del *-blx.bib
