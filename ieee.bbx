@@ -29,6 +29,7 @@
 \renewcommand*\newunitpunct{\addcomma\addspace}
 
 % Bibliography strings
+\NewBibliographyString{patentjp}
 \NewBibliographyString{presentedat}
 
 \DefineBibliographyStrings{english}{
@@ -36,6 +37,8 @@
   editor      = Ed\adddot                          ,
   editors     = Eds\adddot                         ,
   mathesis    = Master's thesis                    ,
+  patentjp    = Japanese Patent                    ,
+  patentus    = U\adddot S\adddot\addspace Patent  ,
   presentedat = presented at the\addspace          ,
   techreport  = Tech\adddot\addspace Rep\adddot    ,
   url         = [Online]\adddot\addspace Available ,
@@ -602,6 +605,33 @@
   \newunit\newblock
   \usebibmacro{url+urldate}%
   \setunit{\adddot\addspace}%
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{patent}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \printfield{type}%
+  \setunit*{\addspace}%
+  \printfield{number}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{date}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
   \usebibmacro{pageref}%
