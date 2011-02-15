@@ -19,7 +19,10 @@
 
 % Custom field formats \mkpagegrouped@ii
 \DeclareFieldFormat[patent]{number}{\mkpagegrouped@ii{#1}}
-\DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
+%\DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
+\DeclareFieldFormat{pages}{%
+  \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
+}
 \DeclareFieldFormat{sentencecase}{\MakeSentenceCase{#1}}
 \DeclareFieldFormat[online]{title}{#1\isdot}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
@@ -315,51 +318,7 @@
 
 % Specialised functions for manipulating data, where the biblatex
 % kernel does not provide a suitable function.
-\newrobustcmd*\mkpagegrouped[1][pagination]{%
-  \iffieldequalstr{#1}{none}
-    {\mkpagegrouped@aux@ii}
-    {%
-      \begingroup
-        \def\blx@tempa{page}%
-        \iffieldundef{#1}
-          {}
-          {%
-            \iffieldbibstring{#1}
-              {\edef\blx@tempa{\thefield{#1}}}
-              {%
-                \blx@warning@entry{%
-                  Unknown pagination type '\thefield{#1}'}%
-                }%
-              }%
-      \expandafter\endgroup
-      \expandafter\mkpagegrouped@aux@i\expandafter{\blx@tempa}%
-    }%
-}
-
-\newcommand*\mkpagegrouped@aux@i[2]{%
-  \ifnumeral{#2}
-    {%
-      \bibstring{#1}%
-      \ppspace
-      \mkpagegrouped@aux@ii{#2}%
-    }
-    {\ifnumerals{#2}
-       {%
-         \bibstring{#1s}%
-         \ppspace
-         \mkpagegrouped@aux@ii{#2}%
-       }
-       {%
-         \begingroup
-           \def\pno{\bibstring{#1}}%
-           \def\ppno{\bibstring{#1s}}%
-           #2%
-         \endgroup
-      }%
-    }%
-}
-
-\newcommand*\mkpagegrouped@aux@ii[1]{%
+\newcommand*\mkpagegrouped[1]{%
   \mkpagegrouped@i#1\bibrangedash&%
 }
 
