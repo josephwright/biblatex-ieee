@@ -17,8 +17,8 @@
 \ExecuteBibliographyOptions{firstinits,maxnames = 999,maxcitenames = 2}
 \DeclareQuotePunctuation{.,}
 
-% Custom field formats \mkpagegrouped@ii
-\DeclareFieldFormat[patent]{number}{\mkpagegrouped@ii{#1}}
+% Custom field formats 
+\DeclareFieldFormat[patent]{number}{\mkonepagegrouped{#1}}
 \DeclareFieldFormat{pages}{%
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
@@ -318,21 +318,21 @@
 % Specialised functions for manipulating data, where the biblatex
 % kernel does not provide a suitable function.
 \newcommand*\mkpagegrouped[1]{%
-  \mkpagegrouped@i#1\bibrangedash&%
+  \mkpagegrouped@aux#1\bibrangedash&%
 }
 
-\newcommand*\mkpagegrouped@i{}
-\long\def\mkpagegrouped@i#1\bibrangedash#2&{%
-  \mkpagegrouped@ii{#1}%
+\newcommand*\mkpagegrouped@aux{}
+\long\def\mkpagegrouped@aux#1\bibrangedash#2&{%
+  \mkonepagegrouped{#1}%
   \ifblank{#2}
     {}
     {%
       \bibrangedash
-      \mkpagegrouped@iii#2%
+      \mkpagegrouped@second#2%
     }%
 }
 
-\newcommand*\mkpagegrouped@ii[1]{%
+\newcommand*\mkonepagegrouped[1]{%
   \ifinteger{#1}
     {%
       \mkpagegrouped@ifmorethanfour{#1}
@@ -342,8 +342,8 @@
      {#1}%
 }
 
-\newcommand*\mkpagegrouped@iii{}
-\def\mkpagegrouped@iii#1\bibrangedash{\mkpagegrouped@ii{#1}}
+\newcommand*\mkpagegrouped@second{}
+\def\mkpagegrouped@second#1\bibrangedash{\mkonepagegrouped{#1}}
 
 \newcommand*\mkpagegrouped@ifmorethanfour[1]{%
   \mkpagegrouped@ifmorethanfour@aux#1\@empty\@empty\@empty\@empty
