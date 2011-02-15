@@ -19,7 +19,6 @@
 
 % Custom field formats \mkpagegrouped@ii
 \DeclareFieldFormat[patent]{number}{\mkpagegrouped@ii{#1}}
-%\DeclareFieldFormat{pages}{\mkpagegrouped[bookpagination]{#1}}
 \DeclareFieldFormat{pages}{%
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
