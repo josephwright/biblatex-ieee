@@ -7,7 +7,7 @@ Released under the LaTeX Project Public License v1.3c or later
 See http://www.latex-project.org/lppl.txt
 ---------------------------------------------------------------
 
-The biblatex-ieee package provides an implementation if the 
+The biblatex-ieee package provides an implementation of the 
 bibliography style of the IEEE for biblatex. This implementation
 follows standard biblatex conventions, and can be used simply
 by loading biblatex with the appropriate option
