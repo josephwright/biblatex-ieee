@@ -8,15 +8,16 @@
 %% ---------------------------------------------------------------
 %% 
 
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{ltxdoc}
 \usepackage[T1]{fontenc}
 \usepackage[style=ieee]{biblatex}
 \usepackage[final]{microtype}
 \usepackage{csquotes,lmodern}
 \usepackage{hyperref}
+
 \hypersetup{pdfborder = 0 0 0}
 
-\bibliography{biblatex-ieee}
+\addbibresource{biblatex-ieee}
 
 \author{Joseph Wright\thanks{E-mail: 
   \href{mailto:joseph.wright@morningstar2.co.uk}
@@ -62,6 +63,8 @@ be sent by e-mail to
 \nocite{*}
 
 \printbibliography
+
+\PrintChanges
 
 \end{document}
 

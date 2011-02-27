@@ -111,9 +111,10 @@ ctan: tds
 doc:
 	echo "Compiling documents"
 	for I in $(STYLES) ; do \
-	  pdflatex -draftmode -interaction=batchmode biblatex-$$I &> /dev/null ; \
-	  bibtex8 --wolfgang biblatex-$$I                         &> /dev/null ; \
-	  pdflatex -interaction=batchmode biblatex-$$I            &> /dev/null ; \
+	  pdflatex -draftmode -interaction=batchmode biblatex-$$I &> /dev/null    ; \
+	  makeindex -s gglo.ist -o biblatex-$$I.gls biblatex-$$I.glo &> /dev/null ; \
+	  bibtex8 --wolfgang biblatex-$$I                         &> /dev/null    ; \
+	  pdflatex -interaction=batchmode biblatex-$$I            &> /dev/null    ; \
 	  rm -rf biblatex-$$I-blx.bib ; \
 	done
 	for I in $(AUXFILES) ; do \
