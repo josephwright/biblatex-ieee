@@ -96,6 +96,27 @@
     {}%
 }
 
+\renewbibmacro*{event+venue+date}{%
+  \iffieldundef{eventtitle}
+    {}
+    {%
+      \bibstring{presentedat}%
+      \printfield{eventtitle}%
+    }%
+  \ifboolexpr{
+    test {\iffieldundef{venue}}
+    and
+    test {\iffieldundef{eventyear}}
+  }
+    {}
+    {\setunit*{\addspace}%
+     \printtext[parens]{%
+       \printfield{venue}%
+       \setunit*{\addcomma\space}%
+       \printeventdate}}%
+  \newunit
+}
+
 \newbibmacro*{institution+location}{%
   \printlist{institution}%
   \newunit
@@ -206,12 +227,6 @@
 \newbibmacro*{pages}{%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
-}
-
-\newbibmacro*{presented-at}{%
-  \iffieldundef{event}
-    {}
-    {\bibstring{presentedat}}%
 }
 
 \renewbibmacro*{series+number}{%
@@ -531,7 +546,6 @@
   \usebibmacro{maintitle+booktitle(inproceedings)}%
   \midsentence
   \newunit\newblock
-  \usebibmacro{presented-at}%
   \usebibmacro{event+venue+date}%
   \newunit\newblock
   \usebibmacro{byeditor+others}%
