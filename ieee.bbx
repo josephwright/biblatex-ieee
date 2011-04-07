@@ -209,7 +209,9 @@
 }
 
 \newbibmacro*{presented-at}{%
-  \bibstring{presentedat}%
+  \iffieldundef{event}
+    {}
+    {\bibstring{presentedat}}%
 }
 
 \renewbibmacro*{series+number}{%
