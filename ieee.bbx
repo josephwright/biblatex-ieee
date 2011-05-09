@@ -28,6 +28,7 @@
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 
 % Simple modifications to punctuation, etc.
+\renewcommand*\bibnamedash{\textemdash}
 \renewcommand*\intitlepunct{\addspace}
 \renewcommand*\newunitpunct{\addcomma\addspace}
 
@@ -53,7 +54,33 @@
   september = Sep\adddot ,
 }
 
+% Support for dashed author name replacement
+\InitializeBibliographyStyle{\global\undef\bbx@lasthash}
+
+\newbibmacro*{bbx:savehash}{\savefield{fullhash}{\bbx@lasthash}}
+
 % Bibliography macros
+\newbibmacro*{author}{%
+  \ifboolexpr{
+    test \ifuseauthor
+    and
+    not test {\ifnameundef{author}}
+  }
+    {%
+      \iffieldequals{fullhash}{\bbx@lasthash}
+        {\bibnamedash\addcomma\space}
+        {\printnames{author}}%
+      \usebibmacro{bbx:savehash}%  
+      \iffieldundef{authortype}
+        {}
+        {%
+          \setunit{\addcomma\space}%
+          \usebibmacro{authorstrg}%
+        }%
+    }
+    {\global\undef\bbx@lasthash}%
+}
+
 \renewbibmacro*{bybookauthor}{%
   \ifnamesequal{author}{bookauthor}
     {}
