@@ -55,6 +55,17 @@ The package introduces new bibliography strings:
 \end{description}
 These may be localized in the usual way.
 
+The apparenacne of URLs in the bibliography is set by the mechanism of the
+\textsf{url} package. Thus to print URLs in the current roman font,
+place the instruction
+\begin{verbatim}
+  \renewcommand*\UrlFont{\rmfamily}
+\end{verbatim}
+immediately before
+\begin{verbatim}
+  \printbibliography
+\end{verbatim}
+
 Suggestions for improvement and bug reports can be logged in the package
 issue database, found at
 \url{https://bitbucket.org/josephwright/biblatex-ieee/issues}, or can
@@ -70,6 +81,7 @@ be sent by e-mail to
 \changes{v1.0a}{2011/04/07}{Print \enquote{presented at} for
   \texttt{inproceedings} entries only if an \texttt{eventtitle} is
   available}
+\changes{v1.0b}{2011/05/07}{Add instructions for printing URL in roman font}
 
 \PrintChanges
 
