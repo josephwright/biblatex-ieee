@@ -97,10 +97,10 @@ ctan: tds
 	for I in $(STYLES) ; do \
 	  cp $$I.bbx tmp/$(PACKAGE) ; \
 	  cp $$I.cbx tmp/$(PACKAGE) ; \
-	  cp biblatex-$$I.bib tmp/$(PACKAGE) ; \
 	  cp biblatex-$$I.pdf tmp/$(PACKAGE) ; \
 	  cp biblatex-$$I.tex tmp/$(PACKAGE) ; \
 	done
+	cp $(PACKAGE).bib tmp/$(PACKAGE) ; \
 	cp README tmp/$(PACKAGE)
 	cp README tmp/$(PACKAGE)
 	cp $(PACKAGE).tds.zip tmp/
@@ -134,16 +134,15 @@ tds: doc
 	echo "Making TDS structure"
 	mkdir -p tds/
 	rm -rf tds/*
-	mkdir -p tds/bibtex/bib/$(PACKAGE)
 	mkdir -p tds/doc/$(TDS)
 	mkdir -p tds/tex/$(TDS)
 	for I in $(STYLES) ; do \
 	  cp $$I.bbx tds/tex/$(TDS)/ ; \
 	  cp $$I.cbx tds/tex/$(TDS)/ ; \
-	  cp biblatex-$$I.bib tds/bibtex/bib/$(PACKAGE)/ ; \
 	  cp biblatex-$$I.pdf tds/doc/$(TDS)/ ; \
 	  cp biblatex-$$I.tex tds/doc/$(TDS)/ ; \
 	done
+	cp $(PACKAGE).bib tds/doc/$(TDS)/ ; \
 	cp README tds/doc/$(TDS)/
 	cd tds ; \
 	zip -ll -q -r -X ../$(PACKAGE).tds.zip .

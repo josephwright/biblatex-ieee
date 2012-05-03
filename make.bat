@@ -136,7 +136,7 @@
   set TDSDIR=
 
   if /i "%~x1" == ".bbx" set TDSDIR=tex\latex\%PACKAGE%
-  if /i "%~x1" == ".bib" set TDSDIR=bibtex\bib\%PACKAGE%
+  if /i "%~x1" == ".bib" set TDSDIR=doc\latex\%PACKAGE%
   if /i "%~x1" == ".cbx" set TDSDIR=tex\latex\%PACKAGE%
   if /i "%~x1" == ".pdf" set TDSDIR=doc\latex\%PACKAGE%
   if /i "%~x1" == ".tex" set TDSDIR=doc\latex\%PACKAGE%  
