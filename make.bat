@@ -26,7 +26,7 @@
 
   rem The biblatex styles included
 
-  set STYLES=ieee
+  set STYLES=ieee ieee-alphabetic
 
   rem The file types for inclusion in the archive files: note that a CTAN
   rem archive should not contain "unpacked" files. Typeset files and their

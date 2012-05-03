@@ -72,7 +72,7 @@ CLEAN = \
 	txt \
 	zip 
 
-STYLES = ieee
+STYLES = ieee ieee-alphabetic
 TDS    = latex/$(PACKAGE)
 
 # Even if files exist, use the rules here

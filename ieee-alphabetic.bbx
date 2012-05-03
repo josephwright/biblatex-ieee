@@ -8,15 +8,48 @@
 %% ---------------------------------------------------------------
 %% 
 
-\ProvidesFile{ieee.cbx}[2012/03/23 v1.0d biblatex citation style]
+\ProvidesFile{ieee-alphabetic.bbx}[2012/03/23 v1.0d biblatex bibliography style]
 
-\RequireCitationStyle{numeric-comp}
+\RequireBibliographyStyle{ieee}
 
+% Alter settings that carry through from biblatex
 \ExecuteBibliographyOptions{
-    maxcitenames = 3,
-    minnames     = 3,
-    sorting      = none
+  labelalpha,
+  sorting = anyt
 }
+
+% This is all a straight copy from alphabetic.bbx
+\DeclareFieldFormat{labelalphawidth}{\mkbibbrackets{#1}}
+\DeclareFieldFormat{shorthandwidth}{\mkbibbrackets{#1}}
+
+\defbibenvironment{bibliography}
+  {\list
+     {\printtext[labelalphawidth]{%
+        \printfield{prefixnumber}%
+	\printfield{labelalpha}%
+        \printfield{extraalpha}}}
+     {\setlength{\labelwidth}{\labelalphawidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}}%
+      \renewcommand*{\makelabel}[1]{##1\hss}}
+  {\endlist}
+  {\item}
+
+\defbibenvironment{shorthands}
+  {\list
+     {\printfield[shorthandwidth]{shorthand}}
+     {\setlength{\labelwidth}{\shorthandwidth}%
+      \setlength{\leftmargin}{\labelwidth}%
+      \setlength{\labelsep}{\biblabelsep}%
+      \addtolength{\leftmargin}{\labelsep}%
+      \setlength{\itemsep}{\bibitemsep}%
+      \setlength{\parsep}{\bibparsep}%
+      \renewcommand*{\makelabel}[1]{##1\hss}}}
+  {\endlist}
+  {\item}
 
 %% 
 %% Copyright (C) 2011,2012 by
@@ -42,4 +75,4 @@
 %%                                 biblatex-ieee-alphabetic.pdf.
 %% 
 %%
-%% End of file `ieee.cbx'.
+%% End of file `ieee.bbx'.
