@@ -18,6 +18,18 @@
     sorting      = none
 }
 
+%\DeclareFieldFormat{bibhyperref}{\mkbibbrackets{\bibhyperref{#1}}}
+\DeclareFieldFormat{labelnumber}{\mkbibbrackets{#1}}
+      
+\DeclareCiteCommand{\cite}%[\mkbibbrackets]
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}}
+  {}
+  {\usebibmacro{cite:dump}%
+   \usebibmacro{postnote}}
+
 %% 
 %% Copyright (C) 2011,2012 by
 %%   Joseph Wright <joseph.wright@morningstar2.co.uk>
