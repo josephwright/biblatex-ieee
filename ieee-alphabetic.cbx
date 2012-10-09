@@ -12,10 +12,37 @@
 
 \RequireCitationStyle{alphabetic}
 
-\ExecuteBibliographyOptions{
-    maxcitenames = 3,
-    minnames     = 3
-}
+\ifcsdef{blx@backend}
+  {%
+    \ifnumequal\blx@backend\blx@backend@biber
+      {%
+        \ExecuteBibliographyOptions{
+          maxcitenames  = 4,
+          minnames      = 3
+        }%
+        \protected\edef\abx@macro@textcite{%
+          \defcounter{maxnames}{3}%
+          \defcounter{minnames}{1}%
+          \unexpanded\expandafter{\abx@macro@textcite}%
+        }%
+      }
+      {%
+        \ExecuteBibliographyOptions{
+          maxalphanames = 4,
+          maxcitenames  = 3,
+          minalphanames = 3,
+          minnames      = 1
+        }%
+      }%
+      }
+  {%
+    \ExecuteBibliographyOptions{
+      maxalphanames = 4,
+      maxcitenames  = 3,
+      minalphanames = 3,
+      minnames      = 1
+    }%
+  }
 
 %% 
 %% Copyright (C) 2011,2012 by
