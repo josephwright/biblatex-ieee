@@ -32,6 +32,9 @@
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 
+% Brackets around labels in the bibliography
+\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
+
 % Simple modifications to punctuation, etc.
 \renewcommand*\bibnamedash{\textemdash\textemdash}
 \renewcommand*\intitlepunct{\addspace}

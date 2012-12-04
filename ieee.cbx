@@ -18,6 +18,88 @@
     sorting      = none
 }
 
+% Putting brackets around each citation number is a two-part
+% operation. First, remove them from around the whole citation by
+% redeclaring here.
+\DeclareCiteCommand{\cite}%
+  {\usebibmacro{cite:init}%
+   \usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}}
+  {}
+  {\usebibmacro{cite:dump}%
+   \usebibmacro{postnote}}
+
+% The second part if more awkward. To add brackets, we cannot use labelnumber
+% as the biblatex kernel does not do a great job on the difference between it
+% and labelnumberwidth! So instead we tackle the issue here, but that means
+% a bit of copy-paste work.
+\renewbibmacro*{cite:comp:comp}{%
+  \ifboolexpr{
+    ( test {\iffieldundef{prefixnumber}} and test {\ifundef\cbx@lastprefix} )
+    or
+    test {\iffieldequals{prefixnumber}{\cbx@lastprefix}}
+  }
+    {\ifnumequal{\thefield{labelnumber}}{\value{cbx@tempcntb}}
+       {\savefield{entrykey}{\cbx@lastkey}%
+	\savefield{labelnumber}{\cbx@lastnumber}%
+	\addtocounter{cbx@tempcnta}{1}}
+       {\ifnumequal{\thefield{labelnumber}}{\value{cbx@tempcntb}-1}
+	  {}
+	  {\usebibmacro{cite:dump}%
+	   \ifnumgreater{\value{cbx@tempcntb}}{-1}
+	     {\multicitedelim}
+	     {}%
+	   \printtext[bibhyperref]{%
+	     \printfield{prefixnumber}%
+	     \printfield[brackets]{labelnumber}}}}}
+    {\usebibmacro{cite:comp:end}}%
+  \setcounter{cbx@tempcntb}{\thefield{labelnumber}}%
+  \savefield{prefixnumber}{\cbx@lastprefix}}
+
+\renewbibmacro*{cite:comp:end}{%
+  \usebibmacro{cite:dump}%
+  \ifnumgreater{\value{cbx@tempcntb}}{-1}
+    {\multicitedelim}
+    {}%
+  \printtext[bibhyperref]{%
+    \printfield{prefixnumber}%
+    \printfield[brackets]{labelnumber}}}
+
+\renewbibmacro*{cite:comp:inset}{%
+  \usebibmacro{cite:dump}%
+  \ifnumgreater{\value{cbx@tempcntb}}{-1}
+    {\multicitedelim}
+    {}%
+  \printtext[bibhyperref]{%
+    \printfield{prefixnumber}%
+    \printfield[brackets]{labelnumber}%
+    \printfield{entrysetcount}}%
+  \setcounter{cbx@tempcntb}{-1}}
+
+\renewbibmacro*{cite:comp:shand}{%
+  \usebibmacro{cite:dump}%
+  \ifnumgreater{\value{cbx@tempcntb}}{-1}
+    {\multicitedelim}
+    {}%
+  \printtext[bibhyperref]{\printfield{shorthand}}%
+  \setcounter{cbx@tempcntb}{-1}}
+
+\renewbibmacro*{cite:dump}{%
+  \ifnumgreater{\value{cbx@tempcnta}}{0}
+    {\ifnumgreater{\value{cbx@tempcnta}}{1}
+       {\bibrangedash}
+       {\multicitedelim}%
+     \bibhyperref[\cbx@lastkey]{%
+       \ifdef\cbx@lastprefix
+         {\printtext[prefixnumber]{\cbx@lastprefix}}
+	 {}%
+       \printtext[brackets]{\cbx@lastnumber}}}
+    {}%
+  \setcounter{cbx@tempcnta}{0}%
+  \global\undef\cbx@lastprefix}
+
+
 %% 
 %% Copyright (C) 2011,2012 by
 %%   Joseph Wright <joseph.wright@morningstar2.co.uk>
