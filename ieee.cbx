@@ -50,9 +50,9 @@
 	   \ifnumgreater{\value{cbx@tempcntb}}{-1}
 	     {\multicitedelim}
 	     {}%
-	   \printtext[bibhyperref]{%
+	   \printtext[brackets]{\printtext[bibhyperref]{%
 	     \printfield{prefixnumber}%
-	     \printfield[brackets]{labelnumber}}}}}
+	     \printfield{labelnumber}}}}}}
     {\usebibmacro{cite:comp:end}}%
   \setcounter{cbx@tempcntb}{\thefield{labelnumber}}%
   \savefield{prefixnumber}{\cbx@lastprefix}}
@@ -62,27 +62,19 @@
   \ifnumgreater{\value{cbx@tempcntb}}{-1}
     {\multicitedelim}
     {}%
-  \printtext[bibhyperref]{%
+  \printtext[brackets]{\printtext[bibhyperref]{%
     \printfield{prefixnumber}%
-    \printfield[brackets]{labelnumber}}}
+    \printfield{labelnumber}}}}
 
 \renewbibmacro*{cite:comp:inset}{%
   \usebibmacro{cite:dump}%
   \ifnumgreater{\value{cbx@tempcntb}}{-1}
     {\multicitedelim}
     {}%
-  \printtext[bibhyperref]{%
+  \printtext[brackets]{\printtext[bibhyperref]{%
     \printfield{prefixnumber}%
-    \printfield[brackets]{labelnumber}%
-    \printfield{entrysetcount}}%
-  \setcounter{cbx@tempcntb}{-1}}
-
-\renewbibmacro*{cite:comp:shand}{%
-  \usebibmacro{cite:dump}%
-  \ifnumgreater{\value{cbx@tempcntb}}{-1}
-    {\multicitedelim}
-    {}%
-  \printtext[bibhyperref]{\printfield{shorthand}}%
+    \printfield{labelnumber}%
+    \printfield{entrysetcount}}}%
   \setcounter{cbx@tempcntb}{-1}}
 
 \renewbibmacro*{cite:dump}{%
@@ -98,6 +90,31 @@
     {}%
   \setcounter{cbx@tempcnta}{0}%
   \global\undef\cbx@lastprefix}
+  
+% More fun, this time with \textcite, which has brackets hard-coded in
+% the original
+\renewbibmacro*{textcite}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+    {\usebibmacro{cite:comp}}
+    {\usebibmacro{cite:dump}\cbx@tempa
+     \usebibmacro{cite:init}%
+     \ifnameundef{labelname}
+       {\printfield[citetitle]{labeltitle}}
+       {\printnames{labelname}}%
+     \addspace
+     \ifnumequal{\value{citecount}}{1}
+       {\usebibmacro{prenote}}
+       {}%
+     \usebibmacro{cite:comp}}%
+  \savefield{namehash}{\cbx@lasthash}%
+  \gdef\cbx@tempa{\multicitedelim}}
+  
+\DeclareCiteCommand{\textcite}
+  {\usebibmacro{cite:init}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{textcite}}
+  {}
+  {\usebibmacro{postnote}}
 
 %% 
 %% Copyright (C) 2011,2012 by
