@@ -39,7 +39,6 @@ TDSDIR   := tds
 
 INCLUDEPDF  := $(PACKAGE)
 INCLUDETEX  :=
-INCLUDETXT  := README
 PACKAGEROOT := latex/$(PACKAGE)
 
 ##############################################################
@@ -101,8 +100,7 @@ ctan: tds
 	  cp biblatex-$$I.tex tmp/$(PACKAGE) ; \
 	done
 	cp $(PACKAGE).bib tmp/$(PACKAGE) ; \
-	cp README tmp/$(PACKAGE)
-	cp README tmp/$(PACKAGE)
+	cp README.md tmp/$(PACKAGE)/README
 	cp $(PACKAGE).tds.zip tmp/
 	cd tmp ; \
 	zip -ll -q -r -X ../$(PACKAGE).zip .
@@ -143,7 +141,7 @@ tds: doc
 	  cp biblatex-$$I.tex tds/doc/$(TDS)/ ; \
 	done
 	cp $(PACKAGE).bib tds/doc/$(TDS)/ ; \
-	cp README tds/doc/$(TDS)/
+	cp README.md tds/doc/$(TDS)/README
 	cd tds ; \
 	zip -ll -q -r -X ../$(PACKAGE).tds.zip .
 	rm -rf tds

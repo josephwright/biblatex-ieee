@@ -104,7 +104,8 @@
   for %%I in (%CTANFILES%) do (
     xcopy /q /y *.%%I "%CTANDIR%\" > nul
   )
-  xcopy /q /y README "%CTANDIR%\" > nul
+  xcopy /q /y README.md "%CTANDIR%\" > nul
+  ren "%CTANDIR%\README.md" README
 
   xcopy /q /y %PACKAGE%.tds.zip "%CTANROOT%\" > nul
 
@@ -157,7 +158,8 @@
   for %%I in (%TDSFILES%) do (
     call :tds-int *.%%I
   )
-  xcopy /q /y README "%TDSROOT%\doc\latex\%PACKAGE%\" > nul
+  xcopy /q /y README.md "%TDSROOT%\doc\latex\%PACKAGE%\" > nul
+  ren "%TDSROOT%\doc\latex\%PACKAGE%\README.md" README
 
   pushd "%TDSROOT%"
   %ZIPEXE% %ZIPFLAG% %PACKAGE%.tds.zip .
