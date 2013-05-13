@@ -1,11 +1,4 @@
----------------------------------------------------------------
-biblatex-ieee --- A biblatex implementation of the IEEE 
-  bibliography style
-Maintained by Joseph Wright
-E-mail: joseph.wright@morningstar2.co.uk
-Released under the LaTeX Project Public License v1.3c or later
-See http://www.latex-project.org/lppl.txt
----------------------------------------------------------------
+biblatex-ieee - A biblatex implementation of the IEEE bibliography style
 
 The biblatex-ieee package provides an implementation of the 
 bibliography style of the IEEE for biblatex. This implementation
