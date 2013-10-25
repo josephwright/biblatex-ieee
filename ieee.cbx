@@ -96,35 +96,7 @@
     {}%
   \setcounter{cbx@tempcnta}{0}%
   \global\undef\cbx@lastprefix}
-  
-% More fun, this time with \textcite, which has brackets hard-coded in
-% the original
-\renewbibmacro*{textcite}{%
-  \iffieldequals{namehash}{\cbx@lasthash}
-    {\usebibmacro{cite:comp}}
-    {\usebibmacro{cite:dump}\cbx@tempa
-     \usebibmacro{cite:init}%
-     \ifnameundef{labelname}
-       {\printfield[citetitle]{labeltitle}}
-       {\printnames{labelname}}%
-     \addspace
-     \bibopenbracket
-     \ifnumequal{\value{citecount}}{1}
-       {\usebibmacro{prenote}}
-       {}%
-     \usebibmacro{cite:comp}}%
-  \savefield{namehash}{\cbx@lasthash}%
-  \gdef\cbx@tempa{\multicitedelim}}
-  
-\DeclareCiteCommand{\textcite}
-  {\usebibmacro{cite:init}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{textcite}}
-  {}
-  {%
-    \usebibmacro{postnote}%
-    \bibclosebracket
-  }
+
 
 % More bracket removal required
 \DeclareMultiCiteCommand{\cites}{\cite}{\multicitedelim}
