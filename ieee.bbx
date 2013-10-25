@@ -370,12 +370,12 @@
 
 % Specialised functions for manipulating data, where the biblatex
 % kernel does not provide a suitable function.
-\newcommand*\mkpagegrouped[1]{%
+\newcommand*{\mkpagegrouped}[1]{%
   \mkpagegrouped@aux#1\bibrangedash&%
 }
 
-\newcommand*\mkpagegrouped@aux{}
-\long\def\mkpagegrouped@aux#1\bibrangedash#2&{%
+\newcommand*{\mkpagegrouped@aux}{}
+\def\mkpagegrouped@aux#1\bibrangedash#2&{%
   \mkonepagegrouped{#1}%
   \ifblank{#2}
     {}
@@ -385,7 +385,7 @@
     }%
 }
 
-\newcommand*\mkonepagegrouped[1]{%
+\newcommand*{\mkonepagegrouped}[1]{%
   \ifinteger{#1}
     {%
       \mkpagegrouped@ifmorethanfour{#1}
@@ -395,12 +395,12 @@
      {#1}%
 }
 
-\newcommand*\mkpagegrouped@second{}
+\newcommand*{\mkpagegrouped@second}{}
 \def\mkpagegrouped@second#1\bibrangedash&{%
   \mkpagegrouped@second@auxi#1\bibrangessep&%
 }
 
-\newcommand*\mkpagegrouped@second@auxi{}
+\newcommand*{\mkpagegrouped@second@auxi}{}
 \def\mkpagegrouped@second@auxi#1\bibrangessep#2&{%
    \mkonepagegrouped{#1}%
    \ifblank{#2}
@@ -411,17 +411,17 @@
      }% 
 }
 
-\newcommand*\mkpagegrouped@second@auxii{}
+\newcommand*{\mkpagegrouped@second@auxii}{}
 \def\mkpagegrouped@second@auxii#1\bibrangessep&{%
   \mkpagegrouped{#1}%
 }
 
-\newcommand*\mkpagegrouped@ifmorethanfour[1]{%
+\newcommand*{\mkpagegrouped@ifmorethanfour}[1]{%
   \mkpagegrouped@ifmorethanfour@aux#1\@empty\@empty\@empty\@empty
     \@empty\@nil
 }
 
-\newcommand*\mkpagegrouped@ifmorethanfour@aux{}
+\newcommand*{\mkpagegrouped@ifmorethanfour@aux}{}
 \def\mkpagegrouped@ifmorethanfour@aux#1#2#3#4#5\@nil{%
  \ifx\@empty#5\@empty
    \expandafter\@secondoftwo
@@ -430,7 +430,7 @@
   \fi
 }
 
-\newcommand*\mkpagegrouped@separate[4]{%
+\newcommand*{\mkpagegrouped@separate}[4]{%
   \ifx\@empty#2\@empty
     \mkpagegrouped@print#1\relax
   \else
@@ -446,12 +446,12 @@
   \fi
 }
 
-\newcommand*\bbx@digits@separate@aux{}
+\newcommand*{\bbx@digits@separate@aux}{}
 \def\mkpagegrouped@separate@aux#1\fi\fi\fi{%
   \fi\fi\fi\mkpagegrouped@separate{#1}%
 }
 
-\newcommand*\mkpagegrouped@print[4]{%
+\newcommand*{\mkpagegrouped@print}[4]{%
   \ifblank{#1}{}{#1}%
   #2#3%
   \ifx#4\relax
