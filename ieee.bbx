@@ -27,7 +27,7 @@
 \DeclareFieldFormat{pages}{%
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
-\DeclareFieldFormat{sentencecase}{\MakeSentenceCase{#1}}
+\DeclareFieldFormat{sentencecase}{\bbx@colon@search\MakeSentenceCase{#1}}
 \DeclareFieldFormat[online]{title}{#1\isdot}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
@@ -459,6 +459,17 @@
     \addnbthinspace
     \expandafter\mkpagegrouped@print\expandafter#4%
   \fi
+}
+
+% {<process>} {<text>}
+\newcommand*{\bbx@colon@search}[2]{%
+  \bbx@colon@search@aux#1#2: \stop
+}
+\long\def\bbx@colon@search@aux#1#2: #3\stop{%
+  #1{#2}%
+  \ifblank{#3}
+    {}
+    {\bbx@colon@search@aux#1#3\stop}%
 }
 
 % New bibliography drivers, using the required order of fields. These
