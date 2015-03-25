@@ -464,15 +464,15 @@
 
 % {<process>} {<text>}
 \newcommand*{\bbx@colon@search}[2]{%
-  \bbx@colon@search@aux#1#2: \stop
+  \bbx@colon@search@aux#1\empty#2: \stop
 }
 \long\def\bbx@colon@search@aux#1#2: #3\stop{%
-  #1{#2}%
+  \expandafter#1\expandafter{#2}%
   \ifblank{#3}
     {}
     {%
       : %
-      \bbx@colon@search@aux#1#3\stop
+      \bbx@colon@search@aux#1\empty#3\stop
     }%
 }
 
