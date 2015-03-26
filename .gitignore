@@ -1,34 +1,16 @@
-*.acn
-*.acr
-*.alg
+## Core latex/pdflatex auxiliary files:
 *.aux
 *.bbl
-*.blg
-*.dvi
-*.fdb_latexmk
-*.glg
-*.glo
-*.gls
-*.idx
-*.ilg
-*.ind
-*.ist
-*.lof
+*.bcf
+*.gz
 *.log
-*.lot
-*.maf
-*.mtc
-*.mtc0
-*.nav
-*.nlo
 *.out
-*.pdf
-*.pdfsync
-*.ps
-*.snm
-*.synctex.gz
-*.tdo
 *.toc
-*.vrb
-*.xdy
+*.run.xml
+
+## Intermediate documents:
+*.pdf
+
+## Structures for building release
 *.zip
+build/*
