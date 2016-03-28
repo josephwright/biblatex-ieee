@@ -1,0 +1,43 @@
+\documentclass[conference,compsoc]{IEEEtran}
+\usepackage{url}
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage[final]{microtype}
+\usepackage{csquotes}
+\usepackage{balance}
+\usepackage{hyperref}
+
+\hypersetup{hidelinks}
+
+\addbibresource{biblatex-ieee.bib}
+
+\providecommand*{\pkg}[1]{\textsf{#1}}
+
+\begin{document}
+\title{Demonstration of the \pkg{IEEE} bibliography style for \pkg{biblatex}}
+\author{
+    \IEEEauthorblockN{Joseph Wright}
+    \IEEEauthorblockA{
+        E-mail: \href{mailto:joseph.wright@morningstar2.co.uk}{\texttt{joseph.wright@morningstar2.co.uk}}
+    }
+}
+\maketitle
+\IEEEpeerreviewmaketitle
+
+\begin{abstract}
+This document is a demonstration of the biblatex-ieee style.
+\end{abstract}
+
+\section{Introduction}
+Documentation is available in \pkg{biblatex-ieee.pdf}.
+This document just lists all references contained in \pkg{biblatex-ieee.bib} to check the font size and the correct balancing of the columns on the last page.
+
+\nocite{*}
+
+\printbibliography
+
+% IEEE demands that the columns of the last page are balanced
+% \IEEEtriggeratref{30} doesn't work any more
+% Sometimes, \balance helps instead
+\balance
+
+\end{document}
