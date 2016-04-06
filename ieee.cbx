@@ -33,70 +33,29 @@
    \bibclosebracket
   }
 
-% The second part if more awkward. To add brackets, we cannot use labelnumber
-% as the biblatex kernel does not do a great job on the difference between it
-% and labelnumberwidth! So instead we tackle the issue here, but that means
-% a bit of copy-paste work.
-\renewbibmacro*{cite:comp:comp}{%
-  \ifboolexpr{
-    ( test {\iffieldundef{prefixnumber}} and test {\ifundef\cbx@lastprefix} )
-    or
-    test {\iffieldequals{prefixnumber}{\cbx@lastprefix}}
-  }
-    {\ifnumequal{\thefield{labelnumber}}{\value{cbx@tempcntb}}
-       {\savefield{entrykey}{\cbx@lastkey}%
-	\savefield{labelnumber}{\cbx@lastnumber}%
-	\addtocounter{cbx@tempcnta}{1}}
-       {\ifnumequal{\thefield{labelnumber}}{\value{cbx@tempcntb}-1}
-	  {}
-	  {\usebibmacro{cite:dump}%
-	   \ifnumgreater{\value{cbx@tempcntb}}{-1}
-	     {\bibclosebracket\multicitedelim\bibopenbracket}
-	     {}%
-	   \printtext{\printtext[bibhyperref]{%
-	     \printfield{prefixnumber}%
-	     \printfield{labelnumber}}}}}}
-    {\usebibmacro{cite:comp:end}}%
-  \setcounter{cbx@tempcntb}{\thefield{labelnumber}}%
-  \savefield{prefixnumber}{\cbx@lastprefix}}
-
-\renewbibmacro*{cite:comp:end}{%
-  \usebibmacro{cite:dump}%
-  \ifnumgreater{\value{cbx@tempcntb}}{-1}
+% The second step is to replace \multicitedelim with a version wrapped in
+% the appropriate delimiter.
+\renewcommand*{\do}[1]{%
+  \expandafter\patchcmd\expandafter
+    {\csname abx@macro@\detokenize{#1}\endcsname}%
+    {\multicitedelim}
     {\bibclosebracket\multicitedelim\bibopenbracket}
-    {}%
-  \printtext{\printtext[bibhyperref]{%
-    \printfield{prefixnumber}%
-    \printfield{labelnumber}}}}
-
-\renewbibmacro*{cite:comp:inset}{%
-  \usebibmacro{cite:dump}%
-  \ifnumgreater{\value{cbx@tempcntb}}{-1}
-    {\bibclosebracket\multicitedelim\bibopenbracket}
-    {}%
-  \printtext{\printtext[bibhyperref]{%
-    \printfield{prefixnumber}%
-    \printfield{labelnumber}%
-    \printfield{entrysetcount}}}%
-  \setcounter{cbx@tempcntb}{-1}}
-
-\renewbibmacro*{cite:dump}{%
-  \ifnumgreater{\value{cbx@tempcnta}}{0}
+    {}
     {%
-      \bibclosebracket
-      \ifnumgreater{\value{cbx@tempcnta}}{1}
-       {\bibrangedash}
-       {\multicitedelim}%
-      \bibopenbracket 
-     \bibhyperref[\cbx@lastkey]{%
-       \ifdef\cbx@lastprefix
-         {\printtext[prefixnumber]{\cbx@lastprefix}}
-	 {}%
-       \printtext{\cbx@lastnumber}}}
-    {}%
-  \setcounter{cbx@tempcnta}{0}%
-  \global\undef\cbx@lastprefix}
+      \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
+    }%
+  }
+\docsvlist{cite:comp:comp,cite:comp:end,cite:comp:inset,cite:dump}
 
+% There's also one \bibrangedash to alter.
+\expandafter\patchcmd\expandafter
+  {\csname abx@macro@\detokenize{cite:dump}\endcsname}%
+  {\bibrangedash}
+  {\bibclosebracket\bibrangedash\bibopenbracket}
+  {}
+  {%
+    \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
+  }%
 
 % More bracket removal required
 \DeclareMultiCiteCommand{\cites}{\cite}{\multicitedelim}
