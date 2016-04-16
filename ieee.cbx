@@ -18,44 +18,18 @@
     sorting      = none
 }
 
-% Putting brackets around each citation number is a two-part
-% operation. First, remove them from around the whole citation by
-% redeclaring here.
 \DeclareCiteCommand{\cite}%
-  {\usebibmacro{cite:init}%
-   \bibopenbracket
-   \usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite:comp}}
-  {}
-  {\usebibmacro{cite:dump}%
-   \usebibmacro{postnote}%
-   \bibclosebracket
-  }
-
-% The second step is to replace \multicitedelim with a version wrapped in
-% the appropriate delimiter.
-\renewcommand*{\do}[1]{%
-  \expandafter\patchcmd\expandafter
-    {\csname abx@macro@\detokenize{#1}\endcsname}%
-    {\multicitedelim}
-    {\bibclosebracket\multicitedelim\bibopenbracket}
-    {}
-    {%
-      \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
-    }%
-  }
-\docsvlist{cite:comp:comp,cite:comp:end,cite:comp:inset,cite:dump}
-
-% There's also one \bibrangedash to alter.
-\expandafter\patchcmd\expandafter
-  {\csname abx@macro@\detokenize{cite:dump}\endcsname}%
-  {\bibrangedash}
-  {\bibclosebracket\bibrangedash\bibopenbracket}
-  {}
-  {%
-    \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
-  }%
+    {}%                             % precode
+    {\bibopenbracket%               % loopcode
+     \usebibmacro{prenote}%
+     \usebibmacro{cite:init}%
+     \usebibmacro{citeindex}%
+     \usebibmacro{cite:comp}%
+     \usebibmacro{cite:dump}%
+     \usebibmacro{postnote}%
+     \bibclosebracket}%
+    {\multicitedelim}%              % sepcode
+    {}%                             % postcode
 
 % More bracket removal required
 \DeclareMultiCiteCommand{\cites}{\cite}{\multicitedelim}
