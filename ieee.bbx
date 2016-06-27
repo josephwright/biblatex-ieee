@@ -27,8 +27,8 @@
 \DeclareFieldFormat{pages}{%
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
-\DeclareFieldFormat{titlecase}{\bbx@colon@search{#1}}
-\DeclareFieldFormat{sentencecase}{\bbx@colon@search{#1}}
+\DeclareFieldFormat{titlecase}{\bbx@colon@search\MakeCapital{#1}}
+\DeclareFieldFormat{sentencecase}{\bbx@colon@search\MakeSentenceCase{#1}}
 \DeclareFieldFormat[online]{title}{#1\isdot}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
@@ -463,16 +463,16 @@
 }
 
 % {<process>} {<text>}
-\newcommand*{\bbx@colon@search}[1]{%
-  \bbx@colon@search@aux\empty#1: \stop
+\newcommand*{\bbx@colon@search}[2]{%
+  \bbx@colon@search@aux#1\empty#2: \stop
 }
-\long\def\bbx@colon@search@aux#1: #2\stop{%
-  \expandafter\MakeSentenceCase\expandafter*\expandafter{#1}%
-  \ifblank{#2}
+\long\def\bbx@colon@search@aux#1#2: #3\stop{%
+  \expandafter#1\expandafter{#2}%
+  \ifblank{#3}
     {}
     {%
       : %
-      \bbx@colon@search@aux\empty#2\stop
+      \bbx@colon@search@aux#1\empty#3\stop
     }%
 }
 
