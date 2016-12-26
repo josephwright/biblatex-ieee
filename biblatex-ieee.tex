@@ -27,6 +27,7 @@
   \footnote{This file describes v1.1q last revised 2016/08/31.}}
 \date{Released 2016/08/31}
 
+\providecommand*{\opt}[1]{\texttt{#1}}
 \providecommand*{\pkg}[1]{\textsf{#1}}
 
 \RecordChanges
@@ -55,6 +56,10 @@ The package introduces new bibliography strings:
     than a reference to a book of abstracts.
 \end{description}
 These may be localized in the usual way.
+
+The style adds the \opt{dashed} option to those recognised: as-standard,
+this is activated. The option works in the same way as that from the
+core \pkg{biblatex} style \pkg{author-year}.
 
 The appearance of URLs in the bibliography is set by the mechanism of the
 \textsf{url} package. Thus to print URLs in the current roman font,
@@ -125,6 +130,7 @@ be sent by e-mail to
 \changes{v1.1p}{2016/07/20}{Revert changes in internal code for citation
   handling}
 \changes{v1.1q}{2016/08/31}{Fix stray space after \enquote{\emph{et al.}}}
+\changes{v1.2}{2016/12/26}{New \opt{dashed} option}
 
 \PrintChanges
 
