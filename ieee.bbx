@@ -34,8 +34,8 @@
 \DeclareFieldFormat{pages}{%
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
-\DeclareFieldFormat{titlecase}{\bbx@colon@search\MakeCapital{#1}}
-\DeclareFieldFormat{sentencecase}{\bbx@colon@search\MakeSentenceCase{#1}}
+\DeclareFieldFormat{titlecase}{\bbx@colon@search{\MakeCapital}{#1}}
+\DeclareFieldFormat{sentencecase}{\bbx@colon@search{\MakeSentenceCase*}{#1}}
 \DeclareFieldFormat[online]{title}{#1\isdot}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
@@ -471,17 +471,18 @@
 
 % {<process>} {<text>}
 \newcommand*{\bbx@colon@search}[2]{%
-  \bbx@colon@search@aux#1\empty#2: \stop
+  \bbx@colon@search@auxi\empty#2: \stop{#1}%
 }
-\long\def\bbx@colon@search@aux#1#2: #3\stop{%
-  \expandafter#1\expandafter{#2}%
-  \ifblank{#3}
+\long\def\bbx@colon@search@auxi#1: #2\stop#3{%
+  \expandafter\bbx@colon@search@auxii\expandafter{#1}{#3}%
+  \ifblank{#2}
     {}
     {%
       : %
-      \bbx@colon@search@aux#1\empty#3\stop
+      \bbx@colon@search@aux\empty#2\stop{#3}%
     }%
 }
+\newcommand\bbx@colon@search@auxii[2]{#2{#1}}
 
 % New bibliography drivers, using the required order of fields. These
 % are mainly copied from standard.bbx then modified.
