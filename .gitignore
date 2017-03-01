@@ -1,13 +1,3 @@
-## Core latex/pdflatex auxiliary files:
-*.aux
-*.bbl
-*.bcf
-*.gz
-*.log
-*.out
-*.toc
-*.run.xml
-
 ## Intermediate documents:
 *.pdf
 
