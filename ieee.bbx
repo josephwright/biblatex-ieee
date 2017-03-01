@@ -30,14 +30,19 @@
 \uspunctuation
 
 % Custom field formats 
+\DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
 \DeclareFieldFormat[patent]{number}{\mkonepagegrouped{#1}}
 \DeclareFieldFormat{pages}{%
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
 \DeclareFieldFormat{sentencecase}{\bbx@colon@search{\MakeSentenceCase*}{#1}}
+\DeclareFieldFormat[book,inbook,incollection,inproceedings]{series}
+  {\bibstring{jourser}\addnbspace#1}
 \DeclareFieldFormat[online]{title}{#1\isdot}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+\DeclareFieldFormat{volume}
+  {\bibstring{volume}\addnbspace#1}
 
 % Brackets around labels in the bibliography
 %\DeclareFieldFormat{labelnumberwidth}{\mkbibbrackets{#1}}
@@ -272,19 +277,6 @@
   \printfield{pages}%
 }
 
-\renewbibmacro*{series+number}{%
-  \iffieldundef{series}
-    {}
-    {%
-      \bibstring{jourser}%
-      \addspace
-      \printfield{series}%
-      \setunit*{\addspace}%
-    }%  
-  \printfield{number}%
-  \newunit
-}
-
 \renewbibmacro*{title}{%
   \ifboolexpr{
     test {\iffieldundef{title}}
@@ -320,47 +312,11 @@
     }%
   \printfield{titleaddon}%
 }
-
-\renewbibmacro*{title+issuetitle}{%
-  \usebibmacro{periodical}%
-  \newunit
-  \printfield{series}
-  \newunit
-  \iffieldundef{volume}%
-    {}
-    {%
-      \bibstring{volume}%
-      \addspace
-      \printfield{volume}%
-      \newunit
-    }%
-  \printfield{number}%
-  \newunit
-  \printfield{eid}%
-  \newunit
-  \usebibmacro{issue+date}%
-  \newunit
-  \usebibmacro{issue}%
-  \newunit
-}
   
 \renewbibmacro*{volume+number+eid}{%
-  \iffieldundef{volume}
-    {}
-    {%
-      \bibstring{volume}%
-      \addspace
-      \printfield{volume}%
-      \newunit
-    }%  
-  \iffieldundef{number}
-    {}
-    {%
-      \bibstring{number}%
-      \addspace
-      \printfield{number}%
-      \newunit
-    }% 
+  \printfield{volume}%
+  \newunit
+  \bibstring{number}%
   \newunit
   \printfield{eid}%
 }
