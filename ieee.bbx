@@ -43,6 +43,8 @@
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 \DeclareFieldFormat*{volume}
   {\bibstring{volume}\addnbspace#1}
+\DeclareFieldFormat[article,periodical]{volume}
+  {\bibstring{jourvol}\addnbspace#1}
 
 % Simple modifications to punctuation, etc.
 \renewcommand*\bibnamedash{\textemdash\textemdash}
