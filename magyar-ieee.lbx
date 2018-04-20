@@ -1,0 +1,24 @@
+\ProvidesFile{magyar-ieee.lbx}
+\InheritBibliographyExtras{magyar}
+
+\DeclareBibliographyStrings{inherit={magyar}}
+
+\DeclareBibliographyExtras{
+  \savefieldformat{number}%
+  \savefieldformat{volume}%
+  \savefieldformat{series}%
+  \DeclareFieldFormat[article, periodical]{number}{\mkbibordinal{#1}\addnbspace\bibstring{number}}%
+%  \DeclareFieldFormat{pages}{\mkpageprefix[bookpagination][\mkpagegrouped]{#1}}
+  \DeclareFieldFormat[book,inbook,incollection,inproceedings]{series}{%
+    \ifnumerals{#1}{\mkbibordinal{#1}}{#1}\addnbspace\bibstring{jourser}}%
+  \DeclareFieldFormat*{volume}{%
+    \ifnumerals{#1}{\mkbibordinal{#1}}{#1}\addnbspace\bibstring{volume}}%
+  \DeclareFieldFormat[article,periodical]{volume}{%
+    \ifnumerals{#1}{\mkbibordinal{#1}}{#1}\addnbspace\bibstring{jourvol}}%
+}
+
+\UndeclareBibliographyExtras{%
+  \restorefieldformat{volume}%
+  \restorefieldformat{number}%
+  \restorefieldformat{series}%
+}

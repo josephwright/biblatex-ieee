@@ -18,7 +18,7 @@ typesetsuppfiles = {"*.bib"}
 unpackfiles = { }
 
 -- Install biblatex style files and use these as the sources
-installfiles = {"*.cbx", "*.bbx"}
+installfiles = {"*.cbx", "*.bbx", "*.lbx"}
 sourcefiles  = installfiles
 
 -- Release a TDS-style zip
