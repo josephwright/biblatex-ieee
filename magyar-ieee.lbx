@@ -8,7 +8,6 @@
   \savefieldformat{volume}%
   \savefieldformat{series}%
   \DeclareFieldFormat[article, periodical]{number}{\mkbibordinal{#1}\addnbspace\bibstring{number}}%
-%  \DeclareFieldFormat{pages}{\mkpageprefix[bookpagination][\mkpagegrouped]{#1}}
   \DeclareFieldFormat[book,inbook,incollection,inproceedings]{series}{%
     \ifnumerals{#1}{\mkbibordinal{#1}}{#1}\addnbspace\bibstring{jourser}}%
   \DeclareFieldFormat*{volume}{%
