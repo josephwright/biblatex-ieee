@@ -27,24 +27,27 @@ packtdszip  = true
 -- No tests for this bundle
 testfildir = ""
 
-versionfiles = {"*.bbx", "*.cbx", "*.tex"}
+tagfiles = {"*.bbx", "*.cbx", "*.tex"}
 
-function setversion_update_line (line, date, version)
-  local date = string.gsub(date, "%-", "/")
-  if string.match(line, "Released %d%d%d%d/%d%d/%d%d") or
-     string.match(line, "last revised %d%d%d%d/%d%d/%d%d") then
-    line = string.gsub(line, "%d%d%d%d/%d%d/%d%d", date)
+function update_tag(file,content,tagname,tagdate)
+  local pattern = "%d%d%d%d/%d%d/%d%d"
+  local tagdate = string.gsub(tagdate,"%-","/")
+  if string.match(file,"%.tex") then
+    content = string.gsub(content,
+      "This file describes v?%d%.%d%w?,? last revised " .. pattern, 
+      "This file describes " .. tagname .. ", last revised " .. tagdate)
+    return string.gsub(content,
+      "Released " .. pattern,
+      "Released " .. tagdate)
+  else
+    return string.gsub(content,
+      pattern .. " v?%d%.%d%w? biblatex",
+     tagdate .. " " .. tagname .. " biblatex")
   end
-  if string.match(line, "This file describes v") then
-    line = string.gsub(line, "v%d%.%d%w?", "v" .. version)
-  end
-  if string.match(line, "^\\ProvidesFile") then
-    line = string.gsub(line, "%d%d%d%d/%d%d/%d%d", date)
-    line = string.gsub(line, "v%d%.%d%w?", "v" .. version)
-  end
-  return line
 end
 
 -- Find and run the build system
 kpse.set_program_name ("kpsewhich")
-dofile (kpse.lookup ("l3build.lua"))
+if not release_date then
+  dofile(kpse.lookup("l3build.lua"))
+end
