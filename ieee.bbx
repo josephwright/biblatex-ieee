@@ -1,12 +1,12 @@
 %% ---------------------------------------------------------------
-%% biblatex-ieee --- A biblatex implementation of the IEEE 
+%% biblatex-ieee --- A biblatex implementation of the IEEE
 %%   bibliography style
 %% Maintained by Joseph Wright
 %% E-mail: joseph.wright@morningstar2.co.uk
 %% Released under the LaTeX Project Public License v1.3c or later
 %% See http://www.latex-project.org/lppl.txt
 %% ---------------------------------------------------------------
-%% 
+%%
 
 \ProvidesFile{ieee.bbx}[2018/08/20 v1.3 biblatex bibliography style]
 
@@ -35,7 +35,7 @@
 % added, the above explicit mapping per language can be replaced with:
 % \DeclareLanguageMappingSuffix{-ieee}
 
-% Custom field formats 
+% Custom field formats
 \DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
 \DeclareFieldFormat[patent]{number}{\mkonepagegrouped{#1}}
 \DeclareFieldFormat{pages}{%
@@ -74,7 +74,7 @@
   url         = [Online]\adddot\addspace Available ,
 }
 
-\DefineBibliographyStrings{english}{  
+\DefineBibliographyStrings{english}{
   june      = Jun\adddot ,
   july      = Jul\adddot ,
   september = Sep\adddot ,
@@ -96,7 +96,7 @@
       \iffieldequals{fullhash}{\bbx@lasthash}
         {\bibnamedash\addcomma\space}
         {\printnames{author}}%
-      \usebibmacro{bbx:savehash}%  
+      \usebibmacro{bbx:savehash}%
       \iffieldundef{authortype}
         {}
         {%
@@ -142,8 +142,8 @@
   \setunit{\adddot\addspace}%
   \iftoggle{bbx:eprint}
     {\usebibmacro{eprint}}
-    {}%  
-  \setunit{\adddot\addspace}%  
+    {}%
+  \setunit{\adddot\addspace}%
   \iftoggle{bbx:url}
     {\usebibmacro{url+urldate}}
     {}%
@@ -185,7 +185,7 @@
   \usebibmacro{date}%
   \newunit
 }
-  
+
 \renewbibmacro*{issue+date}{%
   \printtext{%
     \iffieldundef{issue}
@@ -210,7 +210,7 @@
          \printfield[titlecase]{journalsubtitle}%
       }%
     }%
-  \midsentence 
+  \midsentence
 }
 
 \renewbibmacro*{journal+issuetitle}{%
@@ -233,7 +233,7 @@
     {%
       \usebibmacro{maintitle}%
       \newunit\newblock
-    }%  
+    }%
   \usebibmacro{booktitle}%
   \newunit
 }
@@ -255,7 +255,7 @@
       \usebibmacro{maintitle+booktitle}%
       \clearfield{eventtitle}%
       \clearfield{number}%
-    }%  
+    }%
 }
 
 \renewbibmacro*{maintitle+title}{%
@@ -317,7 +317,7 @@
     }%
   \printfield{titleaddon}%
 }
-  
+
 \renewbibmacro*{volume+number+eid}{%
   \printfield{volume}%
   \newunit
@@ -376,7 +376,7 @@
      {%
        \bibrangessep
        \mkpagegrouped@second@auxii#2&%
-     }% 
+     }%
 }
 
 \newcommand*{\mkpagegrouped@second@auxii}{}
@@ -789,20 +789,20 @@
     {}%
   \usebibmacro{finentry}}
 
-%% 
+%%
 %% Copyright (C) 2011-2013,2015-2018 by
 %%   Joseph Wright <joseph.wright@morningstar2.co.uk>
-%% 
+%%
 %% It may be distributed and/or modified under the conditions of
 %% the LaTeX Project Public License (LPPL), either version 1.3c of
 %% this license or (at your option) any later version.  The latest
 %% version of this license is in the file:
-%% 
+%%
 %%    http://www.latex-project.org/lppl.txt
-%% 
+%%
 %% This work is "maintained" (as per LPPL maintenance status) by
 %%   Joseph Wright.
-%% 
+%%
 %% This work consists of the files biblatex-ieee.bib,
 %%                                 biblatex-ieee.tex,
 %%                                 ieee.bbx,
@@ -812,6 +812,6 @@
 %%                                 magyar-ieee.lbx,
 %%           and the derived files biblatex-ieee.pdf and
 %%                                 biblatex-ieee-alphabetic.pdf.
-%% 
+%%
 %%
 %% End of file `ieee.bbx'.
