@@ -44,8 +44,7 @@
 \DeclareFieldFormat{sentencecase}{\bbx@colon@search{\MakeSentenceCase*}{#1}}
 \DeclareFieldFormat[book,inbook,incollection,inproceedings]{series}
   {\bibstring{jourser}\addnbspace#1}
-\DeclareFieldFormat[online]{title}{#1\isdot}
-\DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 \DeclareFieldFormat*{volume}
   {\bibstring{volume}\addnbspace#1}
