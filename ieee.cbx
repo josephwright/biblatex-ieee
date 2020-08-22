@@ -93,7 +93,7 @@
     \printfield{labelnumber}%
     \printfield{entrysetcount}}}
 
-\newbibmacro*{cite:print:last:subentry:comp}{%
+\renewbibmacro*{cite:print:last:subentry:comp}{%
   \printtext[bibhyperref:lastkey]{%
     \ifdef\cbx@lastprefix
       {\printtext[labelprefix]{\cbx@lastprefix}}
