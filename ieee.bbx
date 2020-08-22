@@ -8,7 +8,7 @@
 %% ---------------------------------------------------------------
 %%
 
-\ProvidesFile{ieee.bbx}[2019/06/19 v1.3a biblatex bibliography style]
+\ProvidesFile{ieee.bbx}[2020/02/26 v1.3b biblatex bibliography style]
 
 % Load the standard style to avoid copy-pasting unnecessary material
 \RequireBibliographyStyle{numeric-comp}
@@ -44,8 +44,7 @@
 \DeclareFieldFormat{sentencecase}{\bbx@colon@search{\MakeSentenceCase*}{#1}}
 \DeclareFieldFormat[book,inbook,incollection,inproceedings]{series}
   {\bibstring{jourser}\addnbspace#1}
-\DeclareFieldFormat[online]{title}{#1\isdot}
-\DeclareFieldFormat[report]{title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
 \DeclareFieldFormat*{volume}
   {\bibstring{volume}\addnbspace#1}
@@ -791,7 +790,7 @@
   \usebibmacro{finentry}}
 
 %%
-%% Copyright (C) 2011-2013,2015-2018 by
+%% Copyright (C) 2011-2013,2015-2020 by
 %%   Joseph Wright <joseph.wright@morningstar2.co.uk>
 %%
 %% It may be distributed and/or modified under the conditions of
