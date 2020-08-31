@@ -1,12 +1,12 @@
 %% ---------------------------------------------------------------
-%% biblatex-ieee --- A biblatex implementation of the IEEE 
+%% biblatex-ieee --- A biblatex implementation of the IEEE
 %%   bibliography style
 %% Maintained by Joseph Wright
 %% E-mail: joseph.wright@morningstar2.co.uk
 %% Released under the LaTeX Project Public License v1.3c or later
 %% See http://www.latex-project.org/lppl.txt
 %% ---------------------------------------------------------------
-%% 
+%%
 
 \ProvidesFile{ieee.cbx}[2020/02/26 v1.3b biblatex citation style]
 
@@ -33,7 +33,9 @@
    \bibclosebracket
   }
 
-% The second step is to replace \multicitedelim with a version wrapped in
+
+% The second step is to replace \multicitedelim and
+% \multicitesubentrydelim with a version wrapped in
 % the appropriate delimiter.
 \renewcommand*{\do}[1]{%
   \expandafter\patchcmd\expandafter
@@ -45,35 +47,76 @@
       \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
     }%
   }
-\docsvlist{cite:comp:comp,cite:comp:end,cite:comp:inset,cite:dump}
+\docsvlist{cite:comp:end,cite:comp:inset,cite:comp:shand,cite:dump}
 
-% There's also one \bibrangedash to alter.
+\renewcommand*{\do}[1]{%
+  \expandafter\patchcmd\expandafter
+    {\csname abx@macro@\detokenize{#1}\endcsname}%
+    {\multicitesubentrydelim}
+    {\bibclosebracket\multicitesubentrydelim\bibopenbracket}
+    {}
+    {%
+      \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
+    }%
+  }
+\docsvlist{cite:comp:inset,cite:dump:inset}
+
+
+% There's also one \multiciterangedelim and one
+% \multicitesubentryrangedelimto alter.
 \expandafter\patchcmd\expandafter
   {\csname abx@macro@\detokenize{cite:dump}\endcsname}%
-  {\bibrangedash}
-  {\bibclosebracket\bibrangedash\bibopenbracket}
+  {\multiciterangedelim}
+  {\bibclosebracket\multiciterangedelim\bibopenbracket}
   {}
   {%
     \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
   }%
 
+\expandafter\patchcmd\expandafter
+  {\csname abx@macro@\detokenize{cite:dump:inset}\endcsname}%
+  {\multicitesubentryrangedelim}
+  {\bibclosebracket\multicitesubentryrangedelim\bibopenbracket}
+  {}
+  {%
+    \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
+  }%
+
+
 % More bracket removal required
 \DeclareMultiCiteCommand{\cites}{\cite}{\multicitedelim}
 
-%% 
+% print labelnumber for compressed set entries
+\renewbibmacro*{cite:print:subentry:comp}{%
+  \printtext[bibhyperref]{%
+    \printfield{labelprefix}%
+    \printfield{labelnumber}%
+    \printfield{entrysetcount}}}
+
+\renewbibmacro*{cite:print:last:subentry:comp}{%
+  \printtext[bibhyperref:lastkey]{%
+    \ifdef\cbx@lastprefix
+      {\printtext[labelprefix]{\cbx@lastprefix}}
+      {}%
+    \printtext[labelnumber]{\cbx@lastnumber}%
+    \ifdef\cbx@lastentrysetcount
+      {\printtext[entrysetcount]{\cbx@lastentrysetcount}}
+      {}}}
+
+%%
 %% Copyright (C) 2011-2013,2015-2020 by
 %%   Joseph Wright <joseph.wright@morningstar2.co.uk>
-%% 
+%%
 %% It may be distributed and/or modified under the conditions of
 %% the LaTeX Project Public License (LPPL), either version 1.3c of
 %% this license or (at your option) any later version.  The latest
 %% version of this license is in the file:
-%% 
+%%
 %%    http://www.latex-project.org/lppl.txt
-%% 
+%%
 %% This work is "maintained" (as per LPPL maintenance status) by
 %%   Joseph Wright.
-%% 
+%%
 %% This work consists of the files biblatex-ieee.bib,
 %%                                 biblatex-ieee.tex,
 %%                                 ieee.bbx,
@@ -83,6 +126,6 @@
 %%                                 magyar-ieee.lbx,
 %%           and the derived files biblatex-ieee.pdf and
 %%                                 biblatex-ieee-alphabetic.pdf.
-%% 
+%%
 %%
 %% End of file `ieee.cbx'.
