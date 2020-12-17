@@ -683,8 +683,6 @@
   \usebibmacro{begentry}%
   \usebibmacro{author/editor+others/translator+others}%
   \setunit{\adddot\addspace}%
-  \printtext[parens]{\usebibmacro{date}}%
-  \setunit{\adddot\addspace}%
   \usebibmacro{title}%
   \setunit{\adddot\addspace}%
   \printlist{language}%
@@ -702,6 +700,8 @@
   \iftoggle{bbx:eprint}
     {\usebibmacro{eprint}}
     {}%
+  \setunit{\adddot\addspace}%
+  \printtext[parens]{\usebibmacro{date}}%
   \newunit\newblock
   \usebibmacro{url+urldate}%
   \setunit{\adddot\addspace}%
