@@ -13,6 +13,8 @@
 % Load the standard style to avoid copy-pasting unnecessary material
 \RequireBibliographyStyle{numeric-comp}
 
+\newbibmacro*{bbx:savehash}{\savefield{fullhash}{\bbx@lasthash}}
+
 % An option that carries through from author-year styles
 \DeclareBibliographyOption[boolean]{dashed}[true]{%
   \ifstrequal{#1}{true}
@@ -26,7 +28,8 @@
   minnames = 1,
   maxcitenames = 2,
   maxbibnames  = 6,
-  sorting  = none
+  sorting  = none,
+  dashed = false,
 }
 \uspunctuation
 
@@ -84,7 +87,6 @@
 % Support for dashed author name replacement
 \InitializeBibliographyStyle{\global\undef\bbx@lasthash}
 
-\newbibmacro*{bbx:savehash}{\savefield{fullhash}{\bbx@lasthash}}
 
 % Bibliography macros
 \renewbibmacro*{author}{%
