@@ -33,6 +33,24 @@
    \bibclosebracket
   }
 
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+  {\usebibmacro{cite:init}%
+   \bibopenbracket
+   \let\multicitedelim=\supercitedelim
+   \let\multicitesubentrydelim=\supercitesubentrydelim
+   \let\multiciterangedelim=\superciterangedelim
+   \let\multicitesubentryrangedelim=\supercitesubentryrangedelim
+   \iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}}
+  {}
+  {\usebibmacro{cite:dump}%
+   \bibclosebracket}
 
 % The second step is to replace \multicitedelim and
 % \multicitesubentrydelim with a version wrapped in
