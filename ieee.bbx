@@ -46,7 +46,7 @@
   \mkpageprefix[bookpagination][\mkpagegrouped]{#1}%
 }
 \DeclareFieldFormat{sentencecase}{\bbx@colon@search{\MakeSentenceCase*}{#1}}
-\DeclareFieldFormat[book,inbook,incollection,inproceedings]{series}
+\DeclareFieldFormat[incollection,inproceedings]{series}
   {\bibstring{jourser}\addnbspace#1}
 \DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
@@ -285,6 +285,16 @@
   \printfield{pages}%
 }
 
+\newbibmacro*{series+number(book)}{%
+  \iffieldundef{series}{}
+    {%
+      \setunit{\addspace}%
+      \printtext[parens]{%
+        \printfield{series}%
+        \setunit*{\addspace}%
+        \printfield{number}%
+        \newunit}}}
+
 \renewbibmacro*{title}{%
   \ifboolexpr{
     test {\iffieldundef{title}}
@@ -496,7 +506,7 @@
   \usebibmacro{author/editor+others/translator+others}%
   \setunit{\labelnamepunct}\newblock
   \usebibmacro{maintitle+title}%
-  \newunit
+  \usebibmacro{series+number(book)}%
   \printlist{language}%
   \newunit\newblock
   \printfield{edition}%
@@ -507,7 +517,6 @@
   \newunit\newblock
   \printfield{volumes}%
   \newunit\newblock
-  \usebibmacro{series+number}%
   \setunit{\adddot\addspace}%
   \newblock
   \usebibmacro{publisher+location+date}%
@@ -550,7 +559,7 @@
   \usebibmacro{in:}%
   \usebibmacro{bybookauthor}%
   \usebibmacro{maintitle+booktitle}%
-  \newunit\newblock
+  \usebibmacro{series+number(book)}%
   \usebibmacro{byeditor+others}%
   \newunit\newblock
   \printfield{edition}%
