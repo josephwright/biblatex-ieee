@@ -61,6 +61,19 @@ The style adds the \opt{dashed} option to those recognised: as-standard,
 this is activated. The option works in the same way as that from the
 core \pkg{biblatex} style \pkg{author-year}.
 
+As-standard, citations are compressed. If you do no wish to have compressed
+citations, add
+\begin{verbatim}
+\DeclareCiteCommand{\cite}
+  {\bibopenbracket\usebibmacro{prenote}}
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}\bibclosebracket}
+\renewcommand*\multicitedelim{\bibclosebracket\addcomma \space\bibopenbracket}
+\end{verbatim}
+after loading \pkg{biblatex}.
+
 The appearance of URLs in the bibliography is set by the mechanism of the
 \textsf{url} package. Thus to print URLs in the current roman font,
 place the instruction
