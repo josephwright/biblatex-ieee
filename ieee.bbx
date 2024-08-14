@@ -30,6 +30,7 @@
   maxbibnames  = 6,
   sorting  = none,
   dashed = false,
+  urldate = long,
 }
 \uspunctuation
 
@@ -50,6 +51,7 @@
   {\bibstring{jourser}\addnbspace#1}
 \DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+\DeclareFieldFormat{urldate}{\bibstring{urlseen}\space#1}
 \DeclareFieldFormat*{volume}
   {\bibstring{volume}\addnbspace#1}
 \DeclareFieldFormat[article,periodical]{volume}
@@ -76,6 +78,7 @@
   presentedat = presented at the\addspace          ,
   techreport  = Tech\adddot\addspace Rep\adddot    ,
   url         = [Online]\adddot\addspace Available ,
+  urlseen     = Accessed\addcolon
 }
 
 \DefineBibliographyStrings{english}{
@@ -331,6 +334,17 @@
     }%
   \printfield{titleaddon}%
 }
+
+\renewbibmacro*{url+urldate}{%
+  \usebibmacro{urldate}%
+  \setunit{\adddot\space}%
+  \usebibmacro{url}%
+}
+
+\renewbibmacro*{urldate}{%
+    \printurldate
+    \newunit
+  }
 
 \renewbibmacro*{volume+number+eid}{%
   \printfield{volume}%
@@ -714,7 +728,6 @@
     {\usebibmacro{eprint}}
     {}%
   \setunit{\adddot\addspace}%
-  \printtext[parens]{\usebibmacro{date}}%
   \newunit\newblock
   \usebibmacro{url+urldate}%
   \setunit{\adddot\addspace}%
