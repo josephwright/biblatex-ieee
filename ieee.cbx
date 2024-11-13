@@ -10,7 +10,7 @@
 
 \ProvidesFile{ieee.cbx}[2024-08-14 v1.3g biblatex citation style]
 
-\RequireCitationStyle{numeric-comp}
+\RequireCitationStyle{numeric}
 
 \ExecuteBibliographyOptions{
     maxcitenames = 2,
@@ -18,108 +18,21 @@
     sorting      = none
 }
 
-% Putting brackets around each citation number is a two-part
-% operation. First, remove them from around the whole citation by
-% redeclaring here.
-\DeclareCiteCommand{\cite}%
-  {\usebibmacro{cite:init}%
-   \bibopenbracket
-   \usebibmacro{prenote}}
+\DeclareCiteCommand{\cite}%[\mkbibbrackets]
+  {\usebibmacro{prenote}}
   {\usebibmacro{citeindex}%
-   \usebibmacro{cite:comp}}
-  {}
-  {\usebibmacro{cite:dump}%
-   \usebibmacro{postnote}%
-   \bibclosebracket
-  }
+   \usebibmacro{cite}}
+  {\multicitedelim}
+  {\usebibmacro{postnote}}
 
-\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
-  {\usebibmacro{cite:init}%
-   \bibopenbracket
-   \let\multicitedelim=\supercitedelim
-   \let\multicitesubentrydelim=\supercitesubentrydelim
-   \let\multiciterangedelim=\superciterangedelim
-   \let\multicitesubentryrangedelim=\supercitesubentryrangedelim
-   \iffieldundef{prenote}
-     {}
-     {\BibliographyWarning{Ignoring prenote argument}}%
-   \iffieldundef{postnote}
-     {}
-     {\BibliographyWarning{Ignoring postnote argument}}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite:comp}}
-  {}
-  {\usebibmacro{cite:dump}%
-   \bibclosebracket}
-
-% The second step is to replace \multicitedelim and
-% \multicitesubentrydelim with a version wrapped in
-% the appropriate delimiter.
-\renewcommand*{\do}[1]{%
-  \expandafter\patchcmd\expandafter
-    {\csname abx@macro@\detokenize{#1}\endcsname}%
-    {\multicitedelim}
-    {\bibclosebracket\multicitedelim\bibopenbracket}
-    {}
-    {%
-      \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
-    }%
-  }
-\docsvlist{cite:comp:end,cite:comp:inset,cite:comp:shand,cite:dump}
-
-\renewcommand*{\do}[1]{%
-  \expandafter\patchcmd\expandafter
-    {\csname abx@macro@\detokenize{#1}\endcsname}%
-    {\multicitesubentrydelim}
-    {\bibclosebracket\multicitesubentrydelim\bibopenbracket}
-    {}
-    {%
-      \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
-    }%
-  }
-\docsvlist{cite:comp:inset,cite:dump:inset}
-
-
-% There's also one \multiciterangedelim and one
-% \multicitesubentryrangedelimto alter.
-\expandafter\patchcmd\expandafter
-  {\csname abx@macro@\detokenize{cite:dump}\endcsname}%
-  {\multiciterangedelim}
-  {\bibclosebracket\multiciterangedelim\bibopenbracket}
-  {}
-  {%
-    \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
-  }%
-
-\expandafter\patchcmd\expandafter
-  {\csname abx@macro@\detokenize{cite:dump:inset}\endcsname}%
-  {\multicitesubentryrangedelim}
-  {\bibclosebracket\multicitesubentryrangedelim\bibopenbracket}
-  {}
-  {%
-    \PackageError{biblatex-ieee}{Failed to update citation style}\@ehc
-  }%
-
-
-% More bracket removal required
-\DeclareMultiCiteCommand{\cites}{\cite}{\multicitedelim}
-
-% print labelnumber for compressed set entries
-\renewbibmacro*{cite:print:subentry:comp}{%
-  \printtext[bibhyperref]{%
-    \printfield{labelprefix}%
-    \printfield{labelnumber}%
-    \printfield{entrysetcount}}}
-
-\renewbibmacro*{cite:print:last:subentry:comp}{%
-  \printtext[bibhyperref:lastkey]{%
-    \ifdef\cbx@lastprefix
-      {\printtext[labelprefix]{\cbx@lastprefix}}
-      {}%
-    \printtext[labelnumber]{\cbx@lastnumber}%
-    \ifdef\cbx@lastentrysetcount
-      {\printtext[entrysetcount]{\cbx@lastentrysetcount}}
-      {}}}
+\newbibmacro*{cite}{%
+  \mkbibbrackets{%
+    \printtext[bibhyperref]{%
+      \printfield{labelprefix}%
+      \printfield{labelnumber}%
+      \ifbool{bbx:subentry}
+        {\printfield{entrysetcount}}
+        {}}}}
 
 %%
 %% Copyright (C) 2011-2013,2015-2021,2024 by
