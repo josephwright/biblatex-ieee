@@ -30,8 +30,7 @@ testfildir = ""
 tagfiles = {"*.bbx", "*.cbx", "*.tex"}
 
 function update_tag(file,content,tagname,tagdate)
-  local pattern = "%d%d%d%d/%d%d/%d%d"
-  local tagdate = string.gsub(tagdate,"%-","/")
+  local pattern = "%d%d%d%d%-%d%d%-%d%d"
   if string.match(file,"%.tex") then
     content = string.gsub(content,
       "This file describes v?%d%.%d%w?,? last revised " .. pattern, 
