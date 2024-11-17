@@ -34,6 +34,21 @@
         {\printfield{entrysetcount}}
         {}}}}
 
+\renewbibmacro*{textcite}{%
+  \iffieldequals{namehash}{\cbx@lasthash}
+    {\setunit{\multicitedelim}}
+    {\ifnameundef{labelname}
+       {\printfield[citetitle]{labeltitle}}
+       {\printnames{labelname}}%
+     \stepcounter{textcitecount}%
+     \savefield{namehash}{\cbx@lasthash}}%
+  \ifnumequal{\value{citecount}}{1}
+    {\usebibmacro{prenote}}
+    {}%
+  \printtext{\printdelim{namelabeldelim}}%
+  \usebibmacro{cite}%
+  \setunit{\textcitedelim}}
+
 %%
 %% Copyright (C) 2011-2013,2015-2021,2024 by
 %%   Joseph Wright <joseph@texdev.net>
