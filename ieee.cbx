@@ -10,44 +10,13 @@
 
 \ProvidesFile{ieee.cbx}[2024-11-17 v1.4a biblatex citation style]
 
-\RequireCitationStyle{numeric}
+\RequireCitationStyle{numeric-verb}
 
 \ExecuteBibliographyOptions{
     maxcitenames = 2,
     minnames     = 1,
     sorting      = none
 }
-
-\DeclareCiteCommand{\cite}%[\mkbibbrackets]
-  {\usebibmacro{prenote}}
-  {\usebibmacro{citeindex}%
-   \usebibmacro{cite}}
-  {\multicitedelim}
-  {\usebibmacro{postnote}}
-
-\renewbibmacro*{cite}{%
-  \mkbibbrackets{%
-    \printtext[bibhyperref]{%
-      \printfield{labelprefix}%
-      \printfield{labelnumber}%
-      \ifbool{bbx:subentry}
-        {\printfield{entrysetcount}}
-        {}}}}
-
-\renewbibmacro*{textcite}{%
-  \iffieldequals{namehash}{\cbx@lasthash}
-    {\setunit{\multicitedelim}}
-    {\ifnameundef{labelname}
-       {\printfield[citetitle]{labeltitle}}
-       {\printnames{labelname}}%
-     \stepcounter{textcitecount}%
-     \savefield{namehash}{\cbx@lasthash}}%
-  \ifnumequal{\value{citecount}}{1}
-    {\usebibmacro{prenote}}
-    {}%
-  \printtext{\printdelim{namelabeldelim}}%
-  \usebibmacro{cite}%
-  \setunit{\textcitedelim}}
 
 %%
 %% Copyright (C) 2011-2013,2015-2021,2024 by
