@@ -56,6 +56,7 @@
   {\bibstring{volume}\addnbspace#1}
 \DeclareFieldFormat[article,periodical]{volume}
   {\bibstring{jourvol}\addnbspace#1}
+\DeclareFieldFormat[article]{eid}{\bibstring{artno}\addnbspace#1}
 
 % Simple modifications to punctuation, etc.
 \renewcommand*\bibnamedash{\textemdash\textemdash}
@@ -63,10 +64,12 @@
 \renewcommand*\newunitpunct{\addcomma\addspace}
 
 % Bibliography strings
+\NewBibliographyString{artno}
 \NewBibliographyString{patentjp}
 \NewBibliographyString{presentedat}
 
 \DefineBibliographyStrings{english}{
+  artno       = Art\adddot\addspace no\adddot      ,
   chapter     = ch\adddot                          ,
   editor      = Ed\adddot                          ,
   editors     = Eds\adddot                         ,
@@ -229,7 +232,7 @@
       \printfield{series}%
       \newunit
     }%
-  \usebibmacro{volume+number+eid}%
+  \usebibmacro{volume+number}%
   \setunit{\addspace}%
 }
 
@@ -286,6 +289,10 @@
 \newbibmacro*{pages}{%
   \setunit{\bibpagespunct}%
   \printfield{pages}%
+}
+
+\newbibmacro*{eid}{%
+  \printfield{eid}
 }
 
 \newbibmacro*{series+number(book)}{%
@@ -345,12 +352,10 @@
     \newunit
   }
 
-\renewbibmacro*{volume+number+eid}{%
+\renewbibmacro*{volume+number}{%
   \printfield{volume}%
   \newunit
   \printfield{number}%
-  \newunit
-  \printfield{eid}%
 }
 
 \newbibmacro*{volume+part}{%
@@ -495,6 +500,8 @@
   \usebibmacro{pages}%
   \newunit
   \usebibmacro{issue+date}%
+  \newunit
+  \usebibmacro{eid}
   \newunit
   \printfield{note}%
   \newunit\newblock
