@@ -238,13 +238,17 @@
 
 \renewbibmacro*{maintitle+booktitle}{%
   \iffieldundef{maintitle}
-    {}
+    {%
+      \usebibmacro{booktitle}%
+      \newunit
+    }%
     {%
       \usebibmacro{maintitle}%
-      \newunit\newblock
+      \newunit\newblock\midsentence
+      \usebibmacro{in:}%
+      \printfield[titlecase]{booktitle}
+      \newunit
     }%
-  \usebibmacro{booktitle}%
-  \newunit
 }
 
 \newbibmacro*{maintitle+booktitle(inproceedings)}{%
