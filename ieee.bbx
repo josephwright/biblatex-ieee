@@ -347,8 +347,12 @@
 
 \renewbibmacro*{url+urldate}{%
   \usebibmacro{urldate}%
-  \setunit{\adddot\space}%
-  \usebibmacro{url}%
+  \iffieldundef{url}
+      {}
+      {\setunit{\adddot\space}%
+       \usebibmacro{url}\nopunct}%
+  %\setunit{\adddot\space}%
+  %\usebibmacro{url}\nopunct%
 }
 
 \renewbibmacro*{urldate}{%
