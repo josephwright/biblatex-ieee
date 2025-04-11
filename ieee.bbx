@@ -210,17 +210,26 @@
 }
 
 \renewbibmacro*{journal}{%
-  \iffieldundef{journaltitle}
-    {}
+  \iffieldundef{shortjournal}
+    {%
+      \iffieldundef{journaltitle}
+        {}
+        {%
+          \printtext[journaltitle]{%
+          \printfield[titlecase]{journaltitle}%
+          \setunit{\subtitlepunct}%
+          \printfield[titlecase]{journalsubtitle}%
+          }%
+        }%
+    }
     {%
       \printtext[journaltitle]{%
-         \printfield[titlecase]{journaltitle}%
-         \setunit{\subtitlepunct}%
-         \printfield[titlecase]{journalsubtitle}%
+      \printfield[titlecase]{shortjournal}%
       }%
     }%
   \midsentence
 }
+
 
 \renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
