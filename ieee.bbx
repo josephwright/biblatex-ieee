@@ -50,7 +50,7 @@
 \DeclareFieldFormat[incollection,inproceedings]{series}
   {\bibstring{jourser}\addnbspace#1}
 \DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
-\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}\nopunct}
 \DeclareFieldFormat{urldate}{\bibstring{urlseen}\space#1}
 \DeclareFieldFormat*{volume}
   {\bibstring{volume}\addnbspace#1}
@@ -347,12 +347,8 @@
 
 \renewbibmacro*{url+urldate}{%
   \usebibmacro{urldate}%
-  \iffieldundef{url}
-      {}
-      {\setunit{\adddot\space}%
-       \usebibmacro{url}\nopunct}%
-  %\setunit{\adddot\space}%
-  %\usebibmacro{url}\nopunct%
+  \setunit{\adddot\space}%
+  \usebibmacro{url}%
 }
 
 \renewbibmacro*{urldate}{%
