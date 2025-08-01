@@ -41,6 +41,12 @@
 % \DeclareLanguageMappingSuffix{-ieee}
 
 % Custom field formats
+\DeclareFieldFormat{doi}{%
+  \mkbibacro{DOI}\addcolon\space
+  \ifhyperref
+    {\href{https://doi.org/#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}%
+  \nopunct}
 \DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
 \DeclareFieldFormat[patent]{number}{\mkonepagegrouped{#1}}
 \DeclareFieldFormat{pages}{%
@@ -50,7 +56,7 @@
 \DeclareFieldFormat[incollection,inproceedings]{series}
   {\bibstring{jourser}\addnbspace#1}
 \DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
-\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}}
+\DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}\nopunct}
 \DeclareFieldFormat{urldate}{\bibstring{urlseen}\space#1}
 \DeclareFieldFormat*{volume}
   {\bibstring{volume}\addnbspace#1}
