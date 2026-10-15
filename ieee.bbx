@@ -55,7 +55,12 @@
 \DeclareFieldFormat{sentencecase}{\bbx@colon@search{\MakeSentenceCase*}{#1}}
 \DeclareFieldFormat[incollection,inproceedings]{series}
   {\bibstring{jourser}\addnbspace#1}
-\DeclareFieldFormat[online,report]{title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat[misc,online,report]{title}{\mkbibquote{#1\isdot}}
+\DeclareFieldFormat[periodical]{title}{\mkbibemph{#1\isdot}}
+\DeclareFieldFormat{howpublished}{#1\isdot}
+\DeclareFieldFormat{booktitle}{\mkbibemph{#1\isdot}}
+\DeclareFieldFormat{eventtitle}{#1\isdot}
+\DeclareFieldFormat[manual]{sentencecase}{#1}
 \DeclareFieldFormat{url}{\bibstring{url}\addcolon\space\url{#1}\nopunct}
 \DeclareFieldFormat{urldate}{\bibstring{urlseen}\space#1}
 \DeclareFieldFormat*{volume}
@@ -73,6 +78,7 @@
 \NewBibliographyString{artno}
 \NewBibliographyString{patentjp}
 \NewBibliographyString{presentedat}
+\NewBibliographyString{standard}
 
 \DefineBibliographyStrings{english}{
   artno       = Art\adddot\addspace no\adddot      ,
@@ -84,6 +90,7 @@
   patentus    = U\adddot S\adddot\addspace Patent  ,
   phdthesis   = Ph\adddot D\adddot\addspace dissertation,
   presentedat = presented at the\addspace          ,
+  standard    = Std\adddot                         ,
   techreport  = Tech\adddot\addspace Rep\adddot    ,
   url         = [Online]\adddot\addspace Available ,
   urlseen     = Accessed\addcolon
@@ -362,7 +369,7 @@
 
 \renewbibmacro*{url+urldate}{%
   \usebibmacro{urldate}%
-  \setunit{\adddot\space}%
+  \setunit{\adddot\addspace}%
   \usebibmacro{url}%
 }
 
@@ -385,6 +392,46 @@
       \printfield{part}%
       \setunit{\addcolon\space}%
     }%
+}
+
+% IEEEtran: the city/publisher block of a book chapter starts a new
+% sentence ("..., D. Derickson, Ed. Englewood Cliffs, NJ: Prentice-Hall")
+\newbibmacro*{publisher+location+date(incollection)}{%
+  \ifboolexpr{
+    test {\iflistundef{location}}
+    and
+    test {\iflistundef{publisher}}
+  }
+    {\newunit}
+    {\setunit{\adddot\addspace}}%
+  \newblock
+  \usebibmacro{publisher+location+date}%
+}
+
+% "IEEE Std. 802.11", "NCITS Working Draft Proposed Standard 5.2"
+\newbibmacro*{organization+type+number(standard)}{%
+  \iflistundef{organization}
+    {\printlist{institution}}
+    {\printlist{organization}}%
+  \setunit*{\addspace}%
+  \iffieldundef{type}
+    {%
+      \iffieldundef{number}
+        {}
+        {\printtext{\bibcpstring{standard}}}%
+    }
+    {\printfield{type}}%
+  \setunit*{\addspace}%
+  \printfield{number}%
+}
+
+\newbibmacro*{organization+location+date(misc)}{%
+  \printlist{organization}%
+  \newunit
+  \printlist{location}%
+  \newunit
+  \usebibmacro{date}%
+  \newunit
 }
 
 % Specialised functions for manipulating data, where the biblatex
@@ -596,7 +643,15 @@
   \newunit\newblock
   \usebibmacro{byauthor}%
   \newunit\newblock
-  \usebibmacro{in:}%
+  \ifboolexpr{
+    test {\iffieldundef{booktitle}}
+    and
+    test {\iffieldundef{maintitle}}
+    and
+    test {\ifnameundef{bookauthor}}
+  }
+    {}
+    {\usebibmacro{in:}}%
   \usebibmacro{bybookauthor}%
   \usebibmacro{maintitle+booktitle}%
   \usebibmacro{series+number(book)}%
@@ -606,7 +661,6 @@
   \newunit
   \printfield{volumes}%
   \newunit\newblock
-  \usebibmacro{series+number}%
   \setunit{\adddot\addspace}%
   \newblock
   \usebibmacro{publisher+location+date}%
@@ -661,8 +715,7 @@
   \printfield{volumes}%
   \newunit\newblock
   \printfield{note}%
-  \newunit\newblock
-  \usebibmacro{publisher+location+date}%
+  \usebibmacro{publisher+location+date(incollection)}%
   \newunit\newblock
   \usebibmacro{chapter+pages}%
   \newunit\newblock
@@ -777,7 +830,9 @@
   \newunit\newblock
   \usebibmacro{byauthor}%
   \newunit\newblock
-  \printfield{type}%
+  \iffieldundef{type}
+    {\printtext{\bibcplstring{patent}}}
+    {\printfield{type}}%
   \setunit*{\addspace}%
   \printfield{number}%
   \newunit\newblock
@@ -827,6 +882,112 @@
   \iftoggle{bbx:isbn}
     {\printfield{isrn}}
     {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{misc}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{howpublished}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit
+  \printfield{version}%
+  \newunit\newblock
+  \usebibmacro{organization+location+date(misc)}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{periodical}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{editor}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{periodical}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byeditor}%
+  \newunit\newblock
+  \printfield{series}%
+  \newunit\newblock
+  \usebibmacro{volume+number}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \usebibmacro{issue+date}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \newunit\newblock
+  \iftoggle{bbx:related}
+    {\usebibmacro{related:init}%
+     \usebibmacro{related}}
+    {}%
+  \usebibmacro{finentry}}
+
+\DeclareBibliographyDriver{standard}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{maintitle+title}%
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{edition}%
+  \newunit\newblock
+  \usebibmacro{organization+type+number(standard)}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  \usebibmacro{date}%
+  \newunit\newblock
+  \printfield{note}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
   \newunit\newblock
