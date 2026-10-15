@@ -90,7 +90,7 @@
   patentus    = U\adddot S\adddot\addspace Patent  ,
   phdthesis   = Ph\adddot D\adddot\addspace dissertation,
   presentedat = presented at the\addspace          ,
-  standard    = Std\adddot                         ,
+  standard    = Standard                          ,
   techreport  = Tech\adddot\addspace Rep\adddot    ,
   url         = [Online]\adddot\addspace Available ,
   urlseen     = Accessed\addcolon
@@ -396,6 +396,12 @@
 
 % IEEEtran: the city/publisher block of a book chapter starts a new
 % sentence ("..., D. Derickson, Ed. Englewood Cliffs, NJ: Prentice-Hall")
+% IEEE Reference Guide (2025): "J. S. Brake, Ed., New York, NY, USA: Wiley"
+% but "Robot Vision. Cambridge, MA, USA: MIT Press" and
+% "J. Peters, Ed., 2nd ed. New York, NY, USA: McGraw-Hill": a comma after
+% the editor, a period after anything else (title, series, edition, volume).
+% byeditor+others clears the editor list, so remember it beforehand.
+\newtoggle{bbx:incollection:editor}
 \newbibmacro*{publisher+location+date(incollection)}{%
   \ifboolexpr{
     test {\iflistundef{location}}
@@ -403,12 +409,25 @@
     test {\iflistundef{publisher}}
   }
     {\newunit}
-    {\setunit{\adddot\addspace}}%
+    {%
+      \ifboolexpr{
+        togl {bbx:incollection:editor}
+        and test {\iffieldundef{edition}}
+        and (
+          not test {\iffieldundef{maintitle}}
+          or ( test {\iffieldundef{volume}} and test {\iffieldundef{part}} )
+        )
+        and test {\iffieldundef{volumes}}
+        and test {\iffieldundef{note}}
+      }
+        {\newunit}
+        {\setunit{\adddot\addspace}}%
+    }%
   \newblock
   \usebibmacro{publisher+location+date}%
 }
 
-% "IEEE Std. 802.11", "NCITS Working Draft Proposed Standard 5.2"
+% "IEEE Standard 802.11" (IEEE Reference Guide), "NCITS Working Draft Proposed Standard 5.2"
 \newbibmacro*{organization+type+number(standard)}{%
   \iflistundef{organization}
     {\printlist{institution}}
@@ -703,6 +722,9 @@
   \newunit\newblock
   \usebibmacro{series+number}%
   \newunit\newblock
+  \ifnameundef{editor}
+    {\togglefalse{bbx:incollection:editor}}
+    {\toggletrue{bbx:incollection:editor}}%
   \usebibmacro{byeditor+others}%
   \newunit\newblock
   \printfield{edition}%
