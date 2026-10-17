@@ -42,11 +42,10 @@
 
 % Custom field formats
 \DeclareFieldFormat{doi}{%
-  \mkbibacro{DOI}\addcolon\space
+  doi\addcolon\space
   \ifhyperref
     {\href{https://doi.org/#1}{\nolinkurl{#1}}}
-    {\nolinkurl{#1}}%
-  \nopunct}
+    {\nolinkurl{#1}}}
 \DeclareFieldFormat[article]{number}{\bibstring{number}\addnbspace#1}
 \DeclareFieldFormat[patent]{number}{\mkonepagegrouped{#1}}
 \DeclareFieldFormat{pages}{%
@@ -156,7 +155,7 @@
 }
 
 \renewbibmacro*{doi+eprint+url}{%
-  \setunit{\adddot\addspace}%
+  \setunit{\addcomma\space}%
   \iftoggle{bbx:doi}
     {\printfield{doi}}
     {}%
