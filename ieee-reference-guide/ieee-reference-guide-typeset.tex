@@ -1,0 +1,2257 @@
+% The IEEE Reference Guide, V 3.28.2025, typeset with LaTeX: its text, with every example
+% printed by biblatex-ieee from ieee-reference-guide.bib. Compare its PDF with the original.
+\documentclass[10pt]{article}
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage{fontspec}
+\setmainfont{texgyretermes}[Extension=.otf, UprightFont=*-regular, BoldFont=*-bold,
+  ItalicFont=*-italic, BoldItalicFont=*-bolditalic]
+\usepackage{microtype}
+\usepackage[english]{selnolig}
+\usepackage{csquotes}
+\usepackage[style=ieee,backend=biber]{biblatex}
+\usepackage{xurl}
+\urlstyle{same}
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{0563C1}
+\AtBeginDocument{\renewcommand*{\UrlFont}{\color{linkblue}}}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{enumitem}
+\usepackage{multicol}
+\usepackage[hidelinks]{hyperref}
+\addbibresource{ieee-reference-guide.bib}
+
+% Like \fullcite, but ends the entry as the bibliography does (final period)
+\makeatletter
+\DeclareCiteCommand{\bibentry}
+  {\defcounter{maxnames}{\blx@maxbibnames}}
+  {\usedriver{\DeclareNameAlias{sortname}{default}}{\thefield{entrytype}}%
+   \finentry}
+  {}
+  {}
+
+% Page number at the top right, as in the guide
+\def\ps@guide{\def\@oddhead{\hfil\footnotesize\thepage}\let\@evenhead\@oddhead
+  \def\@oddfoot{}\let\@evenfoot\@oddfoot}
+\pagestyle{guide}
+\makeatother
+
+% Headings as in the guide: "I. Citing References", "A. Blogs", "Blog"
+\definecolor{ieeeblue}{HTML}{0070C0}
+\definecolor{titleblue}{HTML}{4A86E8}
+\definecolor{headgray}{HTML}{333333}
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\thesubsection}{\Alph{subsection}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{3}
+\titleformat{\section}{\centering\fontsize{14}{17}\bfseries\scshape\color{ieeeblue}}{\thesection.}{0.3em}{}
+\newcommand*{\subsectionlabel}{\thesubsection.}
+\titleformat{\subsection}{\fontsize{14}{17}\selectfont}{\subsectionlabel}{0.3em}{}
+\titleformat{\subsubsection}{\fontsize{12}{15}\bfseries\color{headgray}}{}{0pt}{}
+\titlespacing*{\section}{0pt}{3ex}{2ex}
+\titlespacing*{\subsection}{0pt}{5ex}{2pt}
+\titlespacing*{\subsubsection}{0pt}{2.5ex}{-3pt}
+% Table of contents as in the guide: no leaders, indented levels
+\titlecontents{section}[0pt]{\addvspace{0pt}\bfseries}{\thecontentslabel.\ }{}{\hfill\contentspage}
+\titlecontents{subsection}[18pt]{}{\thecontentslabel.\ }{}{\hfill\contentspage}
+\titlecontents{subsubsection}[36pt]{}{}{}{\hfill\contentspage}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\newcommand*{\guideindent}{\hspace*{14pt}}
+
+\newcommand*{\guidelabel}[1]{\par\vspace{-4pt}\hspace*{22pt}\textit{#1}\par\vspace{-\parskip}}
+\newlist{guideitems}{itemize}{1}
+\setlist[guideitems]{label={\raisebox{-0.15ex}{\Large\textbullet}}, leftmargin=22pt, labelindent=10pt, labelwidth=!, labelsep=*, align=left, itemsep=1pt, parsep=0pt, topsep=1pt}
+\newlist{guidenumbers}{enumerate}{1}
+\setlist[guidenumbers]{label=\arabic*), leftmargin=22pt, labelindent=8pt, labelwidth=!, labelsep=*, align=left, itemsep=1pt, parsep=0pt, topsep=1pt}
+% An example outside of a list
+\newcommand*{\guideexample}[1]{\par{\leftskip=22pt \bibentry{#1}\par}}
+
+% Section IV: words, publishers, and periodicals
+\newcommand*{\abbr}[2]{\noindent\makebox[0.6\columnwidth][l]{#1}#2\par}
+\newcommand*{\abbrletter}[1]{\par\smallskip\noindent\colorbox{black!7}{\makebox[\dimexpr\columnwidth-2\fboxsep][l]{\textbf{\underline{#1}}}}\par}
+\newcommand*{\pub}[1]{\noindent #1\par}
+\let\publetter\abbrletter
+\newcommand*{\per}[1]{\noindent #1\par}
+\newcommand*{\perletter}[1]{\par\smallskip\centerline{\textbf{#1}}\par}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+{\fontsize{25}{30}\bfseries\color{titleblue}REFERENCE GUIDE\par}
+\vfill
+\raggedright
+{\fontsize{13}{15}\bfseries IEEE Publication Operations\\445 Hoes Lane\\Piscataway, NJ 08854 USA\par}
+V 3.28.2025\hfill\textbf{\fontsize{13}{15}\selectfont\copyright{} 2025 IEEE}
+\vspace*{10\baselineskip}
+\end{titlepage}
+\setcounter{page}{2}
+
+{\centering\fontsize{18}{22}\bfseries Table of Contents\par}
+\renewcommand{\contentsname}{}
+\vspace*{-4ex}
+{\setlength{\parskip}{0pt}\tableofcontents}
+\clearpage
+
+\renewcommand*{\subsectionlabel}{\hspace*{18pt}\textbf{\thesubsection.}}
+\section{Citing References}
+
+\subsection{References in Text}
+
+\guideindent References need not be cited in the text. When they are, they appear on the line, in square brackets, inside the punctuation. Grammatically, they may be treated as if they were nouns or footnote numbers, e.g.:
+
+{\leftskip=14pt According to [1]; as demonstrated in [2]; as shown by Brown [4], [5]; as mentioned earlier [2], [4], [5], [6], [7], [9]; Smith [4] and Brown and Jones [5]; Wood et al. [7]\par}
+
+Reference ranges in text will not include an en dash. All references will be written out. For example, “[1]–[4]” will now be “[1], [2], [3], [4]”.
+
+\guideindent\textbf{NOTE:} Use “et al.” when three or more names are given for a reference cited in the text.
+
+\subsection{Citing Parts of a Reference}
+
+\guideindent Check the reference list for “ibid.” or “op. cit.” These refer to a previous reference and should be eliminated from the reference section. In text, cite the earlier reference number and renumber the reference section accordingly. If the “ibid.” gives a new page number, or other information, use the following forms:
+
+{\leftskip=36pt [3, Thm. 1]; [3, Lemma 2]; [3, pp. 5–10]; [3, eq. (2)]; [3, Fig. 1]; [3, Appendix I]; [3, Sect. 4.5];\newline
+[3, Ch. 2, pp. 5–10]; [3, Algorithm 5].\par}
+
+\textbf{NOTE:} Editing of references may entail careful renumbering of references, as well as the citations in text.
+
+\renewcommand*{\subsectionlabel}{\thesubsection.}
+\section{Style}
+\begin{guideitems}
+  \item Reference numbers are set flush left and form a column of their own, hanging out beyond the body of the reference. The reference numbers are on the line, enclosed in square brackets.
+  \item In all references, the given name of the author or editor is abbreviated to the initial only and precedes the last name. Do not use commas around Jr., Sr., and III in names: Michael Smith Jr.; Ray Barnett Sr.; Lucas Molignaro III.
+  \item IEEE publications must list names of all authors, up to six names. If there are more than six names listed, use the primary author’s name followed by “et al.” For non-IEEE publications, “et al.” may be used if additional names are not provided.
+  \item All references, except those ending with URLs, will end with a period, including those with a DOI. However, if a reference contains both a DOI or accessed date, as well as a URL, the DOI or accessed date will be placed first, followed by a period, and then the URL.
+  \item Note that when citing IEEE Transactions, if the issue number or month is not available, research IEEE Xplore to see if the publication carries these details. Note that not all IEEE publications include issue numbers and months.
+  \item Note that early access articles should use the “Date of Publication.”
+  \item Articles published within a volume should use the volume and issue publication date.
+  \item All references must include a date that comprises at least the year of publication (or year of the accessed date if applicable). If no date is provided, use the abbreviation "(n.d.)" in the same position where the date would normally be displayed in the reference, preceded and followed by periods, e.g.:
+\end{guideitems}
+\guideexample{style:nodate}
+\begin{guideitems}
+  \item For any reference that cites two months for the same issue, the two months should be separated by a slash (e.g., Jul./Aug.), followed by the year of publication.
+  \item References may not include all information; please obtain and include relevant information.
+  \item Do not combine references. There must be only one reference with each number.
+  \item If there is a URL included with the print reference, it can be included at the end of the reference (see style for online references).
+\end{guideitems}
+
+\subsection{Blogs}
+
+\subsubsection{Blog}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of the post,” \textit{Title of the Blog,} Month, Day, Year. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{blog:weissberger}
+  \item \bibentry{blog:owens}
+\end{guideitems}
+
+\subsection{Books}
+
+\subsubsection{Book}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book, x}th ed. City of Publisher, (only U.S. State), Country: Abbrev. of Publisher, year, ch. \textit{x}, sect. \textit{x}, pp. \textit{xxx–xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:klaus}
+  \item \bibentry{book:stein}
+  \item \bibentry{book:myer}
+  \item \bibentry{book:abramowitz}
+  \item \bibentry{book:moore}
+  \item \bibentry{book:westinghouse}
+  \item \bibentry{book:histace}
+\end{guideitems}
+
+\subsubsection{Books, Monographs (Online)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book}, xth ed. City of Publisher, State, Country: Abbrev. of Publisher, year, ch. x, sect. x, pp. xxx–xxx. [Online]. Available: http://www.web.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:young}
+  \item \bibentry{book:terahertz}
+  \item \bibentry{book:kurland}
+\end{guideitems}
+
+\subsubsection{Book (Foreign Publication or Translated)}
+\guidelabel{Basic Format (when referencing a foreign publication that has not been translated):}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book}, X. Editor, Ed., \textit{x}th ed. City of Publisher, State (only U.S.), Country: Abbrev. of Publisher (in Language), year, ch. \textit{x}, sect. \textit{x}, pp. \textit{xxx–xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:ichiro}
+  \item \bibentry{book:pontryagin}
+\end{guideitems}
+\guidelabel{Basic Format (when referencing a translated publication):}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book}, trans. J. K. Translator. City of Publisher, State (only U.S.), Country: Abbrev. of Publisher, year, ch. \textit{x}, sect. \textit{x}, pp. \textit{xxx–xxx}.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:dessalles}
+  \item \bibentry{book:menchu}
+\end{guideitems}
+
+\subsubsection{Book With Chapter Title}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book}, X. Editor, Ed., City of Publisher, State (only U.S.), Country: Abbrev. of Publisher, year, ch. \textit{x}, sect. \textit{x}, pp. \textit{xxx–xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:ogura}
+  \item \bibentry{book:li}
+\end{guideitems}
+
+\subsubsection{Book With Editor(s)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book}, X. Editor, Ed., City of Publisher, State (only U.S.), Country: Abbrev. of Publisher, year, pp. \textit{xxx–xxx.}
+  \item X. Editor, Ed. \textit{Title of Published Book}. City of Publisher, State (only U.S.), Country: Abbrev. of Publisher, year.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:stein}
+  \item \bibentry{book:bennett}
+  \item \bibentry{book:leonard}
+\end{guideitems}
+
+\subsubsection{Book With Series Title, Volume Title, and Edition}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of chapter in the book,” in \textit{Title of Published Book} (Title of the Series), X. Editor, Ed., \textit{x}th ed. City of Publisher, State (only U.S.), Country: Abbrev. of Publisher, year, ch. \textit{x}, sect. \textit{x}, pp. \textit{xxx–xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{book:feistauer}
+  \item \bibentry{book:abramowitz}
+  \item \bibentry{book:moore}
+\end{guideitems}
+
+\subsection{Conferences and Conference Proceedings}
+
+The general form for citing conference proceedings is to list the author and title of the paper, followed by the name of the conference using the following abbreviations as well as those found in the “Common Abbreviations of Words in References” list.
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Annals & Ann. & Proceedings & Proc. \\ \hline
+Annual & Annu. & Record & Rec. \\ \hline
+Colloquium & Colloq. & Symposium & Symp. \\ \hline
+Conference & Conf. & Technical Digest & Tech. Dig. \\ \hline
+Congress & Congr. & Technical Paper & Tech. Paper \\ \hline
+Convention & Conv. & Workshop & Workshop \\ \hline
+Digest & Dig. & First & 1st \\ \hline
+Exposition & Expo. & Second & 2nd \\ \hline
+International & Int. & Third & 3rd \\ \hline
+Meeting & Meeting & Fourth/nth\dots & 4th/nth\dots \\ \hline
+National & Nat. &  &  \\ \hline
+\end{tabular}
+\end{center}
+
+Write out all the remaining words, but omit most articles and prepositions like “of the” and “on.” That is, \textit{Proceedings of the 1996 Robotics and Automation Conference} becomes \textit{Proc. 1996 Robot. Automat. Conf.} If an ordinal number is in the conference name, use the numerical form instead of spelling it out (e.g., “1st” instead of “First”). Include the location if given. For U.S. locations, “USA” must be included after city and state.
+
+\textbf{NOTE:} All published conference or proceedings papers have page numbers.
+
+\subsubsection{Conference Paper (Paper Presented at a Conference)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” presented at the Abbreviated Name of Conf., City of Conf., Abbrev. State, Country, Month and day(s), year, Paper number.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:caratelli}
+  \item \bibentry{conf:kreifeldt}
+  \item \bibentry{conf:juette}
+  \item \bibentry{conf:arrillaga}
+\end{guideitems}
+
+\subsubsection{Conference Proceedings in Print (Paper Presented at a Conference)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” in \textit{Abbreviated Name of Conf.}, (location of conference is optional), (Month and day(s) if provided) year, pp. \textit{xxx-xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:amador}
+  \item \bibentry{conf:faulhaber} \textit{*** If the year is given in the conference title, it may be omitted from the end of the reference as shown here.***}
+  \item \bibentry{conf:bingulac}
+  \item \bibentry{conf:doyle}
+  \item \bibentry{conf:meadow}
+  \item \bibentry{conf:parks}
+  \item \bibentry{conf:hsia}
+\end{guideitems}
+
+\subsubsection{Conference Proceedings With DOI}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” in \textit{Abbreviated Name of Conf.}, (location of conference is optional), year, pp. \textit{xxx–xxx}, doi: \textit{xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:veruggio}
+  \item \bibentry{conf:zhao}
+\end{guideitems}
+
+\subsubsection{Conference Proceedings With Editors}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” in \textit{Abbreviated Name of Conf.}, X. Editor, Ed. (location of conference is optional), year, pp. \textit{xxx-xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:amadoreditors}
+  \item \bibentry{conf:armstrong}
+  \item \bibentry{conf:funes}
+\end{guideitems}
+
+\subsubsection{Conference Proceedings With Location}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” in \textit{Abbreviated Name of Conf.}, City, State, Country, year, pp. \textit{xxx–xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:carmichael}
+  \item \bibentry{conf:sarkar}
+\end{guideitems}
+
+\subsubsection{Conference Proceedings With Series Title, Volume Title, and Edition}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” in \textit{Abbreviated Name of Conf.} in Volume Title, in Series Title, ed., year, pp. \textit{xxx-xxx.}
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{conf:amadorseries}
+\end{guideitems}
+
+\subsubsection{Conference Paper Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author. (Date). Title. Presented at Abbreviated Conf. title. [Type of Medium]. Available: site/path/file
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:process}
+  \item \bibentry{conf:taylor}
+  \item \bibentry{conf:chandrasekaran}
+\end{guideitems}
+
+\subsubsection{Conference Proceedings Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” in \textit{Abbreviated Name of Conf.}, (location of conference is optional), year, pp. \textit{xxx-xxx}. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{conf:schubert}
+  \item \bibentry{conf:yanamadala}
+\end{guideitems}
+
+\subsection{Course}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Name of University. (Year). Title of course. [Online]. Available: URL
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{course:argosy}
+\end{guideitems}
+
+\subsubsection{Coursepack}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Instructor. Title of coursepack. (Semester). Title of course. University/Publisher location: University/Publisher name.
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{course:oden}
+\end{guideitems}
+
+\subsection{Datasets}
+
+\textbf{FORCE11 Data Citation Principles}
+
+IEEE follows the FORCE11 Data Citation Principles. These principles are as follows (per \url{https://www.force11.org/datacitationprinciples}):
+
+\begin{guidenumbers}
+  \item \textbf{Importance:} Data should be considered legitimate, citable products of research. Data citations should be accorded the same importance in the scholarly record as citations of other research objects, such as publications.
+  \item \textbf{Credit and Attribution:} Data citations should facilitate giving scholarly credit and normative and legal attribution to all contributors to the data, recognizing that a single style or mechanism of attribution may not be applicable to all data.
+  \item \textbf{Evidence:} In scholarly literature, whenever and wherever a claim relies upon data, the corresponding data should be cited.
+  \item \textbf{Unique Identification:} A data citation should include a persistent method for identification that is machine actionable, globally unique, and widely used by a community.
+  \item \textbf{Access:} Data citations should facilitate access to the data themselves and to such associated metadata, documentation, code, and other materials, as are necessary for both humans and machines to make informed use of the referenced data.
+  \item \textbf{Persistence:} Unique identifiers, and metadata describing the data, and its disposition, should persist—even beyond the lifespan of the data they describe.
+  \item \textbf{Specificity and Verifiability:} Data citations should facilitate identification of, access to, and verification of the specific data that support a claim. Citations or citation metadata should include information about provenance and fixity sufficient to facilitate verifying that the specific timeslice, version and/or granular portion of data retrieved subsequently is the same as was originally cited.
+  \item \textbf{Interoperability and Flexibility:} Data citation methods should be sufficiently flexible to accommodate the variant practices among communities, but should not differ so much that they compromise interoperability of data citation practices across communities.
+\end{guidenumbers}
+
+\textit{Note:} Reproduced (including references therein) from M. Martone, Ed. “Data Citation Synthesis Group: Joint Declaration of Data Citation Principles.” San Diego, CA, USA: FORCE11, 2014. [Online]. Available: \url{https://www.force11.org/group/joint-declaration-data-citation-principles-final}
+
+When providing reference details as much information as available should be provided (italics denote that metadata would benefit from the details, although it is not required for reference listing):
+
+\begin{guideitems}
+  \item \textbf{Published mixed data/software package:} author(s), name, unique identifier, location/repository, release date, \textit{license, description, keywords.}
+\end{guideitems}
+
+The essential components of a citation to a dataset are the following: Author names of each individual or organizational entity responsible for the creation of the dataset; the date published or disseminated [year and full date (if available)]; the complete title of the dataset, including the edition or version number, if applicable; publisher and/or distributor; and electronic location or identifier (URL or DOI if applicable). Append the date retrieved if the title and locator are not specific to the exact instance of the data you used.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Author, Date, Year. “Title of Dataset,” distributed by Publisher/Distributor, http://url.com (or if DOI is used, end with a period)
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{data:ansolabehere}
+\end{guideitems}
+
+\subsubsection{Online Dataset Reference Using a DOI}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Author, Date, “Title of Dataset,” Source, doi: \textit{xxx}.
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{data:hhsdoi}
+\end{guideitems}
+
+\subsubsection{Online Dataset Reference Using a DOI Resolver}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Author, Date, “Title of Dataset,” Source, doi: URL.
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{data:hhsdoi}
+\end{guideitems}
+
+\subsubsection{Online Dataset Reference Using a Website Address}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Author, Date, “Title of Dataset,” Source. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{data:hhsurl}
+\end{guideitems}
+
+\subsection{Handbooks}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item \textit{Name of Manual/Handbook}, \textit{x} ed., Abbrev. Name of Co., City of Co., Abbrev. State, year, pp. \textit{xxx-xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{manual:transmission}
+  \item \bibentry{manual:motorola}
+  \item \bibentry{manual:rca}
+\end{guideitems}
+
+\subsection{Lectures}
+
+\subsubsection{Lecture Notes}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author. (Year). Title of lecture [Type of Medium]. Available: URL
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{lecture:barney}
+  \item \bibentry{lecture:yardish}
+\end{guideitems}
+
+\subsubsection{Lecture Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item University name. (year). Title of lecture. [Type of Medium]. Available: URL
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{lecture:argosy}
+\end{guideitems}
+
+\subsection{Legal Citations}
+
+\textit{Note:} In text, italicize the names of court cases.
+
+\textbf{U.S. Supreme Court Decisions}
+
+\begin{guideitems}
+  \item \bibentry{legal:olmstead}
+  \item \bibentry{legal:olmsteaddissent}
+\end{guideitems}
+
+\textbf{Lower-Court Decisions}
+
+\begin{guideitems}
+  \item \bibentry{legal:councilman2003}
+  \item \bibentry{legal:councilman2004}
+\end{guideitems}
+
+\textbf{U.S. Laws}
+
+\begin{guideitems}
+  \item \bibentry{legal:uscode}
+  \item \bibentry{legal:patriot}
+  \item \bibentry{legal:omnibus}
+\end{guideitems}
+
+\subsection{Manuals}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author (or Abbrev. Name of Co., City of Co. Abbrev. State, Country). \textit{Name of Manual/Handbook}, \textit{x} ed. (year). Accessed: Date. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{manual:breimann}
+  \item \bibentry{manual:kuhn}
+  \item \bibentry{manual:antcom}
+\end{guideitems}
+
+\subsubsection{Manual (Print)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item \textit{Name of Manual/Handbook}, \textit{x} ed., Abbrev. Name of Co., City of Co., Abbrev. State, Country, year, pp. \textit{xxx–xxx.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{manual:transmission}
+  \item \bibentry{manual:motorola}
+  \item \bibentry{manual:rca}
+  \item \bibentry{manual:microsoft}
+\end{guideitems}
+
+\subsubsection{Manual (Online)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author (or Abbrev. Name of Co., City of Co. Abbrev. State, Country). \textit{Name of Manual/Handbook}, \textit{x} ed. (year). Accessed: Date. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{manual:breimann}
+  \item \bibentry{manual:kuhn}
+\end{guideitems}
+
+\subsection{News Articles}
+
+\subsubsection{News Article (Print)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of the article,” \textit{Title of the News Source,} Month, Day, Year.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{news:markoff}
+  \item \bibentry{news:johnson}
+\end{guideitems}
+
+\subsubsection{News Article (Online)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of the article,” \textit{Title of the News Source,} Month, Day, Year. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{news:clark}
+  \item \bibentry{news:knight}
+\end{guideitems}
+
+\subsection{Online Video (e.g., YouTube)}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Video Owner/Creator, Location (if available). \textit{Title of Video: In Initial Caps.} (Release date). Accessed: Month Day, Year. [Online Video]. Available: http://URL.onlinevideo.org
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{video:mtaonline}
+  \item \bibentry{video:doane}
+\end{guideitems}
+
+\subsection{Patent}
+
+Retain or request the day of the month when referencing a patent.
+
+\textbf{NOTE:} Use “issued date” if several dates are given.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of patent,” U.S. Patent \textit{x xxx xxx}, Abbrev. Month, day, year.
+  \item J. K. Author, “Title of patent,” Country Patent \textit{xxx}, Abbrev. Month, day, year.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{patent:wilkinson}
+  \item \bibentry{patent:mei}
+  \item \bibentry{patent:black}
+  \item \bibentry{patent:voinigescu}
+  \item \bibentry{patent:klionovski}
+\end{guideitems}
+
+\subsubsection{Patent Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Name of the invention, by inventor’s name. (year, month day). Patent Number [Type of medium]. Available: site/path/file
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{patent:brooks}
+  \item \bibentry{patent:williams}
+\end{guideitems}
+
+\subsection{Periodicals}
+
+\subsubsection{Periodicals}
+
+Refer to the section “Common Abbreviations of Words in References” for non-IEEE titles. Note that periodical titles of only one word should not be abbreviated, but fully spelled out, e.g., \textit{Science} and \textit{Nature.}
+
+Prior to 1988, the volume number of IEEE Transactions/Journals carried the acronym of the journal. For example, an issue of the IEEE TRANSACTIONS ON AUTOMATIC CONTROL would read: \textit{IEEE Trans. Autom. Control,} vol. AC-26, no. 1, pp. 1–34, Jan. 1981. When referencing IEEE Transactions, both the issue number and month are included upon verification of frequency and starting month. DOIs are included, when provided by the author.
+
+\textbf{NOTE:} The only exception to this rule is PROCEEDINGS OF THE IEEE, which never carried an acronym on the masthead.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Name of paper,” \textit{Abbrev. Title of Periodical}, vol. \textit{x,} no. \textit{x,} pp\textit{. xxx-xxx,} Abbrev. Month, year.
+  \item J. K. Author, “Name of paper,” \textit{Abbrev. Title of Periodical}, vol. \textit{x,} no. \textit{x,} pp\textit{. xxx-xxx,} Abbrev. Month, year, doi: \textit{xxx}.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{per:chiampi}
+  \item \bibentry{per:ito}
+  \item \bibentry{per:fardel}
+  \item \bibentry{per:zhang}
+  \item \bibentry{per:preu}
+  \item \bibentry{per:azodolmolky}
+  \item \bibentry{per:eriksson}
+  \item \bibentry{per:aronowitz}
+  \item \bibentry{per:lavrova}
+  \item \bibentry{per:wigner}
+  \item \bibentry{per:miller} \textit{*** Always use this style when the paper has been accepted or scheduled for a future publication but has not been published as early access, i.e., do not use “to appear in.”***}
+  \item \bibentry{per:vatta} \textit{***Always state if the article is early access and include its online version date and DOI. The DOI is essential as it will not change, though the date may.***}
+  \item \bibentry{per:kim} \textit{*** Always use this style when the paper has not yet been accepted or scheduled for publication, i.e., do not use “to appear in.”***}
+  \item \bibentry{per:rafferty}
+  \item \bibentry{per:kopyt}
+  \item \bibentry{per:brunschwiler}
+  \item \bibentry{per:wu} \textit{***Authors may refer to this journal as Proc. IEE, but the abbreviation must be as listed above. Proc. IEE is printed in the U.K. and must not be confused with the Proc. IEEE.***}
+  \item \bibentry{per:specialissue}
+\end{guideitems}
+
+\textbf{\textit{Article Referred to in the Same Issue:}}
+
+\begin{guideitems}
+  \item \bibentry{per:aslip}
+\end{guideitems}
+
+\textbf{NOTE:} Handle it exactly as any other reference with no difference.
+
+\subsubsection{Periodical With Article ID}
+
+\textbf{NOTE:} Be aware that an article ID may erroneously be placed as page number in source files. If a page number looks “wrong” [e.g., there is only one long number, the range is not sequential, or there is a volume number with page range of 1–XX (with XX being a number)], this may be an indication that this is an article ID and the author should be queried.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Name of paper,” \textit{Abbrev. Title of Periodical}, vol. \textit{x,} no. \textit{x,} Abbrev. month, year, Art. no. \textit{xxx}.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{per:zhang}
+  \item \bibentry{per:fardel}
+  \item \bibentry{per:preu}
+  \item \bibentry{per:kuang}
+  \item \bibentry{per:yang}
+\end{guideitems}
+
+\subsubsection{Periodical With DOI}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Name of paper,” \textit{Abbrev. Title of Periodical}, vol. \textit{x,} no. \textit{x,} pp\textit{. xxx–xxx,} Abbrev. month, year, doi: \textit{xxx}.
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{per:chiampidoi}
+\end{guideitems}
+
+\subsubsection{Periodical in Early Access}
+
+\textbf{NOTE:} Once an article is in the form of advanced online access at the publisher, cite this version, and not the arXiv version. The online access is the final version of record. Include the title of the journal, the date of record, and the doi. The doi is essential in the reference information, as this will not change.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Name of paper,” \textit{Abbrev. Title of Periodical.,} Abbrev. month, year, doi: xxx.
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{per:vatta}
+\end{guideitems}
+
+\subsubsection{Periodical in Other Language}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Name of paper,” (in Language), \textit{Abbrev. Title of Periodical}, vol. \textit{x,} no. \textit{x,} Abbrev. month, year, Art. no. \textit{xxx}.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{per:wigner}
+  \item \bibentry{per:lavrova}
+\end{guideitems}
+
+\subsubsection{Periodicals Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Name of paper,” \textit{Abbrev. Title of Periodical}, vol. x, no. x, pp. xxx–xxx, Abbrev. Month, year. Accessed: Month, Day, Year, doi: 10.1109.XXX.123456. [Online]. Available: site/path/file
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{per:risk}
+  \item \bibentry{per:kopyt}
+\end{guideitems}
+
+\subsubsection{Virtual Journal}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Name(s) of Ed(s)., “Title of Issue,” in \textit{Title of Journal}, Abbrev. month year. [Online]. Available: URL
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{per:smith}
+  \item \bibentry{per:robertson}
+  \item \bibentry{per:rfid}
+\end{guideitems}
+
+\subsection{Reports}
+
+The general form for citing technical reports is to place the name and location of the company or institution after the author and title and to give the report number and date at the end of the reference.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of report,” Abbrev. Name of Co., City of Co., Abbrev. State, Country, Rep. \textit{xxx}, year.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{report:reber}
+  \item \bibentry{report:davis}
+  \item \bibentry{report:haskell}
+  \item \bibentry{report:brusberg}
+  \item \bibentry{report:diament}
+\end{guideitems}
+
+\subsubsection{Report Online}
+
+Ensure a year is included and add the URL to the end of the reference.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of report,” Company, City, State, Country, Rep. no., (optional: vol./issue), Date. Accessed: Date. [Online]. Available: site/path/file
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{report:hijmans}
+  \item \bibentry{report:teralyzer}
+  \item \bibentry{report:zhao}
+  \item \bibentry{report:bom}
+  \item \bibentry{report:geobasis}
+  \item \bibentry{report:kagaku}
+  \item \bibentry{report:apple}
+  \item \bibentry{report:urazhdin}
+\end{guideitems}
+
+\subsection{Software}
+
+\textbf{FORCE11 Software Citation Principles}
+
+IEEE follows the FORCE11 Software Citation Principles. These principles are as follows (per \url{http://www.force11.org/sites/default/files/software-citation-principles.pdf}):
+
+\begin{guidenumbers}
+  \item \textbf{Importance:} Software should be considered a legitimate and citable product of research. Software citations should be accorded the same importance in the scholarly record as citations of other research products, such as publications and data; they should be included in the metadata of the citing work, for example in the reference list of a journal article, and should not be omitted or separated. Software should be cited on the same basis as any other research product such as a paper or a book, that is, authors should cite the appropriate set of software products just as they cite the appropriate set of papers.
+  \item \textbf{Credit and Attribution:} Software citations should facilitate giving scholarly credit and normative and legal attribution to all contributors to the software, recognizing that a single style or mechanism of attribution may not be applicable to all software.
+  \item \textbf{Unique Identification:} A software citation should include a method for identification that is machine actionable, globally unique, interoperable, and recognized by at least a community of the corresponding domain experts, and preferably by general public researchers.
+  \item \textbf{Persistence:} Unique identifiers and metadata describing the software and its disposition should persist—even beyond the lifespan of the software they describe.
+  \item \textbf{Accessibility:} Software citations should facilitate access to the software itself and to its associated metadata, documentation, data, and other materials necessary for both humans and machines to make informed use of the referenced software.
+  \item \textbf{Specificity:} Software citations should facilitate identification of, and access to, the specific version of software that was used. Software identification should be as specific as necessary, such as using version numbers, revision numbers, or variants such as platforms.
+\end{guidenumbers}
+
+***When providing reference details as much information as noted below should be provided (italics denote that metadata would benefit from the details, although it is not required for reference listing):
+
+\begin{guidenumbers}
+  \item \textbf{Use software for papers:} author(s), software name, location/repository, version number, release date, unique identifier.
+  \item \textbf{Use software in/with new software:} author(s), software name, location/repository, version number, release date, unique identifier, \textit{software licensure, description.}
+  \item \textbf{Contribute to software:} author(s), software name, location/repository, version number, release date, unique identifier, \textit{contributor role, software license, description.}
+  \item \textbf{Determine use/citations of software:} software name, unique identifier, indexed citations.
+  \item \textbf{Get credit for software development:} author(s), software name, location/repository, release date, unique identifier, \textit{contributor role, indexed citations.}
+  \item \textbf{“Reproduce analysis”:} software name, location/repository, version number, release date, unique identifier, \textit{software license, description.}
+  \item \textbf{Find software to implement task:} author(s), software name, location/repository, location/repository, unique identifier, indexed citations, \textit{software license, description, keywords.}
+  \item \textbf{Publish software paper:} author(s), software name, location/repository, version number, release date, unique identifier.
+  \item \textbf{Publish papers that cite software:} author(s), software name, location/repository, version number, release date, unique identifier, indexed citations.
+  \item \textbf{Build catalog of software:} author(s), software name, location/repository, version number, release date, unique identifier, indexed citations, \textit{software license, description, keywords.}
+  \item \textbf{Build software catalog/registry:} author(s), software name, location/repository, unique identifier, \textit{description, keywords.}
+  \item \textbf{Show scientific impact of holdings:} software name, unique identifier, indexed citations.
+  \item \textbf{Show how funded software has been used:} software name, unique identifier, indexed citations.
+  \item \textbf{Evaluate contributions of researcher:} author(s), unique identifier, release date, indexed citations, \textit{contributor role.}
+  \item \textbf{Store software entry:} author(s), software name, unique identifier, location/repository, release date, indexed citations, \textit{description, keywords.}
+  \item \textbf{Published mixed data/software package:} author(s), software name, unique identifier, location/repository, release date, \textit{software license, description, keywords.}
+\end{guidenumbers}
+
+\textit{Note:} Reproduced (including references therein) from A. M. Smith, D. S. Katz, K. E. Niemeyer, and the FORCE11 Software Citation Working Group. “Software citation principles,” \textit{PeerJ Comp. Sci.,} vol. 2, 2016, Article no. e86, doi: 10.7717/peerj-cs.86
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author. \textit{Title of Software}. (Date). Repository or Archive. (version or year). Publisher Name. Accessed: Date (when applicable). [Type of Medium]. Global Persistent Identifier. Available: site/path/file
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{sw:antcom}
+  \item \bibentry{sw:arning}
+  \item \bibentry{sw:msdn}
+\end{guideitems}
+
+\subsection{Standards}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item \textit{Title of Standard}, Standard number, Corporate author, location, date.
+  \item \textit{Title of Standard}, Standard number, date.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{std:itu}
+  \item \bibentry{std:ieee308}
+  \item \bibentry{std:ansi}
+\end{guideitems}
+
+\subsubsection{Standard Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item \textit{Title of Standard}, Standard number, Corporate author, location, date. [Online]. Available: http://www.url.com
+  \item \textit{Title of Standard}, Standard number, date. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{std:nerc}
+\end{guideitems}
+
+\subsection{Theses and Dissertations}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of thesis,” M.S. thesis, Abbrev. Dept., Abbrev. Univ., City of Univ., Abbrev. State, year.
+  \item J. K. Author, “Title of dissertation,” Ph.D. dissertation, Abbrev. Dept., Abbrev. Univ., City of Univ., Abbrev. State, year.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{thesis:williams}
+  \item \bibentry{thesis:kawasaki}
+  \item \bibentry{thesis:amer} \textit{*** The state abbreviation is omitted if the name of the university includes the state name, i.e., “Univ. California, Berkeley.”***}
+  \item \bibentry{thesis:becle}
+\end{guideitems}
+
+\subsubsection{Thesis Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of thesis,” M.S. thesis, Abbrev. Dept., Abbrev. Univ., City of Univ., Abbrev. State, Country, year. [Online]. Available: http://www.url.com
+  \item J. K. Author, “Title of dissertation,” Ph.D. dissertation, Abbrev. Dept., Abbrev. Univ., City of Univ., Abbrev. State, Country, year. [Online]. Available: http://www.url.com
+  \item J. K. Author, “Title of theis,” Ph.D. thesis, Abbrev. Dept., Abbrev. Univ., City of Univ., Abbrev. State, Country, year. [Online]. Available: http://www.url.com
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{thesis:jensen}
+  \item \bibentry{thesis:bordaouin}
+  \item \bibentry{thesis:schwartz}
+\end{guideitems}
+
+\textit{Note:} Defer to the use of “thesis” and “dissertation” as provided by the authors; these are different depending on the degree and the academic institution and should not be changed based on degree level.
+
+\subsection{U.S. Government Documents}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Legislative body. Number of Congress, Session. (year, month day). \textit{Number of bill or resolution, Title}. [Type of medium]. Available: site/path/file
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{gov:house}
+\end{guideitems}
+
+\subsubsection{Government Online}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item Legislative body. Number of Congress, Session. (year, month day). \textit{Number of bill or resolution}, \textit{Title}. [Type of medium]. Available: site/path/file
+\end{guideitems}
+\guidelabel{Example:}
+\begin{guideitems}
+  \item \bibentry{gov:house}
+\end{guideitems}
+
+\subsection{Unpublished}
+
+The two most common types of unpublished references are private communications and papers still in preparation.
+
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, private communication, Abbrev. Month, year.
+  \item J. K. Author, “Title of paper,” unpublished.
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{unpub:harrison}
+  \item \bibentry{unpub:smith}
+  \item \bibentry{unpub:brahms}
+\end{guideitems}
+
+\subsubsection{Preprint arXiv}
+\guidelabel{Basic Format:}
+\begin{guideitems}
+  \item J. K. Author, “Title of paper,” year, \textit{arXiv number.}
+\end{guideitems}
+\guidelabel{Examples:}
+\begin{guideitems}
+  \item \bibentry{unpub:urazhdin}
+\end{guideitems}
+
+\subsection{Websites}
+
+The most basic entry for a website consists of the author name(s), page title, website title, web address, and date accessed:
+
+First Name Initial(s) Last Name. “Page Title.” Website Title. Date Accessed. [Online]. Available: Web Address.
+
+\guideexample{web:smith}
+
+The first author’s name should be first initial(s) and then the last name and a period. Titles and affiliations associated with the author should be omitted. Do not use commas to precede a suffix, such as a roman numeral or Jr./Sr., after the author’s given name.
+
+For a page with two or more authors, list them in the order as they appear on the website. Separate author names by a comma.
+
+\guideexample{web:smithdoe}
+
+Next, place the title of the online article or the title of the webpage itself. Then, the text “Accessed:” and the date on which you accessed the website (written in the format of “month day, year”). The text “[Online.] Available:” is then inserted with the complete URL after the colon.
+
+For social media websites, please use the following style.
+
+\guideexample{web:costanzo}
+
+\section{Notes About Online References}
+
+The guidelines for citing electronic information as offered here are in modified illustration of the adaptation by the International Standards Organization (ISO) documentation system and the American Psychological Association style.
+
+There are various options for including a URL in a reference. Follow the order of details and whether a period needs to be placed at the end of the reference. The style of the accessed date is “Accessed: Abbrev. month and day, year.” The placement of the accessed date within the reference should match how it is provided in the final author-submitted version.
+
+URLs are not hyperlinked in the proof.
+
+\begin{guideitems}
+  \item Accessed date. DOI. [Online]. Available: URL (no period at end)
+  \item Accessed date. [Online]. Available: URL (no period at end)
+  \item Accessed date. DOI (add period at end).
+  \item DOI. URL (no period at end)
+  \item (No accessed date), DOI (add period at end unless URL).
+  \item URL (no period at end)
+\end{guideitems}
+\guidelabel{Guidelines for Breaking URLs:}
+\begin{guideitems}
+  \item Break after slash, double slash, or period.
+  \item Break “before” the hyphen that is part of an address, but do not break after; do not add hyphens or spaces; do not let addresses hyphenate.
+  \item Break “before” a tilde (\textasciitilde{}), a hyphen, an underscore (\_), a question mark, or a percent (\%) symbol.
+  \item Break before or after an equal sign or an ampersand (follow the same rule for the “at” (@) symbol).
+\end{guideitems}
+
+\renewcommand*{\subsectionlabel}{\textbf{\thesubsection.}}
+\section{Useful Abbreviations in References}
+
+Tips for abbreviating periodical titles in references:
+
+\begin{guideitems}
+  \item Words ending in "-ology" can be ended after the "-ol."\\
+    e.g., \textit{Gastroenterology} -{}-> \textit{Gastrooceanenterol}.; \textit{Endocrinology} -{}-> \textit{Endocrinol.}
+  \item Words ending in "-graphy" can be ended after the "-gr."\\
+    e.g., \textit{Oceanography -{}-> Oceanogr.; Crystallography -{}-> Crystallgr.}
+  \item Compound words can be ended using the abbreviation of the last word.\\
+    e.g., \textit{Bioengineering -{}-> Bioeng.; Nanobioscience -{}-> Nanobiosci.}
+  \item Some abbreviations may apply to more than one word, e.g., "Mathematical" and "Mathematics" are both abbreviated as "Math."; "Medical" and "Medicine" are both abbreviated as "Med."
+  \item If an abbreviation is not included and cannot be abbreviated according to the general guidelines above, please spell out the word.
+\end{guideitems}
+
+\subsection{Common Abbreviations of Words in References}
+\setlength{\parskip}{0pt}
+\begin{multicols}{2}
+\abbrletter{A}
+\abbr{Abstracts}{Abstr.}
+\abbr{Academy}{Acad.}
+\abbr{Accelerator}{Accel.}
+\abbr{Acoustics}{Acoust.}
+\abbr{Active}{Act.}
+\abbr{Administration}{Admin.}
+\abbr{Administrative}{Administ.}
+\abbr{Advanced}{Adv.}
+\abbr{Aeronautics}{Aeronaut.}
+\abbr{Aerospace}{Aerosp.}
+\abbr{Affective}{Affect.}
+\abbr{Africa, African}{Afr.}
+\abbr{Aircraft}{Aircr.}
+\abbr{Algebraic}{Algebr.}
+\abbr{American}{Amer.}
+\abbr{Analysis}{Anal.}
+\abbr{Annals}{Ann.}
+\abbr{Annual}{Annu.}
+\abbr{Apparatus}{App.}
+\abbr{Applications}{Appl.}
+\abbr{Applied}{Appl.}
+\abbr{Approximate}{Approx.}
+\abbr{Architecture}{Archit.}
+\abbr{Archive(s)}{Arch.}
+\abbr{Article}{Art.}
+\abbr{Artificial}{Artif.}
+\abbr{Assembly}{Assem.}
+\abbr{Association}{Assoc.}
+\abbr{Astronomy}{Astron.}
+\abbr{Astronautics}{Astronaut.}
+\abbr{Astrophysics}{Astrophys.}
+\abbr{Atmosphere}{Atmos.}
+\abbr{Atomic, Atoms}{At.}
+\abbr{Australasian}{Australas.}
+\abbr{Australia}{Aust.}
+\abbr{Automatic}{Autom.}
+\abbr{Automation}{Automat.}
+\abbr{Automotive}{Automot.}
+\abbr{Autonomous}{Auton.}
+\abbrletter{B}
+\abbr{Behavior(al)}{Behav.}
+\abbr{Belgian}{Belg.}
+\abbr{Biochemical}{Biochem.}
+\abbr{Bioinformatics}{Bioinf.}
+\abbr{Biology, Biological}{Biol.}
+\abbr{Biomedical}{Biomed.}
+\abbr{Biophysics}{Biophys.}
+\abbr{British}{Brit.}
+\abbr{Broadcasting}{Broadcast.}
+\abbr{Bulletin}{Bull.}
+\abbr{Bureau}{Bur.}
+\abbr{Business}{Bus.}
+\abbrletter{C}
+\abbr{Canadian}{Can.}
+\abbr{Ceramic}{Ceram.}
+\abbr{Chemical}{Chem.}
+\abbr{Chinese}{Chin.}
+\abbr{Climatology}{Climatol.}
+\abbr{Clinical}{Clin.}
+\abbr{Cognitive}{Cogn.}
+\abbr{Colloquium}{Colloq.}
+\abbr{Communications}{Commun.}
+\abbr{Company}{Co.}
+\abbr{Compatibility}{Compat.}
+\abbr{Component(s)}{Compon.}
+\abbr{Computational}{Comput.}
+\abbr{Computer(s)}{Comput.}
+\abbr{Computing}{Comput.}
+\abbr{Condensed}{Condens.}
+\abbr{Conference}{Conf.}
+\abbr{Congress}{Congr.}
+\abbr{Consumer}{Consum.}
+\abbr{Conversion}{Convers.}
+\abbr{Convention}{Conv.}
+\abbr{Correspondence}{Corresp.}
+\abbr{Critical}{Crit.}
+\abbr{Crystal}{Cryst.}
+\abbr{Crystallography}{Crystallogr.}
+\abbr{Cybernetics}{Cybern.}
+\abbrletter{D}
+\abbr{Decision}{Decis.}
+\abbr{Delivery}{Del.}
+\abbr{Department}{Dept.}
+\abbr{Design}{Des.}
+\abbr{Detector}{Detect.}
+\abbr{Development(al)}{Develop.}
+\abbr{Differential}{Differ.}
+\abbr{Digest}{Dig.}
+\abbr{Digital}{Digit.}
+\abbr{Disclosure}{Discl.}
+\abbr{Discussions}{Discuss.}
+\abbr{Dissertations}{Diss.}
+\abbr{Distributed}{Distrib.}
+\abbr{Dynamics}{Dyn.}
+\abbrletter{E}
+\abbr{Earthquake}{Earthq.}
+\abbr{Economic(s)}{Econ.}
+\abbr{Edition}{Ed.}
+\abbr{Education}{Educ.}
+\abbr{Electrical}{Elect.}
+\abbr{Electrification}{Electrific.}
+\abbr{Electromagnetic}{Electromagn.}
+\abbr{Electroacoustic}{Electroacoust.}
+\abbr{Electronic}{Electron.}
+\abbr{Emerging}{Emerg.}
+\abbr{Engineering}{Eng.}
+\abbr{Environment}{Environ.}
+\abbr{Equations}{Equ.}
+\abbr{Equipment}{Equip.}
+\abbr{Ergonomics}{Ergonom.}
+\abbr{European}{Eur.}
+\abbr{Evaluation}{Eval.}
+\abbr{Evolutionary}{Evol.}
+\abbr{Exhibition}{Exhib.}
+\abbr{Experimental}{Exp.}
+\abbr{Exploratory}{Explor.}
+\abbr{Exposition}{Expo.}
+\abbr{Express}{Exp.}
+\abbrletter{F}
+\abbr{Fabrication}{Fabr.}
+\abbr{Faculty}{Fac.}
+\abbr{Ferroelectrics}{Ferroelect.}
+\abbr{Francais, French}{Fr.}
+\abbr{Frequency}{Freq.}
+\abbr{Foundation}{Found.}
+\abbr{Fundamental}{Fundam.}
+\abbrletter{G}
+\abbr{Generation}{Gener.}
+\abbr{Geology}{Geol.}
+\abbr{Geophysics}{Geophys.}
+\abbr{Geoscience}{Geosci.}
+\abbr{Graphics}{Graph.}
+\abbr{Guidance}{Guid.}
+\abbrletter{H}
+\abbr{Harmonic(s)}{Harmon.}
+\abbr{History}{Hist.}
+\abbr{Horizon}{Horiz.}
+\abbr{Hungary, Hungarian}{Hung.}
+\abbr{Hydraulics}{Hydraul.}
+\abbr{Hydrology}{Hydrol.}
+\abbrletter{I}
+\abbr{Illuminating}{Illum.}
+\abbr{Imaging}{Imag.}
+\abbr{Industrial}{Ind.}
+\abbr{Information}{Inf.}
+\abbr{Informatics}{Inform.}
+\abbr{Innovation}{Innov.}
+\abbr{Institute}{Inst.}
+\abbr{Instrument}{Instrum.}
+\abbr{Instrumentation}{Instrum.}
+\abbr{Insulation}{Insul.}
+\abbr{Integrated}{Integr.}
+\abbr{Intelligence}{Intell.}
+\abbr{Intelligent}{Intell.}
+\abbr{Interactions}{Interact.}
+\abbr{International}{Int.}
+\abbr{Isotopes}{Isot.}
+\abbr{Israel}{Isr.}
+\abbrletter{J}
+\abbr{Japan}{Jpn.}
+\abbr{Journal}{J.}
+\abbrletter{K}
+\abbr{Knowledge}{Knowl.}
+\abbrletter{L}
+\abbr{Laboratory(ies)}{Lab.}
+\abbr{Language}{Lang.}
+\abbr{Learning}{Learn.}
+\abbr{Letter(s)}{Lett.}
+\abbr{Lightwave}{Lightw.}
+\abbr{Logic, Logical}{Log.}
+\abbr{Luminescence}{Lumin.}
+\abbrletter{M}
+\abbr{Machine}{Mach.}
+\abbr{Magazine}{Mag.}
+\abbr{Magnetics}{Magn.}
+\abbr{Management}{Manage.}
+\abbr{Managing}{Manag.}
+\abbr{Manufacturing}{Manuf.}
+\abbr{Marine}{Mar.}
+\abbr{Material}{Mater.}
+\abbr{Mathematical}{Math.}
+\abbr{Mathematics}{Math.}
+\abbr{Measurement}{Meas.}
+\abbr{Mechanical}{Mech.}
+\abbr{Medical, Medicine}{Med.}
+\abbr{Metals}{Met.}
+\abbr{Metallurgy}{Metall.}
+\abbr{Meteorology}{Meteorol.}
+\abbr{Metropolitan}{Metrop.}
+\abbr{Mexican, Mexico}{Mex.}
+\abbr{Microelectromechanical}{Microelectromech.}
+\abbr{Microgravity}{Microgr.}
+\abbr{Microscopy}{Microsc.}
+\abbr{Microwave(s)}{Microw.}
+\abbr{Military}{Mil.}
+\abbr{Modeling}{Model.}
+\abbr{Molecular}{Mol.}
+\abbr{Monitoring}{Monit.}
+\abbr{Multiphysics}{Multiphys.}
+\abbrletter{N}
+\abbr{Nanobioscience}{Nanobiosci.}
+\abbr{Nanotechnology}{Nanotechnol.}
+\abbr{National}{Nat.}
+\abbr{Naval}{Nav.}
+\abbr{Navigation}{Navig.}
+\abbr{Network, Networking}{Netw.}
+\abbr{Newsletter}{Newslett.}
+\abbr{Nondestructive}{Nondestruct.}
+\abbr{Nuclear}{Nucl.}
+\abbr{Numerical}{Numer.}
+\abbrletter{O}
+\abbr{Observations}{Observ.}
+\abbr{Oceanic}{Ocean.}
+\abbr{Oceanography}{Oceanogr.}
+\abbr{Occupation}{Occupat.}
+\abbr{Operational}{Oper.}
+\abbr{Optical}{Opt.}
+\abbr{Optics}{Opt.}
+\abbr{Optimization}{Optim.}
+\abbr{Organization}{Org.}
+\abbrletter{P}
+\abbr{Packaging}{Packag.}
+\abbr{Particle}{Part.}
+\abbr{Patent}{Pat.}
+\abbr{Performance}{Perform.}
+\abbr{Personal}{Pers.}
+\abbr{Philosophical}{Philos.}
+\abbr{Photonics}{Photon.}
+\abbr{Photovoltaics}{Photovolt.}
+\abbr{Physics}{Phys.}
+\abbr{Physiology}{Physiol.}
+\abbr{Planetary}{Planet.}
+\abbr{Pneumatics}{Pneum.}
+\abbr{Pollution}{Pollut.}
+\abbr{Polymer}{Polym.}
+\abbr{Polytechnic}{Polytech.}
+\abbr{Practice}{Pract.}
+\abbr{Precision}{Precis.}
+\abbr{Principles}{Princ.}
+\abbr{Proceedings}{Proc.}
+\abbr{Processing}{Process.}
+\abbr{Production}{Prod.}
+\abbr{Productivity}{Productiv.}
+\abbr{Programmable}{Program.}
+\abbr{Programming}{Program.}
+\abbr{Progress}{Prog.}
+\abbr{Propagation}{Propag.}
+\abbr{Psychology}{Psychol.}
+\abbrletter{Q}
+\abbr{Quality}{Qual.}
+\abbr{Quarterly}{Quart.}
+\abbrletter{R}
+\abbr{Radiation}{Radiat.}
+\abbr{Radiology}{Radiol.}
+\abbr{Reactor}{React.}
+\abbr{Receivers}{Receiv.}
+\abbr{Recognition}{Recognit.}
+\abbr{Record}{Rec.}
+\abbr{Rehabilitation}{Rehabil.}
+\abbr{Reliability}{Rel.}
+\abbr{Report}{Rep.}
+\abbr{Research}{Res.}
+\abbr{Resonance}{Reson.}
+\abbr{Resources}{Resour.}
+\abbr{Review}{Rev.}
+\abbr{Robotics}{Robot.}
+\abbr{Royal}{Roy.}
+\abbrletter{S}
+\abbr{Safety}{Saf.}
+\abbr{Satellite}{Satell.}
+\abbr{Scandinavian}{Scand.}
+\abbr{Science}{Sci.}
+\abbr{Section}{Sect.}
+\abbr{Security}{Secur.}
+\abbr{Seismology}{Seismol.}
+\abbr{Selected}{Sel.}
+\abbr{Semiconductor}{Semicond.}
+\abbr{Sensing}{Sens.}
+\abbr{Series}{Ser.}
+\abbr{Simulation}{Simul.}
+\abbr{Singapore}{Singap.}
+\abbr{Sistema}{Sist.}
+\abbr{Society}{Soc.}
+\abbr{Sociological}{Sociol.}
+\abbr{Software}{Softw.}
+\abbr{Solar}{Sol.}
+\abbr{Soviet}{Sov.}
+\abbr{Spectroscopy}{Spectrosc.}
+\abbr{Spectrum}{Spectr.}
+\abbr{Speculations}{Specul.}
+\abbr{Statistics}{Statist.}
+\abbr{Structure}{Struct.}
+\abbr{Studies}{Stud.}
+\abbr{Superconductivity}{Supercond.}
+\abbr{Supplement}{Suppl.}
+\abbr{Surface}{Surf.}
+\abbr{Survey}{Surv.}
+\abbr{Sustainable}{Sustain.}
+\abbr{Symposium}{Symp.}
+\abbr{Systems}{Syst.}
+\abbrletter{T}
+\abbr{Technical}{Tech.}
+\abbr{Techniques}{Techn.}
+\abbr{Technology}{Technol.}
+\abbr{Telecommunications}{Telecommun.}
+\abbr{Television}{Telev.}
+\abbr{Temperature}{Temp.}
+\abbr{Terrestrial}{Terr.}
+\abbr{Theorem}{Thm.}
+\abbr{Theoretical}{Theor.}
+\abbr{Transactions}{Trans.}
+\abbr{Translation}{Transl.}
+\abbr{Transmission}{Transmiss.}
+\abbr{Transportation}{Transp.}
+\abbr{Tutorials}{Tut.}
+\abbrletter{U}
+\abbr{Ultrasonic}{Ultrason.}
+\abbr{University}{Univ.}
+\abbrletter{V}
+\abbr{Vacuum}{Vac.}
+\abbr{Vehicular}{Veh.}
+\abbr{Vibration}{Vib.}
+\abbr{Vision}{Vis.}
+\abbr{Visual}{Vis.}
+\abbr{Volume}{Vol.}
+\abbrletter{W}
+\abbr{Welding}{Weld.}
+\abbr{Working}{Work.}
+\end{multicols}
+
+\subsection{List of Publishers}
+
+\textbf{NOTE:} Each publisher’s complete title is shown, but do not use what is in parentheses. This is just to show the entire title.
+
+\publetter{A}
+\pub{Abelard-Schuman (Ltd.), New York, NY, USA}
+\pub{Abingdon (Press), Nashville, TN, USA}
+\pub{Ablex (Publishing Corp.), Norwood, NJ, USA}
+\pub{Harry N. Abrams (Inc.), New York, NY, USA}
+\pub{Academic (Press Inc.), New York, NY, USA; Orlando, FL, USA; San Diego, CA, USA}
+\pub{Ace Books (Inc.), New York, NY, USA}
+\pub{Adam Hilger, New York, NY, USA}
+\pub{Addison-Wesley, Reading, MA, USA}
+\pub{Aegean Park (Press), Laguna Hills, CA, USA}
+\pub{Aiglon (Press, Ltd.), London, U.K.}
+\pub{AIP (American Inst. Phys.), New York, NY, USA}
+\pub{Alden (\& Co., Ltd.), Oxford, U.K.}
+\pub{Aldine (Publishing Co.), London, U.K.}
+\pub{Allen \& Sons (Ltd.), London, U.K.}
+\pub{G. (George) Allen (\& Unwin Ltd.), London, U.K.}
+\pub{H. (Howard) Allen (Inc.), Cleveland, OH, USA}
+\pub{Allenson (\& Co., Ltd.), London, U.K.}
+\pub{Allyn \& Bacon (Inc.), Boston, MA, USA}
+\pub{American Book (Co.), New York, NY, USA}
+\pub{American Council on Public Affairs, Washington, DC, USA}
+\pub{American Elsevier, New York, NY, USA}
+\pub{American Geographical Soc., New York, NY, USA}
+\pub{American Library Assoc., Chicago, IL, USA}
+\pub{American Management Assoc. (Inc.), New York, NY, USA}
+\pub{American Philosophical Soc., Philadelphia, PA, USA}
+\pub{American Psychological Assoc. (Inc.), Washington, DC, USA}
+\pub{American Technical Soc., Chicago, IL, USA}
+\pub{Amphoto Books (American Photographic Book Publishing Co. Inc.), New York, NY, USA}
+\pub{Antioch (Press), Yellow Springs, OH, USA}
+\pub{Appleton (-Century-Crofts), New York, NY, USA}
+\pub{Architectural Book (Publishing Co., Inc.), New York, NY, USA}
+\pub{Arco (Publishing Co., Inc.), New York, NY, USA}
+\pub{Argus (Books, Inc.), Mohegan Lake, NY, USA}
+\pub{E. (Edward) Arnold (\& Co.), London, U.K.}
+\pub{E. J. Arnold (\& Sons, Ltd.), London, U.K.}
+\pub{Artech House, Norwood, MA, USA}
+\pub{ASME (American Soc. Mechanical Eng.), New York, NY, USA}
+\pub{Aspen (Publishing, Inc.), Gaithersburg, MD, USA}
+\pub{Associated Press, New York, NY, USA}
+\pub{Athena Scientific, Belmont, MA, USA}
+\pub{Atheneum Press, Boston, MA, USA}
+\pub{Atheneum Press (Ltd.), London, U.K.}
+\pub{Atheneum (Publishers), New York, NY, USA}
+\pub{Atherton (Press), New York, NY, USA}
+\pub{Atlantic Monthly (Press), Boston, MA, USA}
+\pub{Auerbach (Publishing), New York, NY, USA}
+\pub{Augsburg (Publishing House), Minneapolis, MN, USA}
+\pub{(J. J.) Augustin (Inc.), Locust Valley, NY, USA}
+\pub{(N.W.) Ayer (\& Sons, Inc.), Philadelphia, PA, USA}
+\publetter{B}
+\pub{Babson (Statistical Organization, Inc.), Wellesley Hills, MA, USA}
+\pub{(Karl) Baedeker, Leipzig, Germany}
+\pub{Bailliere (Tindall \& Cox, Ltd.), London, U.K.}
+\pub{W. H. Baker (Co.), Boston, MA, USA}
+\pub{Ballentine (Books, Inc.), New York, NY, USA}
+\pub{Bankers (Publishing Co.), Boston, MA, USA}
+\pub{Banta (George Banta Publishing Co. - The Collegiate Press), Menasha, WI, USA}
+\pub{A. S. Barnes (\& Co., Inc.), Cranbury, NJ, USA}
+\pub{Barnes \& Noble (Inc.), New York, NY, USA}
+\pub{Barren (Educational Series, Inc.), Woodbury, NY, USA}
+\pub{(M.) Barrows (\& Co., Inc.), New York, NY, USA}
+\pub{(Johann Ambrosius) Barth, Munich, Germany}
+\pub{Basic Books (Inc.), New York, NY, USA}
+\pub{Battelle (Press), Columbus, OH, USA}
+\pub{Baylor Univ. Press, Waco, TX, USA}
+\pub{Beacon (Press), Boston, MA, USA}
+\pub{G. Bell (\& Sons, Ltd.), London, U.K.}
+\pub{J. P. Bell (Co.), Lynchburg, VA, USA}
+\pub{(Matthew) Bender (\& Co., Inc.), New York, NY, USA}
+\pub{W. A. Benjamin (Inc.), New York, NY, USA}
+\pub{Benjamin Cummings (Publishing Co.), Redwood City, CA, USA}
+\pub{(Ernest) Benn (Ltd.), London, U.K.}
+\pub{(Charles A.) Bennett (Co.), Peoria, IL, USA}
+\pub{Benziger (Brothers, Inc.), New York, NY, USA}
+\pub{(Librairie Polytechnique Charles) Beranger, Paris, France}
+\pub{Berlinische Verlagsanstalt, Berlin, Germany}
+\pub{Beuth Vertrieb, G.m.b.H., Berlin, Germany}
+\pub{Birkhaüser, Cambridge, MA, USA}
+\pub{A. \& C. Black (Ltd.), London, U.K.}
+\pub{(Walter J.) Black (Inc.), Roslyn, NY, USA}
+\pub{Blackie (\& Son, Ltd.), Glasgow, U.K.}
+\pub{(Basil) Blackwell (\& Mott, Ltd.), Oxford, U.K.}
+\pub{(William) Blackwood (\& Sons, Ltd.), Edinburgh, U.K.}
+\pub{Blaisdell, London, U.K.}
+\pub{Blandford (Press. Ltd.), London, U.K.}
+\pub{Blue Ribbon (Books, Inc.) New York, NY, USA}
+\pub{(Clark) Boardman (Co., Ltd.) New York, NY, USA}
+\pub{Bobbs-Merrill (Co., Inc.), Indianapolis, IN, USA}
+\pub{Bonniers (Inc.), New York, NY, USA}
+\pub{A. (Albert) Bonniers Forlag, Stockholm, Sweden}
+\pub{(Thomas) Bouregy (\& Co.), New York, NY, USA}
+\pub{(R. R.) Bowker, New Providence, NJ, USA}
+\pub{Boyd \& Fraser (Publishing Co.), Boston, MA, USA}
+\pub{(Charles T.) Branford (Co.), Newton Center, MA, USA}
+\pub{(George) Braziller (Inc.), New York, NY, USA}
+\pub{(E. J.) Brill, Leiden, The Netherlands}
+\pub{British Book Centre (Inc.), New York, NY, USA}
+\pub{(F. A.) Brockhaus, Wiesbaden, Germany}
+\pub{Brookings Institution, Washington, DC, USA}
+\pub{Brooks/Cole (Publishing Co.), Pacific Grove, CA, USA}
+\pub{William C. Brown (Co.), Dubuque, IA, USA}
+\pub{Bruce (Publishing Co.), Milwaukee, WI, USA}
+\pub{Burns (Oates \& Washbourne, Ltd.), London, U.K.}
+\pub{Butterworth (\& Co., Ltd.), London, U.K.}
+\publetter{C}
+\pub{Cambridge Univ. Press, Cambridge, U.K.}
+\pub{(Jonathon) Cape (Ltd.), London, U.K.}
+\pub{Carnegie Endowment (for International Peace), New York, NY, USA}
+\pub{Carnegie Foundation (for the Advancement of Teaching), New York, NY, USA}
+\pub{Carnegie Press, Pittsburgh, PA, USA}
+\pub{Cassell (\& Co., Ltd.), London, U.K.}
+\pub{Catholic Univ. of America Press, Washington, DC, USA}
+\pub{Caxton (Printers, Ltd.), Caldwell, ID, USA}
+\pub{Century House, Watkins Glen, NY, USA}
+\pub{(W. \& R.) Chambers (Ltd.), Edinburgh, U.K.}
+\pub{Chandler (Publishing Co.), San Francisco, CA, USA}
+\pub{Channel Press, New York, NY, USA}
+\pub{Chapman \& Grimes (Inc.), Boston, MA, USA}
+\pub{Chapman \& Hall (Ltd.), London, U.K.}
+\pub{Chatto \& Windus (Ltd.), London, U.K.}
+\pub{Chelsea (Publishing Co.), New York, NY, USA}
+\pub{Chemical Publishing (Co.), New York, NY, USA}
+\pub{Chilton (Co.), Philadelphia, PA, USA}
+\pub{Christian Science Publishing (Society), Boston, MA, USA}
+\pub{Citadel (Press), New York, NY, USA}
+\pub{A. H. Clark (Co.), Glendale, CA, USA}
+\pub{Clarendon (Press), Oxford, U.K.}
+\pub{Clark Univ. Press, Worcester, MA, USA}
+\pub{Collegiate (Press), Ames, IA, USA}
+\pub{(P. F.) Collier (\& Son Corp.), New York, NY, USA}
+\pub{Collier-Macmillian (Ltd.), London, U.K.}
+\pub{Columbia Univ. Press, New York, NY, USA}
+\pub{Combat (Forces Press), Washington, DC, USA}
+\pub{Computer Science (Press), Rockville, MD, USA}
+\pub{Comstock (Publishing Associates), Ithaca, NY, USA}
+\pub{Concordia (Publishing House), St. Louis, MO, USA}
+\pub{Concrete (Publications, Ltd.), London, U.K.}
+\pub{Cornell Univ. Press, Ithaca, NY, USA}
+\pub{Coward-McCann (Inc.), New York, NY, USA}
+\pub{CRC Press (Inc.), Boca Raton, FL, USA; (also Cleveland, OH, USA)}
+\pub{Criterion (Press, Inc.), Torrance, CA, USA}
+\pub{(Thomas Y.) Crowell (Co.), New York, NY, USA}
+\pub{Crower-Collier-Macmillian (Inc.), New York, NY, USA}
+\pub{Crown (Publishers, Inc.), New York, NY, USA}
+\publetter{D}
+\pub{(Peter) Davies (Ltd.), London, U.K.}
+\pub{(F. A.) Davis (Co.), Philadelphia, PA, USA}
+\pub{John Day (Co., Inc.), New York, NY, USA}
+\pub{(John) De Graff (Inc.), Tuckahoe, NY, USA}
+\pub{Delmar (Publishers, Inc.), Albany, NY, USA}
+\pub{(T. S.) Denison (\& Co., Inc.), Minneapolis, MN, USA}
+\pub{(J. M.) Dent (\& Sons, Ltd.), London, U.K.}
+\pub{Devin-Adair (Co.), New York, NY, USA}
+\pub{Dial (Press, Inc.), New York, NY, USA}
+\pub{Digital (Press, Inc.), Bedford, MA, USA}
+\pub{Dodd, Mead (\& Co., Inc.), New York, NY, USA}
+\pub{Doubleday (\& Co., Inc.), New York, NY, USA}
+\pub{Dover (Publications, Inc.), New York, NY, USA}
+\pub{Dow Jones-Irwin (Inc.), Homewood, IL, USA}
+\pub{(Frederick J.) Drake (\& Co., Inc.), Chicago, IL, USA}
+\pub{Dryad (Press), Leicester, U.K.}
+\pub{(Gerald) Duckworth (\& Co., Ltd.), London, U.K.}
+\pub{Duke Univ. Press, Durham, NC, USA}
+\pub{Duncker \& Humblet, Berlin, Germany}
+\pub{Dunod, Paris, France}
+\pub{P. Dupont, Paris, France}
+\pub{(E. P.) Dutton (\& Co., Inc.), New York, NY, USA}
+\publetter{E}
+\pub{Edinburgh House (Press), London, U.K.}
+\pub{Educational Technology (Publications), Englewood Cliffs, NJ, USA}
+\pub{(J. W.) Edwards (Publisher, Inc.), Ann Arbor, MI, USA}
+\pub{Eldon (Press, Ltd.), London, U.K.}
+\pub{Elsevier (Science Publishing Co.), Amsterdam, The Netherlands; New York, NY, USA}
+\pub{Emerson (Books, Inc.), New York, NY, USA}
+\pub{Encyclopedia Britannica (Inc.), Chicago, IL, USA}
+\pub{Engineering Pub. (Inc.), Elizabeth, NJ, USA}
+\pub{(W.) Englemann, Leipzig, Germany}
+\publetter{F}
+\pub{Fairchild (Publications, Inc.), New York, NY, USA}
+\pub{Farrar, Straus (\& Giroux, Inc.), New York, NY, USA}
+\pub{(F. W.) Faxon (Inc.), Boston, MA, USA}
+\pub{(Carl) Fischer (Inc.), New York, NY, USA}
+\pub{Fleet (Publishing Corp.), New York, NY, USA}
+\pub{Follett (Publishing Co.), Chicago, IL, USA}
+\pub{Foundation (Press, Inc.), New York, NY, USA}
+\pub{Franey (\& Co., Inc.), London, U.K.}
+\pub{(W.H.) Freeman (and Co.), San Francisco, CA, USA}
+\pub{Free Press, New York, NY, USA}
+\pub{(Samuel) French (Inc.), New York, NY, USA}
+\pub{Friedlander \& Sohn, Berlin, Germany}
+\pub{Friendship Press, New York, NY, USA}
+\pub{Funk \& Wagnalls (Co.), New York, NY, USA}
+\pub{Futura (Publishing Co., Inc.), Mt. Kisco, NY, USA}
+\publetter{G}
+\pub{(W. J.) Gage (Ltd.), London, U.K.}
+\pub{Gale \& Polden (Ltd.), London, U.K.}
+\pub{Garden City Books, New York, NY, USA}
+\pub{Garland (Publishing, Inc.), New York, NY, USA}
+\pub{Garrett (\& Massie, Inc.), Richmond, VA, USA}
+\pub{Gautheir-Villars, Paris, France}
+\pub{(Bernard) Geis (Associates), New York, NY, USA}
+\pub{George Mason Univ. Press, Fairfax, VA, USA}
+\pub{Globe Book (Co., Inc.), New York, NY, USA}
+\pub{Golden Cockerel (Press, Inc.), London, U.K.}
+\pub{Golden (Press, Inc.), New York, NY, USA}
+\pub{(Victor) Gollancz (Ltd.), London, U.K.}
+\pub{Goodheart-Willcox (Co.), Homewood, IL, USA}
+\pub{Gordon \& Breach (Publishers, Inc.), New York, NY, USA}
+\pub{Gower (Medical Pub.), New York, NY, USA}
+\pub{GPO (Government Printing Office), Washington, DC, USA}
+\pub{Greenberg (Publishers, Inc.), New York, NY, USA}
+\pub{Greystone (Press), New York, NY, USA}
+\pub{(Charles) Griffin (\& Co., Inc.), London, U.K.}
+\pub{Grolier Club, New York, NY, USA}
+\pub{Grolier (Inc.), New York, NY, USA}
+\pub{Grosset \& Dunlap (Inc.), New York, NY, USA}
+\pub{Grove (Press), New York, NY, USA}
+\pub{Grune \& Stratton (Inc.), New York, NY, USA}
+\pub{Gulf (Publishing Co.), Houston, TX, USA}
+\pub{Gurney (\& Jackson), London, U.K.}
+\publetter{H}
+\pub{Hafner (Publishing Co.), New York, NY, USA}
+\pub{E. M. Hale (\& Co.), Eau Claire, WI, USA}
+\pub{Halsted (Press), New York, NY, USA}
+\pub{Hammond (Inc.), Maplewood, NJ, USA}
+\pub{Harcourt Brace Jovanovich, Orlando, FL, USA}
+\pub{(A.) Harleben, Vienna, Austria}
+\pub{Harper \& Row, New York, NY, USA}
+\pub{Harper Collins, New York, NY, USA}
+\pub{W. E. Harrison (\& Sons), Ipswich, U.K.}
+\pub{Harrison (\& Sons, Ltd.), London, U.K.}
+\pub{Harvard Univ. Press, Cambridge, MA, USA}
+\pub{Hastings (House, Publishers), New York, NY, USA}
+\pub{Hawthorn (Books, Inc.), New York, NY, USA}
+\pub{Hayden (Book Co.), New York, NY, USA}
+\pub{(D. C.) Heath (and Co.), Boston, MA, USA}
+\pub{Heath, Cranton (Ltd.), London, U.K.}
+\pub{(W.) Heffer (\& Sons, Ltd.), Cambridge, U.K.}
+\pub{(William) Heinemann (Ltd.), London, U.K.}
+\pub{Helicon (Press, Inc.), Baltimore, MD, USA}
+\pub{Hemisphere (Publishing Corp.), Bristol, PA, USA}
+\pub{(B.) Herder (Book Co.), St. Louis, MO, USA}
+\pub{Heritage (Press), New York, NY, USA}
+\pub{Hermann \& Cie, Paris, France}
+\pub{Hermitage (House, Inc.), New York, NY, USA}
+\pub{Hill \& Wang (Inc.), New York, NY, USA}
+\pub{Hindawi, Cairo, Egypt; New York, NY, USA}
+\pub{H. M. Stationary Office, London, U.K.}
+\pub{Hodder (\& Stroughton, Ltd.), London, U.K.}
+\pub{(Paul B.) Hoeber, New York, NY, USA}
+\pub{Hogarth (Press, Ltd.), London, U.K.}
+\pub{Holiday (House, Inc.), New York, NY, USA}
+\pub{Holt, Rinehart and Winston (Inc.), New York, NY, USA}
+\pub{Horizon (Press, Inc.), New York, NY, USA}
+\pub{Houghton Mifflin (Co.), Boston, MA, USA}
+\pub{Humanities Press (Inc.), New York, NY, USA}
+\pub{(Bruce) Humphries (Inc.), New York, NY, USA}
+\pub{Hutchinson (\& Co., Publisher, Ltd.), London, U.K.}
+\pub{Hyperion (Press, Inc.), New York, NY, USA}
+\publetter{I}
+\pub{IEEE Comput. Soc. Press, Los Alamitos, CA, USA}
+\pub{IEEE Press, Piscataway, NJ, USA}
+\pub{Indiana Univ. Press, Bloomington, IN, USA}
+\pub{Industrial Press, New York, NY, USA}
+\pub{Industrial (Publications, Inc.), Chicago, IL, USA}
+\pub{Inst. for Advanced Studies, Princeton, NJ, USA}
+\pub{Instrum. Soc. Amer., Research Triangle Park, NC, USA}
+\pub{International Labor Office, Washington, DC, USA}
+\pub{International Publishers (Co., Inc.), New York, NY, USA}
+\pub{International Textbook (Co.), Scranton, PA, USA}
+\pub{International Universities (Press, Inc.), New York, NY, USA}
+\pub{Interscience (Publishers), New York, NY, USA}
+\pub{IOS Press, Amsterdam, The Netherlands}
+\pub{Iowa State Univ. Press, Ames, IA, USA}
+\pub{Iroquois (Publishing Co., Inc.), Columbus, OH, USA}
+\pub{(Richard D.) Irwin (Inc.), Homewood, IL, USA}
+\publetter{J}
+\pub{JAI Press, Greenwich, CT, USA}
+\pub{Jarrolds (Publishers, Ltd.), London, U.K.}
+\pub{The Johns Hopkins Univ. Press, Baltimore, MD, USA}
+\pub{Jones \& Bartlett, Boston, MA, USA}
+\pub{Jossey-Bass (Inc.), San Francisco, CA, USA}
+\pub{Julian (Press, Inc.), New York, NY, USA}
+\pub{Juta (\& Co., Ltd.), Cape Town, South Africa}
+\publetter{K}
+\pub{(Willibald) Keller, Leipzig, Germany}
+\pub{(P. J.) Kenedy (\& Sons), New York, NY, USA}
+\pub{King’s Crown (Press), New York, NY, USA}
+\pub{Kluwer (Academic), Norwell, MA, USA (also, Boston, MA, USA)}
+\pub{Kluwer-Nijhoff (Publishing), Norwell, MA, USA}
+\pub{(W.) Knapp Verlag, Dusseldorf, Germany}
+\pub{Knickerbocker Press, New York, NY, USA}
+\pub{Knight (Publishers, Inc.), New York, NY, USA}
+\pub{(Alfred A.) Knopf, New York, NY, USA}
+\pub{Krieger (Publishing Co.), Melbourne, FL, USA}
+\pub{(Alfred) Kroener, Stuttgart, Germany}
+\pub{(Edward) Kummer, Leipzig, Germany}
+\publetter{L}
+\pub{Laidlaw (Brothers, Inc.), River Forest, IL, USA}
+\pub{Longman (Publishing Group), White Plains, NY, USA}
+\publetter{M}
+\pub{Macmillan (Inc.), New York, NY, USA}
+\pub{Marcel Dekker (Inc.), New York, NY, USA}
+\pub{Materials Research Soc., Pittsburgh, PA, USA}
+\pub{Matrix, Beaverton, OR, USA}
+\pub{McGraw-Hill (Inc.), New York, NY, USA}
+\pub{MIT Press, Cambridge, MA, USA}
+\pub{Morgan \& Claypool (Publishers), San Rafael, CA, USA}
+\pub{Morgan Kaufmann (Publishers, Inc.), San Mateo, CA, USA}
+\pub{(The C. V.) Mosby (Co.), St. Louis, MO, USA}
+\pub{Muhlenbert Press, Philadelphia, PA, USA}
+\pub{J. Murray, London, U.K.}
+\pub{Murray Hill Books, New York, NY, USA}
+\pub{Museum of Modern Art, New York, NY, USA}
+\publetter{N}
+\pub{National Academy of Sciences–Nat. Res. Council, Washington, DC, USA}
+\pub{National Academy Press, Washington, DC, USA}
+\pub{National Education Association, Washington, DC, USA}
+\pub{National Geographic Society, Washington, DC, USA}
+\pub{National Industrial Conference Board, Inc., New York, NY, USA}
+\pub{Naval Inst. Press, Annapolis, MD, USA}
+\pub{Naylor (Co.), San Antonio, TX, USA}
+\pub{C. C. Nelson (Publishing Co.), Appleton, WI, USA}
+\pub{(Thomas) Nelson (\& Sons), Camden, NJ, USA}
+\pub{New American Library of World Literature (Inc.), New York, NY, USA}
+\pub{New Directions, New York, NY, USA}
+\pub{New York Graphic (Society), Greenwich, CT, USA}
+\pub{New York Univ. Press, New York, NY, USA}
+\pub{Noble (\& Noble, Publishers, Inc.), New York, NY, USA}
+\pub{Nonesuch (Library, Ltd.), London, U.K.}
+\pub{Noonday (Press), New York, NY, USA}
+\pub{(P.) Noordhoff (N. V.), Gronigen, The Netherlands}
+\pub{North Holland, Amsterdam, The Netherlands}
+\pub{(W. W.) Norton (\& Co.), New York, NY, USA}
+\pub{Nova (Science Publishers), Commack, NY, USA}
+\pub{Now (Publishers), Boston, MA, USA}
+\pub{Noyes (Publications), Park Ridge, NJ, USA}
+\publetter{O}
+\pub{(Ivan) Obolensky (Inc.), New York, NY, USA}
+\pub{Oceana (Publications, Inc.), Dobbs Ferry, NY, USA}
+\pub{Odyssey (Press, Inc.), New York, NY, USA}
+\pub{Ohio State Univ. Press, Columbus, OH, USA}
+\pub{R. Oldenbourg-Verlag, Munich, Germany}
+\pub{Oliver \& Boyd (Ltd.), Edinburgh, U.K.; London, U.K.}
+\pub{Open Court (Publishing Co.), La Salle, IL, USA}
+\pub{Orange Judd (Publishing Co., Inc.), New York, NY, USA}
+\pub{Orell Fussli-Verlag, Zurich, Switzerland}
+\pub{Orion (Press, Inc.), New York, NY, USA}
+\pub{Oxford, New York, NY, USA}
+\pub{Oxford Book (Co., Inc.), New York, NY, USA}
+\pub{Oxford Science (Publications), Oxford, U.K.}
+\pub{Oxford Univ. Press, London, U.K. (also, New York, NY, USA)}
+\publetter{P}
+\pub{(L. C.) Page (\& Co.), Boston, MA, USA}
+\pub{Pageant Books (Inc.), New York, NY, USA}
+\pub{Pantheon Books (Inc.), New York, NY, USA}
+\pub{Parents’ Inst. (Inc.), Baltimore, MD, USA}
+\pub{Parthenon (Publ. Group), Park Ridge, NJ, USA}
+\pub{Paul Parey Verlag, Berlin, Germany}
+\pub{Pellegrini \& Cudahy, New York, NY, USA}
+\pub{Penguin (Books), Baltimore, MD, USA}
+\pub{Peninsula (Publishing), Los Altos, CA, USA}
+\pub{(The William) Penn (Publishing Corp.), New York, NY, USA}
+\pub{Penn. State Univ. Press, University Park, PA, USA}
+\pub{Pentech, Mountain View, CA, USA}
+\pub{Penton (Publishing Co.), Cleveland, OH, USA}
+\pub{(Peter) Peregrinus, Stevenage, U.K.}
+\pub{Pergamon (Press, Inc.), New York, NY, USA}
+\pub{Phaidon (Press, Ltd.), London, U.K.}
+\pub{Pharos Editions, London, U.K.}
+\pub{(George) Philip (\& Sons, Ltd.), London, U.K.}
+\pub{Philosophical Library (Inc.), New York, NY, USA}
+\pub{Pitman (Publishing Corp.), New York, NY, USA}
+\pub{Sir Isaac Pitman (\& Sons, Ltd.), London, U.K.}
+\pub{Platt \& Monk (Co., Inc.), New York, NY, USA}
+\pub{Plays (Inc.), Boston, MA, USA}
+\pub{Pleiad Press, New York, NY, USA}
+\pub{Plenum (Press, Inc.), New York, NY, USA}
+\pub{Popular Mechanics (Press), New York, NY, USA}
+\pub{(Frederick A.) Praeger (Inc.), New York, NY, USA}
+\pub{Prentice-Hall (Inc.), Englewood Cliffs, NJ, USA (also, Upper Saddle River, NJ, USA)}
+\pub{Princeton Univ. Press, Princeton, NJ, USA}
+\pub{Public Affairs Press, Washington, DC, USA}
+\pub{Public School (Publishing Co.), Bloomington, IL, USA}
+\pub{(G. P.) Putnam (’s Sons), New York, NY, USA}
+\pub{Putnam (\& Co., Ltd.), London, U.K.}
+\pub{PWS-Kent (Publishing Co.), Boston, MA, USA}
+\publetter{Q}
+\pub{Quality (Press), Milwaukee, WI, USA}
+\pub{Quandt, Leipzig, Germany}
+\pub{Quelle und Meyer, G.m.b.H., Heidelberg, Germany}
+\publetter{R}
+\pub{Rand McNally (\& Co.), Skokie, IL, USA}
+\pub{Random House (Inc.), New York, NY, USA}
+\pub{Raven (Press), New York, NY, USA}
+\pub{(Henry) Regnery (Co.), Chicago, IL, USA}
+\pub{(D.) Reidel, Amsterdam, The Netherlands}
+\pub{(The Peter) P. Reilly (Co.), Philadelphia, PA, USA}
+\pub{Reilly \& Lee (Co.), Chicago, IL, USA}
+\pub{Reinhold (Publishing Corp.), New York, NY, USA}
+\pub{Research \& Education (Assoc.), Piscataway, NJ, USA}
+\pub{(Fleming H.) Revell (Co.), Westwood, NJ, USA}
+\pub{Reynal (\& Co.), New York, NY, USA}
+\pub{Reynal \& Hitchcock (Inc.), New York, NY, USA}
+\pub{Rice Univ. Press, Houston, TX, USA}
+\pub{Richards Press (Ltd.), London, U.K.}
+\pub{(John Francis) Rider (Publisher, Inc.), New York, NY, USA}
+\pub{Rinehart (\& Co.), New York, NY, USA}
+\pub{Ronald (Press Co.), New York, NY, USA}
+\pub{Routledge (Peterson \& Co.), Evanston, IL, USA}
+\pub{Roy (Publishers), New York, NY, USA}
+\pub{Russell Sage (Foundation), New York, NY, USA}
+\pub{Rutgers Univ. Press, New Brunswick, NJ, USA}
+\pub{Ryerson Press, Toronto, ON, Canada}
+\publetter{S}
+\pub{SAE (Soc. Automotive Eng.), Warrendale, PA}
+\pub{Sage, Newbury Park, CA, USA}
+\pub{St. Martin’s (Press, Inc.), New York, NY, USA}
+\pub{(Howard W.) Sams (\& Co.), Indianapolis, IN, USA}
+\pub{(Benjamin H.) Sanborn (\& Co.), Chicago, IL, USA}
+\pub{San Francisco Press, San Francisco, CA, USA}
+\pub{(W. B.) Saunders (Co.), Philadelphia, PA, USA}
+\pub{Scarecrow (Press, Inc.), New York, NY, USA}
+\pub{(G.) Schirmer (Inc.), New York, NY, USA}
+\pub{(Henry) Schuman (Inc., Publishers), New York, NY, USA}
+\pub{Science Research (Associates, Inc.), Chicago, IL, USA}
+\pub{Scientific (Press, Inc.), San Francisco, CA, USA}
+\pub{Scientific Book (Corp.), New York, NY, USA}
+\pub{SciTech, Rijeka, Croatia}
+\pub{W. R. Scott (Inc.), New York, NY, USA}
+\pub{Scott, Foresman (\& Co.), Glenview, IL, USA}
+\pub{Scott (Publications, Inc.), New York, NY, USA}
+\pub{(Charles) Scribner, New York, NY, USA}
+\pub{Seabury (Press, Inc.), New York, NY, USA}
+\pub{(Martin) Secker \& Warburg (Ltd.), London, U.K.}
+\pub{Sergel \& Hempel, Brunswick, Germany}
+\pub{A. W. Shaw (Co.), Chicago, IL, USA}
+\pub{Shaker, Aachen, Germany}
+\pub{Sheed \& Ward (Ltd.), London, U.K.}
+\pub{Sheed \& Ward (Inc.), New York, NY, USA}
+\pub{Shenandoah (Publishing House, Inc.), Strasburg, VA, USA}
+\pub{Sheridan (House, Inc.), Dobbs Ferry, NY, USA}
+\pub{Shoe Lane (Publishing Co.), London, U.K.}
+\pub{Shoe String Press (Inc.), Hamden, CT, USA}
+\pub{SIAM (Soc. Ind. Appl. Math.), Philadelphia, PA, USA}
+\pub{Sidgewick \& Jackson (Ltd.), London, U.K.}
+\pub{Silver Burdett (Co.), Morristown, NJ, USA}
+\pub{Simmons-Boardman (Publishing Corp.), New York, NY, USA}
+\pub{Simon and Schuster (Inc.), New York, NY, USA}
+\pub{(L. W.) Singer (Co., Inc.), Syracuse, NY, USA}
+\pub{(Thomas) Skinner (of Canada, Ltd.), Montreal, PQ, Canada}
+\pub{(Thomas) Skinner (\& Co.), New York, NY, USA}
+\pub{Skira (International Corp.), New York, NY, USA}
+\pub{(William) Sloane (Associates), New York, NY, USA}
+\pub{SME (Soc. Manufact. Eng.), Dearborn, MI, USA}
+\pub{Richard R. Smith (Co. Inc.), Peterborough, NH, USA}
+\pub{Social Sci. Res. Council, New York, NY, USA}
+\pub{Soncino (Press, Ltd.), London, U.K.}
+\pub{Southern Methodist Univ. Press, Dallas, TX, USA}
+\pub{South-Western (Publishing Co.), Cincinnati, OH, USA}
+\pub{Spartan (Books), Washington, DC, USA}
+\pub{SPIE (Int. Soc. Opt. Eng.), Bellingham, WA, USA}
+\pub{Springer-Verlag, New York; Berlin, Germany; Vienna, Austria}
+\pub{Stackpole (Co.), Harrisburg, PA, USA}
+\pub{Standard \& Poor’s (Corp.), New York, NY, USA}
+\pub{Standard (Publishing Co.), Cincinnati, OH, USA}
+\pub{Stanford Univ. Press, Stanford, CA, USA}
+\pub{Staples (Press, Ltd.), London, U.K.}
+\pub{Stechert-Hafner (Inc.), New York, NY, USA}
+\pub{Steck-Vaughn (Co.), Austin, TX, USA}
+\pub{Sterling (Publishing Co., Inc.), New York, NY, USA}
+\pub{Stockton (Press), New York, NY, USA}
+\pub{(Frederick A.) Stokes (Co.), Philadelphia, PA, USA}
+\pub{Studio (Publications, Inc.), New York, NY, USA}
+\pub{Alan Swallow, Denver, CO, USA}
+\publetter{T}
+\pub{TAB (Books), New York, NY, USA}
+\pub{Talbot (Press, Ltd.), Dublin, Ireland}
+\pub{Taplinger (Publishing Co., Inc.), New York, NY, USA}
+\pub{Taylor \& Francis, New York, NY, USA}
+\pub{Technical Press (Ltd.), Surrey, U.K.}
+\pub{Textbooks (Ltd.), London, U.K.}
+\pub{(W.) Thacker (\& Co.), London, U.K.}
+\pub{Charles C. Thomas (Publishers), Springfield, IL, USA}
+\pub{Thomas Law Book (Co.), St. Louis, MO, USA}
+\pub{Thomas Publishing (Co.), New York, NY, USA}
+\pub{Time-Warner (Inc.), New York, NY, USA}
+\pub{Transactions Books, New Brunswick, NJ, USA}
+\pub{Transatlantic Arts (Inc.), New York, NY, USA}
+\pub{Triangle Books, New York, NY, USA}
+\pub{Tudor (Publishing Co.), New York, NY, USA}
+\pub{Tupper \& Love (Inc.), Doraville, GA, USA}
+\pub{(Charles E.) Tuttle (Co., Inc.), Rutland, VT, USA}
+\pub{Twayne (Publishers, Inc.), New York, NY, USA}
+\pub{Twentieth Century (Fund, Inc.), New York, NY, USA}
+\publetter{U}
+\pub{Underwriter’s Lab., Chicago, IL, USA}
+\pub{Frederick Unger (Publishing Co.), New York, NY, USA}
+\pub{Univelt (Inc.), San Diego, CA}
+\pub{Univ. of California Press, Berkeley, CA, USA}
+\pub{Univ. of Chicago Press, Chicago, IL, USA}
+\pub{Univ. of Connecticut Press, Storrs, CT, USA}
+\pub{Univ. of Florida Press, Gainesville, FL, USA}
+\pub{Univ. of Illinois Press, Urbana, IL, USA}
+\pub{Univ. of Iowa Press, Iowa City, IA, USA}
+\pub{Univ. of Kentucky Press, Lexington, KY, USA}
+\pub{Univ. of London Press, (Ltd.), London, U.K.}
+\pub{Univ. of Michigan Press, Ann Arbor, MI, USA}
+\pub{Univ. of Minnesota Press, Minneapolis, MN, USA}
+\pub{Univ. of Missouri Press, Columbia, MO, USA}
+\pub{Univ. of Nebraska Press, Lincoln, NE, USA}
+\pub{Univ. of New Mexico Press, Albuquerque, NM, USA}
+\pub{Univ. of North Carolina Press, Chapel Hill, NC, USA}
+\pub{Univ. of Notre Dame Press, Notre Dame, IN, USA}
+\pub{Univ. of Oklahoma Press, Norman, OK, USA}
+\pub{Univ. of Pennsylvania Press, Philadelphia, PA, USA}
+\pub{University Science (Books), Mill Valley, CA, USA}
+\pub{Univ. of Pittsburgh Press, Pittsburgh, PA, USA}
+\pub{Univ. of Texas Press, Austin, TX, USA}
+\pub{Univ. of Washington Press, Seattle, WA, USA}
+\pub{Univ. of Wisconsin Press, Madison, WI, USA}
+\pub{Univ. of Virginia Press, Charlottesville, VA, USA}
+\pub{(T. Fisher) Unwin, London, U.K.}
+\publetter{V}
+\pub{Vanguard (Press, Inc.), New York, NY, USA}
+\pub{(D.) Van Nostrand (and Co., Inc.), New York, NY, USA}
+\pub{VCH (Publishers, Inc.), New York, NY, USA}
+\pub{Viking (Press), New York, NY, USA}
+\publetter{W}
+\pub{Wadsworth (Publishing Co.), Belmont, CA, USA}
+\pub{J. F. Wagner (Inc.), New York, NY, USA}
+\pub{(George) Wahr (Publishing Co.), Ann Arbor, MI, USA}
+\pub{(Frederick) Warne (\& Co., Inc.), New York, NY, USA}
+\pub{Warwick \& York (Inc.), Baltimore, MD, USA}
+\pub{(Ives) Washburn (Inc.), New York, NY, USA}
+\pub{Watson-Guptill (Publications, Inc.), New York, NY, USA}
+\pub{(C. A.) Watts (\& Co., Ltd.), London, U.K.}
+\pub{Franklin Watts (Inc.), New York, NY, USA}
+\pub{Wayne State Univ. Press, Detroit, MI, USA}
+\pub{Webb (Publishing Co.), St. Paul, MN, USA}
+\pub{Webster (Publishing Co.), St. Louis, MO, USA}
+\pub{Wellesley-Cambridge (Press), Cambridge, MA, USA}
+\pub{West (Publishing Co.), St. Paul, MN, USA}
+\pub{Westminster (Press), Philadelphia, PA, USA}
+\pub{Westview (Press, Inc.), Boulder, CO, USA}
+\pub{Whiteside (Inc.), New York, NY, USA}
+\pub{A. Whitman (\& Co.), Chicago, IL, USA}
+\pub{Whitman (Publishing Co.), Racine, WI, USA}
+\pub{Whittlesey House, New York, NY, USA}
+\pub{W. A. Wilde (Co.), Natick, MA, USA}
+\pub{(John) Wiley (\& Sons, Inc.), Hoboken, NJ, USA}
+\pub{Willett, Clark (\& Co.), Chicago, IL, USA}
+\pub{Williams \& Nargate (Ltd.), London, U.K.}
+\pub{Williams \& Wilkins (Co.), Baltimore, MD, USA}
+\pub{H. W. Wilson (Co.), New York, NY, USA}
+\pub{(William H.) Wire (\& Co., Inc.), Union City, NJ, USA}
+\pub{Wise (Book Co.), New York, NY, USA}
+\pub{(M.) Witmark (\& Sons), New York, NY, USA}
+\pub{(George) Wittenborn (Inc.), New York, NY, USA}
+\pub{(William) Wood (\& Co.), Baltimore, MD, USA}
+\pub{World Book (Co.), New York, NY, USA}
+\pub{World (Publishing Co.), Cleveland, OH, USA}
+\pub{World Scientific, Singapore}
+\pub{WSES, Crete, Greece}
+\pub{(A. A.) Wyn (Inc.), New York, NY, USA}
+\publetter{Y}
+\pub{Yale Univ. Press, New Haven, CT, USA}
+\pub{Year (Inc.), New York, NY, USA}
+\pub{Year Book Medical (Publishers, Inc.), Chicago, IL, USA}
+\pub{(Thomas) Yoseloff (Inc.), New York, NY, USA}
+\publetter{Z}
+\pub{Ziff-Davis (Publishing Co.), Chicago, IL, USA}
+
+\subsection{Abbreviations of Periodicals With Non-English Titles}
+\begin{multicols}{2}
+\perletter{A}
+\per{Acad. Serbe Sci. Arts Glas Cl. Sci. Tech.}
+\per{Acta Acust.}
+\per{Acta Astron. (Poland)}
+\per{Acta Astron. Sin. (China)}
+\per{Acta Astronaut. (U.K.)}
+\per{Acta Astrophys. Sin. (China)}
+\per{Acta Autom. Sin.}
+\per{Acta Cienc. Indica Math.}
+\per{Acta Cienc. Indica Phys.}
+\per{Acta Crystallogr. A, Found. Crystallogr.}
+\per{Acta Crystallogr. B, Struct. Sci.}
+\per{Acta Crystallogr. C, Cryst. Struct. Commun.}
+\per{Acta Electron. (France)}
+\per{Acta Cyberno}
+\per{Acta Electron. Sin. (China)}
+\per{Acta Geod. Geophys. Montan. Hung.}
+\per{Acta Geophys. Pol.}
+\per{Acta Geophys. Sin. (China)}
+\per{Acta Geophys. Sin. (USA)}
+\per{Acta Metall.}
+\per{Acta Mex. Cienc. Tecnol.}
+\per{Acta Phys. Hung.}
+\per{Acta Phys. Pol. A}
+\per{Acta Phys. Pol. B}
+\per{Acta Phys. Sin.}
+\per{Acta Phys. Slovaca}
+\per{Acta Politec. Mex.}
+\per{Acta Polytech. Scand. Appl. Phys. Ser.}
+\per{Acta Polytech. Scand. Chem. Technol.}
+\per{Metall. Ser.}
+\per{Acta Polytech. Scand. Electr. Eng. Ser.}
+\per{Acta Polytech. Scand. Math. Comput. Sci. Ser.}
+\per{Acta Polytech. Scand. Mech. Eng. Ser.}
+\per{Acta Seismol. Sin.}
+\per{Acta Tech. Acad. Sci. Hung.}
+\per{Acta Tech. CSAV}
+\per{Acustica}
+\per{(AEU) Arch. Elektr. Ubertragung}
+\per{Akust. Zh.}
+\per{Algorithmica}
+\per{Alta Freq.}
+\per{An. Acad. Bras. Cienc.}
+\per{An. Fis.}
+\per{An. Mec. Electr.}
+\per{Angew. Inform.}
+\per{Ann. Inst. Henri Poincare Phys. Theor.}
+\per{Ann. Soc. Sci. Brux. I, Sci. Math. Astron. Phys.}
+\per{Arch. Elektr. Uebertrag. (AEU) (before 1971)}
+\per{Arch. Elektron. Uebertrag. Tech. (after 1971)}
+\per{Arch. Elektrotech. (Poland)}
+\per{Arch. Elektrotech. (Germany)}
+\per{Ark. Fys. Semin. Trondheim}
+\per{Astrofizika}
+\per{Astron. Nachr. (Germany)}
+\per{Astron. Tidsskr.}
+\per{Astron. Vestn.}
+\per{Astron. Zh.}
+\per{Atomwirtsch.-Atomtech.}
+\per{Atti Accad. Sci. Ist. Bologna CI. Sci. Fis.}
+\per{Rend. XIII}
+\per{Atti Accad. Sci. Torino I, CI. Sci. Fis. Math. Nat.}
+\per{Autom. Strum.}
+\per{Autom. Tech. Prax.}
+\per{Automatica}
+\per{Automatie}
+\per{Automatika}
+\per{Automatisierungstechnik}
+\per{Automatizace}
+\per{Automedica}
+\per{Avtom. Telemekh.}
+\per{Avtom. Vychisl. Tekh.}
+\per{Avtomatika}
+\per{Avtometriya}
+\perletter{B}
+\per{Ber. Bunsenges. Phys. Chem.}
+\per{Biofizika}
+\per{Biometrika}
+\per{Boll. Geofis. Teor. Appl.}
+\per{Bull. Acad. Serbe Sci. Arts cl. Sci. Tech.}
+\per{Bull. Annu. Soc. Suisse Chronom. Lab. Suisse.}
+\per{Rech. Horlog.}
+\per{Bull. Cl. Sci. Acad. R. Belg.}
+\per{Bull. Dir. Etud. Rech. A}
+\per{Bull. Dir. Etud. Rech. B}
+\per{Bull. Dir. Etud. Rech. C}
+\per{Bull. Liaison Rech. Inform. Autom.}
+\per{Bur. Etud. Autom.}
+\perletter{C}
+\per{CFI-Ceram. Forum Int.-Ber. Dtsch. Keram. Ges.}
+\per{Chem. Scr.}
+\per{Ciel Terre}
+\per{Cybernetica}
+\perletter{D}
+\per{Deut. Hydrogr. Z.}
+\per{Dokl. Akad. Nauk SSSR}
+\perletter{E}
+\per{Electroacoustique}
+\per{Electrochim. Acta}
+\per{Electrochim. Metal.}
+\per{Elektor Electron.}
+\per{Elektr. Bahnen}
+\per{Elektr. Energ.-Tech.}
+\per{Elektr. Masch.}
+\per{Elektr. Stn.}
+\per{Elektrichestvo}
+\per{Elektrie}
+\per{Elektrizitaetswirtschaft}
+\per{Elektro}
+\per{Elektro-Anz.}
+\per{Elektro-Jahr}
+\per{Elektrokhimiya}
+\per{Elektron}
+\per{Elektron Int.}
+\per{Elektron. Entwitkl.}
+\per{Elektron. Ind}
+\per{Elektron. J.}
+\per{Elektron. Prax.}
+\per{Elektron. Tekh.}
+\per{Elektronica}
+\per{Elektronik}
+\per{Elektronika}
+\per{Elektroniker}
+\per{Elektronikschau}
+\per{Elektrosvyaz}
+\per{Elektrotech. Cas.}
+\per{Elektrotech. Inf. Tech.}
+\per{Elektrotech. Obz.}
+\per{Elektrotechniek}
+\per{Elektrotechnik (Czechoslovakia)}
+\per{Elektrotechnik (Switzerland)}
+\per{Elektrotechnik (Germany)}
+\per{Elektrotechnika}
+\per{Elektrotehnika, Zagreb}
+\per{Elektrotekhnika}
+\per{Elektroteknikeren}
+\per{Elektrowaerme Int. B.}
+\per{Elettrificazione}
+\per{Elettron. Oggi}
+\per{Elettron. Telecomun.}
+\per{Elettrotecnica}
+\per{Elek. Med Aktuell Elektron.}
+\per{Elteknik}
+\per{Energ. Atomtech.}
+\per{Energ. Elettr.}
+\per{Energetica}
+\per{Energetik}
+\per{Energetika}
+\per{Energetyka}
+\per{Energia Nuclear}
+\per{Energie Technik (Germany)}
+\per{Energie Technik (Switzerland)}
+\per{Entropie}
+\per{ETZ}
+\per{ETZ Arch.}
+\perletter{F}
+\per{Feingeraetetechnik}
+\per{Feinw. Tech. Messtech.}
+\per{Fert. Tech. Betr.}
+\per{Fis. Tecnol.}
+\per{Fiz. Khim. Obrab. Mater.}
+\per{Fiz. Met. Metalloved}
+\per{Fiz. Nizk. Temp.}
+\per{Fiz. Plazmy}
+\per{Fiz. Tekh. Poluprovodn.}
+\per{Fiz. Tverd. Tela}
+\per{Fiz.-Khim. Mekh. Mater.}
+\per{Fizika}
+\per{Forsch.-Ber. Landes Nordrh.-Westfal.}
+\per{Frequenz}
+\per{Fys. Tidsskr.}
+\perletter{G}
+\per{G. Fis.}
+\per{Geliotekhnika}
+\per{Geochim. Cosmochim. Acta}
+\perletter{H}
+\per{Haerterei-Tech. Mitt.}
+\per{Helv. Chim. Acta}
+\per{Helv. Med. Acta}
+\per{Helv. Phys. Acta}
+\per{Hochfreq. Electroakust}
+\per{Hoppe-Seylers Z. Physiol. Chem.}
+\perletter{I}
+\per{Inf. Elektron.}
+\per{Inf. Elettron.}
+\per{Inform. Forsch. Entwickl.}
+\per{Inform. Spektrum}
+\per{Inform.-Fachber.}
+\per{Informatie}
+\per{Informatik}
+\per{Informatologia Yugosl.}
+\per{Informatyka}
+\per{Infowelt}
+\per{Ing. Electr. Mec.}
+\per{Ing. Mec. Electr.}
+\per{Ing.-Arch.}
+\per{Inzh.-Fiz. Zh.}
+\per{Izmer. Tekh.}
+\per{Izv. Akad. Nauk Arm. SSR Ser. Tekh. Nauk}
+\per{Izv. Akad. Nauk SSSR Energ. Transp.}
+\per{Izv. Akad. Nauk SSSR Fiz. Atmos. Okeana}
+\per{Izv. Akad. Nauk SSSR Fiz. Zemli}
+\per{Izv. Akad. Nauk SSSR Ser. Fiz.}
+\per{Izv. Vyssh. Uchebn. Zaved. Elektromekh.}
+\per{Izv. Vyssh. Uchebn. Zaved. Radioelektron.}
+\per{Izv. Vyssh. Uchebn. Zaved. Radiofiz.}
+\perletter{J}
+\per{J. Chim Phys. Phys.-Chim Biol.}
+\perletter{K}
+\per{Kernenergie}
+\per{Kerntechnik}
+\per{Khim. Fiz.}
+\per{Kibern. Vychisl. Tekh.}
+\per{Kibernetika}
+\per{Kristallografiya}
+\per{Kvantovaya Elektron. Mosk.}
+\per{Kybernetes}
+\per{Kybernetika}
+\perletter{M}
+\per{Med. Tek.}
+\per{Mekh. Avtom. Proizvod.}
+\per{Meres Autom.}
+\per{Mesures}
+\per{Metallofizika}
+\per{Metalloved. Term. Obrab. Met.}
+\per{Meteorol. Gidrol.}
+\per{Meteorol. Rundsch.}
+\per{Metrol. Apl.}
+\per{Metrologia}
+\per{Medel. Simul.}
+\perletter{N}
+\per{Nachr. Dok.}
+\per{Nachr.tech. Elektron.}
+\per{Naturwissentchaften}
+\per{Neue Tech.}
+\per{Neue Tech. Buero}
+\per{Nukleonika}
+\per{Numer. Math.}
+\per{Nuovo Cimento A}
+\per{Nuovo Cimento B}
+\per{Nuovo Cimento C}
+\per{Nuovo Cimento D}
+\perletter{O}
+\per{Okeanologiya}
+\per{Opt. Spektrosk.}
+\per{Opt.-Mekh. Prom.}
+\per{Optik}
+\perletter{P}
+\per{Photogrammetria}
+\per{Photonics Spectra}
+\per{Pis’ma Astron. Zh.}
+\per{Pis’ma Zh. Eksp. Teor. Fiz.}
+\per{Pis’ma Zh. Tekh. Fiz.}
+\per{Poverkhn., Fiz. Khim. Mekh.}
+\per{Pr. Inst. Elektrotech.}
+\per{Prib. Sist. Upr.}
+\per{Prib. Tekh. Eksp.}
+\per{Prikl. Mat. Mekh.}
+\per{Prikl. Mekh.}
+\per{Probl. Kibern.}
+\per{Probl. Peredachi Inf.}
+\per{Proc. K. Ned. Akad. Wet. B, Palaeontol.}
+\per{Anthropol.}
+\per{Programmirovanie}
+\per{Prz. Elektrotech.}
+\per{Prz. Telekomun.}
+\per{PT/Elektrotech. Elektron.}
+\perletter{R}
+\per{Radio Fernsehen Elektron.}
+\per{Radiotekh. Elektron.}
+\per{Radiotekhnika Mosk.}
+\per{Rev. Acad. Cienc. Zaragoza}
+\per{Rev. Electrotec. (Argentina)}
+\per{Rev. Electrotec. (Spain)}
+\per{Rev. Energ.}
+\per{Rev. Esp. Electron. Rev. Geofis.}
+\per{Ric. Autom.}
+\per{Ric. Spettrosc.}
+\per{Robotersysteme}
+\per{Rozpr. Electrotech.}
+\perletter{S}
+\per{Sadhana}
+\per{Schweiz. Tech. Z.}
+\per{Scientia}
+\per{Siemens Forsch. Entwickl. Ber.}
+\per{Sist. Autom.}
+\per{Sitzungsber. Oester. Akad. Wiss. Math.-}
+\per{Naturwiss. Kl. Abt. II (Austria)}
+\per{Spectrochim. Acta A, Mol. Spectrosc.}
+\per{Spectrochim. Acta B, At. Spectrosc.}
+\per{Sprache Datenverarb.}
+\per{Stanki Instrum.}
+\per{Steklo Keram.}
+\per{Svetotekhnika}
+\perletter{T}
+\per{TE Int.}
+\per{Tech. Bull. Vevey}
+\per{Tech. Mitt. Krupp (Engl. Ed.)}
+\per{Tech. Mitt. PTT}
+\per{Tech. Mitt. RFZ}
+\per{Technica}
+\per{Tecnica}
+\per{Teh. Fiz.}
+\per{Tehnika}
+\per{Tekh. Elektrodin.}
+\per{Tekh. Kibern.}
+\per{Tekh. Kino Telev.}
+\per{Tekh. Misul}
+\per{Telekomunikacije}
+\per{Telektronikk}
+\per{Teleteknik}
+\per{Teor. Mat. Fiz.}
+\per{Teploeoergetika}
+\per{Teplofiz. Vvs. Temp.}
+\per{Tidskr. Dok.}
+\per{TN Nachr.}
+\per{Toute Electron.}
+\per{Tr. Inst. Teor. Astron.}
+\perletter{U}
+\per{Ukr. Fiz. Zh.}
+\per{Usp. Fiz. Nauk}
+\perletter{V}
+\per{Vak.-Tech.}
+\per{VDE Fachiber.}
+\per{VDI Z.}
+\per{Vestn. Mashinostr.}
+\per{Vestn. Mosk. Univ. 15, Vychisl. Mat. Kibern.}
+\per{Vestn. Mosk. Univ. 3, Fiz. Astron.}
+\per{Vesti Akad. Navuk BSSR Ser. Fiz. Energ. Navuk}
+\per{VGB Kraftwerkstech. (Ger. Ed.)}
+\per{Vide Couches Minces}
+\per{Vistas Astron.}
+\per{Vopr. At. Nauki Tekh. Ser., Fiz. Radiats.}
+\per{Povrezhdenii Radiats. Materialoved.}
+\per{Vopr. At. Nauki Tekh. Ser., Obshch. Yad. Fiz.}
+\per{Vuoto Sci. Tecnol.}
+\perletter{W}
+\per{Wiss. Z. Friedrich-Schiller-Univ. Jena}
+\per{Nat.wiss. Reihe}
+\per{Wiss. Z. Karl-Marx-Univ. Leipz. Math.-}
+\per{Nat.wiss. Reihe}
+\per{Wiss. Z. Tech. Hochsch. Ilmenau}
+\per{Wiss. Z. Tech. Univ. Dresd.}
+\per{Wiss. Z. Tech. Univ. Karl-Marx-Stadt}
+\perletter{Y}
+\per{Yad. Fiz.}
+\perletter{Z}
+\per{Z. Angew. Math. Mech.}
+\per{Z. Angew. Math. Phys.}
+\per{Z. Met.kd.}
+\per{Z. Nat. Forsch. A, Phys. Phys. Chem. Kosmophys.}
+\per{Z. Oper. Res. A, Theor.}
+\per{Z. Oper. Res. B, Prax.}
+\per{Z. Phys.}
+\per{Z. Phys. A, At. Nuclei}
+\per{Z. Phys. B, Condens. Matter}
+\per{Z. Phys. C, Part Fields}
+\per{Z. Phys. Chem. Neue Folge}
+\per{Z. Phys. Chem., Leipz.}
+\per{Z. Phys. D, At. Mol. Clusters}
+\per{Zavod. Lab.}
+\per{Zh. Eksp. Teor. Fiz.}
+\per{Zh. Fiz. Khim.}
+\per{Zh. Prikl. Mekh. Tekh. Fiz.}
+\per{Zh. Prikl. Spektrosk.}
+\per{Zh. Tekh. Fiz.}
+\per{Zh. Vychisl. Mat. Mat. Fiz.}
+\per{Zisin, J. Seismol. Soc. Jpn.}
+\end{multicols}
+
+\end{document}
