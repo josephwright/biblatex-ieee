@@ -21,12 +21,9 @@ jobs:
       - uses: zauguin/install-texlive@c9f3ea3d51b2e04d092c4f9d208a19542d5dabcf # v4.5.0
         with:
           packages: >
-            scheme-basic latexmk biblatex biber csquotes etoolbox logreq
-            xstring xurl lm fontspec microtype selnolig
-            luatexbase ctablestack lua-uni-algos luacode
-            minted fvextra fancyvrb catchfile etexcmds float
-            latex2pydata lineno pgf pgfopts upquote xcolor tex-gyre
-            titlesec enumitem
+            latex-bin latexmk biber biblatex csquotes xurl tex-gyre
+            fontspec microtype selnolig luacode luatexbase minted
+            titlesec enumitem geometry hyperref amsfonts
       - name: Typeset
         working-directory: ieee-reference-guide
         run: latexmk -interaction=nonstopmode -halt-on-error ieee-reference-guide ieee-reference-guide-typeset
