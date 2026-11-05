@@ -1,0 +1,35 @@
+name: IEEE Reference Guide
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  typeset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: zauguin/install-texlive@c9f3ea3d51b2e04d092c4f9d208a19542d5dabcf # v4.5.0
+        with:
+          packages: >
+            latex-bin latexmk biber biblatex csquotes xurl tex-gyre
+            fontspec microtype selnolig luacode luatexbase minted
+            titlesec enumitem geometry hyperref amsfonts
+      - name: Typeset
+        working-directory: ieee-reference-guide
+        run: latexmk -interaction=nonstopmode -halt-on-error ieee-reference-guide ieee-reference-guide-typeset
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: ieee-reference-guide
+          path: |
+            ieee-reference-guide/ieee-reference-guide.pdf
+            ieee-reference-guide/ieee-reference-guide-typeset.pdf

@@ -4,3 +4,10 @@
 ## Structures for building release
 *.zip
 build/*
+
+## LaTeX auxiliary files of ieee-reference-guide/
+ieee-reference-guide/*
+!ieee-reference-guide/ieee-reference-guide.tex
+!ieee-reference-guide/ieee-reference-guide.bib
+!ieee-reference-guide/ieee-reference-guide-typeset.tex
+!ieee-reference-guide/.latexmkrc
